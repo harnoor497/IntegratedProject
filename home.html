@@ -1,21 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home Page</title>
-</head>
-<body>
-  <h1>Welcome to the Home Page</h1>
-  <button id="signOut">Sign Out</button>
+  <script type="module">
 
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
-  <script>
-    // Your web app's Firebase configuration
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+
     const firebaseConfig = {
-      apiKey: "AIzaSyBc9M5HY-HDmgagACY6Ap4t6YXY1UxoKPs",
+      apiKey: "AIzaSyDhsH_gMswEQpLI6Kfn2AJaDILOC5CWjjw",
       authDomain: "authentication-app-cc0a3.firebaseapp.com",
       databaseURL: "https://authentication-app-cc0a3-default-rtdb.firebaseio.com",
       projectId: "authentication-app-cc0a3",
@@ -24,21 +18,25 @@
       appId: "1:353753930218:web:077677333092728a533a93"
     };
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-    const signOutButton = document.getElementById("signOut");
-    signOutButton.addEventListener("click", () => {
-      auth.signOut()
-        .then(() => {
-          alert("User logged out");
-          window.location.href = "login.html"; // Redirect to the login page
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    const signOutButton = document.getElementById("signOutButton");
+    signOutButton.addEventListener("click", async function(event) {
+      event.preventDefault();
+      try {
+        await signOut(auth);
+        // Redirect to login.html
+        window.location.href = "login.html";
+      } catch (error) {
+        console.error("Sign-out error:", error);
+      }
     });
   </script>
+</head>
+<body>
+  <h1>Welcome to the Home Page</h1>
+
+  <button id="signOutButton">Sign Out</button>
 </body>
 </html>

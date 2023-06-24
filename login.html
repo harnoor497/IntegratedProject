@@ -1,87 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <script src="./code.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <link rel="stylesheet" href="./style.css">
-</head>
-
-
-
-<body>
-
-  
-  <header >
-    <h1 class="headerLogo">SmartPack Logo</h1>
-    <h1 class="pageName">Log In</h1>
-  </header>
-
-
-  <main>
-    <div class="auth-box">
-    
-     <img src="https://picsum.photos/1200/500/?random= 1" alt="" class="loginImg">
-      <input type="text" id="username" name="username" placeholder="username">
-      <input type="text" id="email" name="email" placeholder="E-mail">
-      <input type="password" name="password" id="password" placeholder="password">
-      <input type="submit" id="login" name="login" value="Login">
-      <h3>You have not registered yet?</h3>
-      <input type="submit" id="signUp" name="signup_submit" value="Sign Up">
-
-      
- 
-    </div>
-  </main>
-
-  
-<footer>
-  <h1 class="footerLogo">SmartPack Logo</h1>
-
-  <div class="log">
-  <ul>
-    <li><a href="#">Create an acoount</a></li>
-    <li><a href="#">Sign in</a></li>
-    <li><a href="#">How it works</a></li>
-  </ul>
-</div>
-
-
-<div class="social">
-  <ul >
-    <li><a href="https://facebook.com"><i class="fa-brands fa-facebook"></i></a></li>
-    <li><a href="https://twitter.com"><i class="fa-brands fa-twitter"></i></a></li>
-    <li><a href="https://instagram.com"><i class="fa-brands fa-instagram"></i></a></li>
-    <li><a href="https://linkedin.com"><i class="fa-brands fa-linkedin"></i></a></li>
-</ul>
-</div>
-
-
-<div class="newsletter">
-<label for="name">Subscribe to our newsletter</label>
-<input type="email" id="name" name="name" placeholder="Please type your email here" >
-</div>
-</footer>
-
-
-
-
-
-
+  <title>Firebase Authentication Example</title>
   <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-    import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut,GoogleAuthProvider,signInWithRedirect,getRedirectResult } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
-   
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+
     const firebaseConfig = {
-      apiKey: "AIzaSyBc9M5HY-HDmgagACY6Ap4t6YXY1UxoKPs",
+      apiKey: "AIzaSyDhsH_gMswEQpLI6Kfn2AJaDILOC5CWjjw",
       authDomain: "authentication-app-cc0a3.firebaseapp.com",
       databaseURL: "https://authentication-app-cc0a3-default-rtdb.firebaseio.com",
       projectId: "authentication-app-cc0a3",
@@ -90,131 +18,92 @@
       appId: "1:353753930218:web:077677333092728a533a93"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
     const auth = getAuth(app);
-    const provider = new GoogleAuthProvider(app);
+    const db = getFirestore(app);
 
-  //   document.getElementById("loginG").addEventListener("click", (e)=>{
-    
-  //     signInWithRedirect(auth, provider);
-     
-  //     getRedirectResult(auth)
-    
+    const signUpForm = document.getElementById("signUpForm");
+    signUpForm.addEventListener("submit", async function(event) {
+      event.preventDefault();
+      const email = document.getElementById("signUpEmail").value;
+      const password = document.getElementById("signUpPassword").value;
+      const name = document.getElementById("name").value;
 
-  // .then((result) => {
- 
-  //   // This gives you a Google Access Token. You can use it to access Google APIs.
-  //   const credential = GoogleAuthProvider.credentialFromResult(result);
-  //   const token = credential.accessToken;
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log("User signed up:", user);
 
-  //   // The signed-in user info.
-  //   const user = result.user;
-  //   // IdP data available using getAdditionalUserInfo(result)
-  //   // ...
-  //   // window.location.href = "home.html";
-  //   // alert('User logged in!');
-        
-  // })
-  
-  
-  // .catch((error) => {
-  //   // Handle Errors here.
-  //   const errorCode = error.code;
-  //   const errorMessage = error.message;
-  //   // The email of the user's account used.
-  //   const email = error.customData.email;
-  //   // The AuthCredential type that was used.
-  //   const credential = GoogleAuthProvider.credentialFromError(error);
-  //   // ...
-  // });
-  //   })
+        await sendEmailVerification(user);
 
-    document.getElementById("signUp").addEventListener("click", (e) => {
+        const userRef = collection(db, "users");
+        const userData = {
+          email: email,
+          name: name,
+          userId: user.uid 
+        };
+        const docRef = await addDoc(userRef, userData);
+        console.log("User data saved:", docRef.id);
 
-      let email = document.getElementById("email").value;
-      let password = document.getElementById("password").value;
-      let username = document.getElementById("username").value;
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-
-          set(ref(database, 'user/' + user.uid), {
-            username: username,
-            email: email
-          });
-          window.location.href = "verify.html"; // Redirect to the home page
-
-          alert('User created');
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-
-          alert(errorMessage);
-        });
-    });
-
-    document.getElementById("login").addEventListener('click', (e) => {
-      // let username = document.getElementById("username").value;
-
-      let email = document.getElementById("email").value;
-      let password = document.getElementById("password").value;
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-
-          const dt = new Date();
-          update(ref(database, 'user/' + user.uid), {
-            last_login: dt
-          });
-
-          alert('User logged in!');
-          window.location.href = "home.html"; // Redirect to the home page
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-
-          alert(errorMessage);
-        });
-    });
-
-    onAuthStateChanged(auth, (user) => {
-      const logoutButton = document.getElementById("logout");
-
-      if (user) {
-        // User is signed in
-        const uid = user.uid;
-
-        logoutButton.style.display = "block";
-      } else {
-        // User is signed out
-        logoutButton.style.display = "none";
+        window.location.href = "Registration-Success.html";
+      } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error("Sign-up error:", errorCode, errorMessage);
       }
     });
 
-    document.getElementById("logout").addEventListener("click", (e) => {
-      signOut(auth)
-        .then(() => {
-          alert('User logged out');
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
+    const signInForm = document.getElementById("signInForm");
+    signInForm.addEventListener("submit", async function(event) {
+      event.preventDefault();
+      const email = document.getElementById("signInEmail").value;
+      const password = document.getElementById("signInPassword").value;
 
-          alert(errorMessage);
-        });
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        console.log("User signed in:", user);
+
+        if (user.emailVerified) {
+          window.location.href = "home.html";
+        } else {
+          console.log("Email not verified.");
+          const errorMessage = "Please verify your email before signing in.";
+          document.getElementById("signInError").textContent = errorMessage;
+        }
+      } catch (error) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error("Sign-in error:", errorCode, errorMessage);
+      }
     });
-
-    
   </script>
+</head>
+<body>
+  <h1> SMART PACK </h1>
 
+  <h2>Sign Up</h2>
+  <form id="signUpForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required><br>
+    <label for="signUpEmail">Email:</label>
+    <input type="email" id="signUpEmail" required><br>
+    <label for="signUpPassword">Password:</label>
+    <input type="password" id="signUpPassword" required><br>
+    <button type="submit">Sign Up</button>
+  </form>
 
-
-
-  
+  <h2>Sign In</h2>
+  <form id="signInForm">
+    <label for="signInEmail">Email:</label>
+    <input type="email" id="signInEmail" required><br>
+    <label for="signInPassword">Password:</label>
+    <input type="password" id="signInPassword" required><br>
+    <button type="submit">Sign In</button>
+    <p id="signInError" style="color: red;"></p> 
+  </form>
 </body>
 </html>
+
+
+

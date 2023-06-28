@@ -11,9 +11,9 @@ Many people struggle to keep track of essential items and efficiently prepare fo
 The SmartPack is our course project for WMDD-4885. It is an exciting opportunity for us to apply the knowledge and skills we have gained throughout the course. Our project aims to streamline event planning and improve organization by providing a user-friendly item tracking solution. 
 
 ## Features
-- Feature 1: [Briefly describe a key feature of your project]
-- Feature 2: [Briefly describe another key feature of your project]
-- Feature 3: [Briefly describe another key feature of your project]
+- Feature 1: CheckList Creation
+- Feature 2: Community Checklist
+- Feature 3: Sharing list and reminders
 
 ## Technologies Used
 - Language: HTML, CSS, JavaScript
@@ -30,26 +30,17 @@ Follow these instructions to get a copy of our project up and running on your lo
 
 ## Contributors
 - Project Manager/Designer: Sepideh ([link_to_github_profile](https://github.com/Sepidehsahar)) 🚀
-- Designer Lead: Geraldine([link_to_github_profile]https://github.com/Gsuccar) ⭐️
+- Designer Lead: Geraldine([link_to_github_profile](https://github.com/Gsuccar)) ⭐️
 - Designer: Sarah ([link_to_github_profile](https://github.com/Sclavijoescand00)) 💡
-- Developer Lead: Arash([link_to_github_profile]https://github.com/arashghezavati) 👨‍💻
+- Developer Lead: Arash([link_to_github_profile](https://github.com/arashghezavati)) 👨‍💻
 - Developer: Harnoor ([link_to_github_profile](https://github.com/harnoor497)) 👨‍💻
-- Developer: Jeel ([link_to_github_profile]https://github.com/iamjeel) 👨‍💻
+- Developer: Jeel ([link_to_github_profile](https://github.com/iamjeel)) 👨‍💻
 
 ## Project Resources
-- Figma Design: [Figma Board]((https://www.figma.com/file/EuVzZ7jaBNGDA85ltOXHlO/Project-1?type=design&node-id=284-10288&mode=design&t=NFGfcKp90fyjvrrn-0)
-)
-- Trello Board: [Trello Board]([link_to_trello_board](https://integratedproject001.atlassian.net/jira/software/projects/SMAR/boards/1
-))
-- Google Drive: [Project Drive ((https://drive.google.com/drive/u/0/folders/1LWzYA2GaAlgrbAUf569vP4rAfx0i8Gyo)
-- Milestone Documentation: [Milestone Document](https://docs.google.com/document/d/1fynNlpywlqeG0icAmxzlLbLCySsrVN7qvKHvFp2YvJQ/edit 
-)
-
-## Contributing
-We welcome contribuions from the community! If you would like to contribute to our project, please follow the [Contributing Guidelines](link_to_contributing.md).
-
-## License
-This project is licensed under the [License Name] - see the [LICENSE](LICENSE) file for details.
+- Figma Design: [Figma Board]([link_to_figma_board](https://www.figma.com/file/EuVzZ7jaBNGDA85ltOXHlO/Project-1?type=design&node-id=284-10288&mode=design&t=NFGfcKp90fyjvrrn-0))
+- Trello Board: [Trello Board]([link_to_trello_board](https://integratedproject001.atlassian.net/jira/software/projects/SMAR/boards/1))
+- Google Drive: [Project Drive]([link_to_drive)](https://drive.google.com/drive/u/0/folders/1LWzYA2GaAlgrbAUf569vP4rAfx0i8Gyo)
+- Milestone Documentation: [Milestone Document]([link_to_milestone_doc](https://docs.google.com/document/d/1fynNlpywlqeG0icAmxzlLbLCySsrVN7qvKHvFp2YvJQ/edit))
 
 ## Contact
 If you have any questions, suggestions, or feedback, feel free to reach out to us at [support@email.com].

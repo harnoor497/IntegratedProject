@@ -29,17 +29,17 @@ Follow these instructions to get a copy of our project up and running on your lo
 4. Run the project: `npm start`
 
 ## Contributors
-- Project Manager/Designer: Sepideh ([link_to_github_profile](https://github.com/Sepidehsahar)) 🚀
-- Designer Lead: Geraldine([link_to_github_profile](https://github.com/Gsuccar)) ⭐️
-- Designer: Sarah ([link_to_github_profile](https://github.com/Sclavijoescand00)) 💡
-- Developer Lead: Arash([link_to_github_profile](https://github.com/arashghezavati)) 👨‍💻
-- Developer: Harnoor ([link_to_github_profile](https://github.com/harnoor497)) 👨‍💻
-- Developer: Jeel ([link_to_github_profile](https://github.com/iamjeel)) 👨‍💻
+- Project Manager/Designer: Sepideh ([github_profile](https://github.com/Sepidehsahar)) 🚀
+- Designer Lead: Geraldine([github_profile](https://github.com/Gsuccar)) ⭐️
+- Designer: Sarah ([github_profile](https://github.com/Sclavijoescand00)) 💡
+- Developer Lead: Arash([github_profile](https://github.com/arashghezavati)) 👨‍💻
+- Developer: Harnoor ([github_profile](https://github.com/harnoor497)) 👨‍💻
+- Developer: Jeel ([github_profile](https://github.com/iamjeel)) 👨‍💻
 
 ## Project Resources
 - Figma Design: ([Figma Board](https://www.figma.com/file/EuVzZ7jaBNGDA85ltOXHlO/Project-1?type=design&node-id=284-10288&mode=design&t=NFGfcKp90fyjvrrn-0))
 - Trello Board: ([Trello Board](https://integratedproject001.atlassian.net/jira/software/projects/SMAR/boards/1))
-- Google Drive: ([Project Drive]((https://drive.google.com/drive/u/0/folders/1LWzYA2GaAlgrbAUf569vP4rAfx0i8Gyo))
+- Google Drive: ([Project Drive](https://drive.google.com/drive/u/0/folders/1LWzYA2GaAlgrbAUf569vP4rAfx0i8Gyo))
 - Milestone Documentation: ([Milestone Document](https://docs.google.com/document/d/1fynNlpywlqeG0icAmxzlLbLCySsrVN7qvKHvFp2YvJQ/edit))
 
 ## Contact

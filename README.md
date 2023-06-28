@@ -2,7 +2,7 @@
 
 ![Project Logo](link_to_logo.png)
 
-Welcome to our course project repository! This repository contains the code, documentation, and other resources for our project in Integrated Project [WMDD-4885] at Langara College, under the supervision of Richard Wong(Instructor), Amandeep Singh(IA), Merry(IA).
+Welcome to our course project repository! This repository contains the code, documentation, and other resources for our project in **Integrated Project [WMDD-4885]** at **Langara College**, under the supervision of **Richard Wong**(Instructor),**Amandeep Singh**(IA), **Merry**(IA).
 
 ## Opportunity
 Many people struggle to keep track of essential items and efficiently prepare for events. This results in potential forgetfulness, last-minute scrambling, and inefficiency in event planning and execution
@@ -19,13 +19,13 @@ The SmartPack is our course project for WMDD-4885. It is an exciting opportunity
 - Language: HTML, CSS, JavaScript
 - Design: Figma, Adobe Photoshop, Adobe Illustrator
 - Tooling: Firebase, Google Cloud, GitHub, Visual Studio Code, Jira, Slack
-- 
+  
 ## Getting Started
 Follow these instructions to get a copy of our project up and running on your local machine for development and testing purposes. See the [Installation](link_to_installation_guide.md) guide for more details.
 
 1. Clone the repository: `git clone https://github.com/your_username/repo_name.git`
 2. Install the dependencies: `npm install`
-3. Configure the project: [Provide any configuration steps if needed]
+3. Configure the project:[Provide any configuration steps if needed]
 4. Run the project: `npm start`
 
 ## Contributors
@@ -37,10 +37,10 @@ Follow these instructions to get a copy of our project up and running on your lo
 - Developer: Jeel ([link_to_github_profile](https://github.com/iamjeel)) 👨‍💻
 
 ## Project Resources
-- Figma Design: [Figma Board]([link_to_figma_board](https://www.figma.com/file/EuVzZ7jaBNGDA85ltOXHlO/Project-1?type=design&node-id=284-10288&mode=design&t=NFGfcKp90fyjvrrn-0))
-- Trello Board: [Trello Board]([link_to_trello_board](https://integratedproject001.atlassian.net/jira/software/projects/SMAR/boards/1))
-- Google Drive: [Project Drive]([link_to_drive)](https://drive.google.com/drive/u/0/folders/1LWzYA2GaAlgrbAUf569vP4rAfx0i8Gyo)
-- Milestone Documentation: [Milestone Document]([link_to_milestone_doc](https://docs.google.com/document/d/1fynNlpywlqeG0icAmxzlLbLCySsrVN7qvKHvFp2YvJQ/edit))
+- Figma Design: ([Figma Board]([link_to_figma_board](https://www.figma.com/file/EuVzZ7jaBNGDA85ltOXHlO/Project-1?type=design&node-id=284-10288&mode=design&t=NFGfcKp90fyjvrrn-0)))
+- Trello Board: ([Trello Board]([link_to_trello_board](https://integratedproject001.atlassian.net/jira/software/projects/SMAR/boards/1)))
+- Google Drive: ([Project Drive]([link_to_drive](https://drive.google.com/drive/u/0/folders/1LWzYA2GaAlgrbAUf569vP4rAfx0i8Gyo)))
+- Milestone Documentation: ([Milestone Document]([link_to_milestone_doc](https://docs.google.com/document/d/1fynNlpywlqeG0icAmxzlLbLCySsrVN7qvKHvFp2YvJQ/edit)))
 
 ## Contact
 If you have any questions, suggestions, or feedback, feel free to reach out to us at [support@email.com].

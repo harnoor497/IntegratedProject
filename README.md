@@ -37,10 +37,10 @@ Follow these instructions to get a copy of our project up and running on your lo
 - Developer: Jeel ([link_to_github_profile](https://github.com/iamjeel)) 👨‍💻
 
 ## Project Resources
-- Figma Design: ([Figma Board]([link_to_figma_board](https://www.figma.com/file/EuVzZ7jaBNGDA85ltOXHlO/Project-1?type=design&node-id=284-10288&mode=design&t=NFGfcKp90fyjvrrn-0)))
-- Trello Board: ([Trello Board]([link_to_trello_board](https://integratedproject001.atlassian.net/jira/software/projects/SMAR/boards/1)))
-- Google Drive: ([Project Drive]([link_to_drive](https://drive.google.com/drive/u/0/folders/1LWzYA2GaAlgrbAUf569vP4rAfx0i8Gyo)))
-- Milestone Documentation: ([Milestone Document]([link_to_milestone_doc](https://docs.google.com/document/d/1fynNlpywlqeG0icAmxzlLbLCySsrVN7qvKHvFp2YvJQ/edit)))
+- Figma Design: ([Figma Board](https://www.figma.com/file/EuVzZ7jaBNGDA85ltOXHlO/Project-1?type=design&node-id=284-10288&mode=design&t=NFGfcKp90fyjvrrn-0))
+- Trello Board: ([Trello Board](https://integratedproject001.atlassian.net/jira/software/projects/SMAR/boards/1))
+- Google Drive: ([Project Drive]((https://drive.google.com/drive/u/0/folders/1LWzYA2GaAlgrbAUf569vP4rAfx0i8Gyo))
+- Milestone Documentation: ([Milestone Document](https://docs.google.com/document/d/1fynNlpywlqeG0icAmxzlLbLCySsrVN7qvKHvFp2YvJQ/edit))
 
 ## Contact
 If you have any questions, suggestions, or feedback, feel free to reach out to us at [support@email.com].

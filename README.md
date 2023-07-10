@@ -1,6 +1,6 @@
 # Course Project: [SmartPack]
 
-![Project Logo](link_to_logo.png)
+![Project Logo]([link_to_logo.png](https://drive.google.com/drive/u/0/folders/1KZW9w4-HifRqBv7ZyNzjcxhZ91Ppcdrj))
 
 Welcome to our course project repository! This repository contains the code, documentation, and other resources for our project in **Integrated Project [WMDD-4885]** at **Langara College**, under the supervision of **Richard Wong**(Instructor),**Amandeep Singh**(IA), **Merry**(IA).
 

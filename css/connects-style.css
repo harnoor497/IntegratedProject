@@ -1,0 +1,278 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  margin-top: 100px !important;
+  margin-left: 50px !important;
+  margin-right: 50px !important;
+}
+
+/* .friends{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 500px;
+  height: 250px;
+  background: violet;
+  padding: 20px 30px;
+  overflow: hidden;
+  border-radius: 50px;
+  box-shadow: 5px 10px 5px #ccc;
+}
+
+.friends .tabs-header{
+  height: 60px;
+  display: flex;
+  align-items: center;
+
+}
+
+.friends .tabs-header >div{
+  width: calc(100% /2);
+  text-align: center;
+  color: #888;
+  font-weight: 600;
+  cursor:pointer;
+  font-size: 14px;
+  text-transform: uppercase;
+  outline: none;
+}
+
+.friends .tabs-header >div>i{
+  display: block;
+  margin-bottom: 5px;
+}
+
+.friends .tabs-header >div.active{
+  color: yellow;
+}
+
+.friends .tabs-indicators{
+  position: relative;
+  width: calc(100% / 2);
+  height: 5px;
+  background: #00acee;
+  left: 0px;
+  border-radius: 5px;
+}
+
+.friends .tab-body{
+  position: relative;
+  height: calc(100% -60px);
+  padding: 10px 5px;
+}
+.friends .tab-body>div{
+  position: absolute;
+  top: -200%;
+  opacity: 0;
+  margin-top: 5px;
+  transform: scale(0.9);
+  transition: opacity 500ms ease-in-out 0ms,transform 500ms ease-in-out 0ms;
+}
+
+.friends .tab-body > div.active{
+  top: 0px;
+  opacity: 1;
+  transform: scale(1);
+  margin-top: 0px;
+} */
+
+
+
+
+/* commented out work leave the below thing */
+/* *{
+    font-family:Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+    text-decoration:none;
+    border:none;
+    outline:none;
+    text-transform:capitalize;
+    transform:all .2s linear;
+} */
+
+/* index page */
+/* .logo-class{
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  margin-left: 0;;
+}
+
+.logo-text{
+  font-size: 20px;
+  font-family: monospace;
+  font-weight: bolder;
+  color:darkorchid;
+}
+.logo-text span{
+  color: orangered;
+}
+.logo img{
+  border-radius: 40%;
+  height: 100px;
+  width:100px;
+}
+
+.navbar{
+  background-color: aliceblue;
+
+} */
+/* connects page */
+/* body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  nav {
+    background-color: gainsboro;
+    color: #fff;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  nav ul li {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .container {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 0 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .table-container {
+    display: flex;
+  }
+  
+  .column {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  table th {
+    background-color: #333;
+    color: #fff;
+  }
+  
+
+  body{
+    margin: 0;
+    padding: 0;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    line-height: 1.4;
+  }
+  
+  header,main,footer{
+    padding: 1rem 2%;
+  }
+  header{
+    background-color: #000;
+    color: white;
+  }
+  h1{
+    margin-top: 0;
+  } */
+  /* nav bar */
+  /* nav ul{
+    list-style-type:none;
+    margin:0;
+    padding:0;
+  }
+  nav a{
+    text-decoration: none;
+    color:white;
+  }
+  .visually-hidden{
+    clip:rect(0,0,0,0);
+    clip-path:inset(50%);
+    height:1px;
+    overflow:hidden;
+    position:absoulte;
+    white-space:nowrap;
+    width:1px;
+  } */
+/* Reset default padding and margin for all elements */
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+  }
+  
+  .logo {
+    margin-right: 10px;
+  }
+  
+  .logo a img {
+    width: 50px;
+  }
+  
+  h1 {
+    margin-top: 10px;
+  }
+  
+  .main-menu {
+    margin-left: auto;
+  }
+  
+  .main-menu ul {
+    list-style-type: none;
+    display: flex;
+  }
+  
+  .main-menu ul li {
+    margin-right: 10px;
+  }
+  
+  .main-menu ul li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  
+  .main-menu ul li a:hover {
+    border-color: #fff;
+  } */

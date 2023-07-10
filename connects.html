@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Connects Page</title>
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link rel="stylesheet" type="text/css" href="./css/connects-style.css">
+  <script src="./js/script.js"></script>
+  <script src="https://kit.fontawesome.com/c69dc532d6.js" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+  <header class="header" data-header>
+    <div class="container">
+      <a href="#" class="logo">SmartPack</a>
+
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list container">
+          <li>
+            <a href="#home" class="navbar-link active" data-nav-link>Profile</a>
+          </li>
+
+          <li>
+            <a href="#features" class="navbar-link" data-nav-link>My Lists</a>
+          </li>
+
+          <li>
+            <a href="#about" class="navbar-link" data-nav-link>Create a List</a>
+          </li>
+
+          <li>
+            <a href="#app" class="navbar-link" data-nav-link>Friends</a>
+          </li>
+
+          <li>
+            <a href="#team" class="navbar-link" data-nav-link>Discover</a>
+          </li>
+
+          <li>
+            <a href="#settings" class="navbar-link">Settings</a>
+          </li>
+
+          <li>
+            <!-- <a href="#signOut" class="navbar-link">Sign Out</a> -->
+            <!-- <a href="./index.html"> -->
+              <button id="signOut">Sign Out Button</button>
+            <!-- </a> -->
+          </li>
+
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+      
+      <!-- People API work  -->
+      <!--Add buttons to initiate auth sequence and sign out-->
+      <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+      <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+  
+      <pre id="content" style="white-space: pre-wrap;"></pre>
+  
+      <script type="text/javascript">
+        /* exported gapiLoaded */
+        /* exported gisLoaded */
+        /* exported handleAuthClick */
+        /* exported handleSignoutClick */
+  
+        // TODO(developer): Set to client ID and API key from the Developer Console
+        const CLIENT_ID = '353753930218-nqo0gfvtekfplv54205nq9bkmq9tpu1k.apps.googleusercontent.com';
+        const API_KEY = 'AIzaSyDhsH_gMswEQpLI6Kfn2AJaDILOC5CWjjw';
+  
+  
+        // Discovery doc URL for APIs used by the quickstart
+        const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/people/v1/rest';
+  
+        // Authorization scopes required by the API; multiple scopes can be
+        // included, separated by spaces.
+        const SCOPES = 'https://www.googleapis.com/auth/contacts.readonly';
+  
+        let tokenClient;
+        let gapiInited = false;
+        let gisInited = false;
+  
+        document.getElementById('authorize_button').style.visibility = 'hidden';
+        document.getElementById('signout_button').style.visibility = 'hidden';
+  
+        /**
+         * Callback after api.js is loaded.
+         */
+        function gapiLoaded() {
+          gapi.load('client', initializeGapiClient);
+        }
+  
+        /**
+         * Callback after the API client is loaded. Loads the
+         * discovery doc to initialize the API.
+         */
+        async function initializeGapiClient() {
+          await gapi.client.init({
+            apiKey: API_KEY,
+            discoveryDocs: [DISCOVERY_DOC],
+          });
+          gapiInited = true;
+          maybeEnableButtons();
+        }
+  
+        /**
+         * Callback after Google Identity Services are loaded.
+         */
+        function gisLoaded() {
+          tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: CLIENT_ID,
+            scope: SCOPES,
+            callback: '', // defined later
+          });
+          gisInited = true;
+          maybeEnableButtons();
+        }
+  
+        /**
+         * Enables user interaction after all libraries are loaded.
+         */
+        function maybeEnableButtons() {
+          if (gapiInited && gisInited) {
+            document.getElementById('authorize_button').style.visibility = 'visible';
+          }
+        }
+  
+        /**
+         *  Sign in the user upon button click.
+         */
+        function handleAuthClick() {
+          tokenClient.callback = async (resp) => {
+            if (resp.error !== undefined) {
+              throw (resp);
+            }
+            document.getElementById('signout_button').style.visibility = 'visible';
+            document.getElementById('authorize_button').innerText = 'Refresh';
+            await listConnectionNames();
+          };
+  
+          if (gapi.client.getToken() === null) {
+            // Prompt the user to select a Google Account and ask for consent to share their data
+            // when establishing a new session.
+            tokenClient.requestAccessToken({prompt: 'consent'});
+          } else {
+            // Skip display of account chooser and consent dialog for an existing session.
+            tokenClient.requestAccessToken({prompt: ''});
+          }
+        }
+  
+        /**
+         *  Sign out the user upon button click.
+         */
+        function handleSignoutClick() {
+          const token = gapi.client.getToken();
+          if (token !== null) {
+            google.accounts.oauth2.revoke(token.access_token);
+            gapi.client.setToken('');
+            document.getElementById('content').innerText = '';
+            document.getElementById('authorize_button').innerText = 'Authorize';
+            document.getElementById('signout_button').style.visibility = 'hidden';
+          }
+        }
+  
+        /**
+         * Print the display name if available for 10 connections.
+         */
+        async function listConnectionNames() {
+          let response;
+          try {
+            // Fetch first 10 files
+            response = await gapi.client.people.people.connections.list({
+              'resourceName': 'people/me',
+              'pageSize': 10,
+              'personFields': 'names,emailAddresses',
+            });
+          } catch (err) {
+            document.getElementById('content').innerText = err.message;
+            return;
+          }
+          const connections = response.result.connections;
+          if (!connections || connections.length == 0) {
+            document.getElementById('content').innerText = 'No connections found.';
+            return;
+          }
+          // Flatten to string to display
+          const output = connections.reduce(
+              (str, person) => {
+                if (!person.names || person.names.length === 0) {
+                  return `${str}Missing display name\n`;
+                }
+                return `${str}${person.names[0].displayName}\n`;
+              },
+              'Connections:\n');
+          document.getElementById('content').innerText = output;
+        }
+      </script>
+
+      <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+      <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    
+  
+      <!-- main section layout work -->
+
+      <!-- <div class="friends">
+        <div class="tab-header">
+          <div class="tabs-indicator">
+
+          </div>
+          <div class="tab-body">
+            <div class="active">
+              <h2>This is Friends section</h2>
+              <p>Lorem ipsum dolor sit amet.</p>
+            </div>
+            <div>
+              <h2>This is requests section</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti repellat sequi numquam corrupti tempora cupiditate quia consectetur est. Iusto aut voluptates impedit id.</p>
+            </div>
+        </div>
+          <div class="active">
+            <h4>Friends</h4>
+          </div>
+          <div>
+            <h4>Requests</h4>
+          </div>
+        </div>
+        
+
+       
+
+      </div> -->
+
+  </main>    
+
+  <footer class="footer">
+
+    <div class="section footer-top">
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">SmartPack</a>
+
+          <p class="section-text">
+            Elevate your event planning game with our extraordinary app that empowers anyone, regardless of their expertise, to effortlessly organize and coordinate any gathering or celebration with absolute ease and efficiency.
+          </p>
+        </div>
+
+        
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Useful Links</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Create an Account</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Sign In</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Download App Now</a>
+          </li>
+
+        </ul>
+        <ul class="footer-list">
+
+                  <li>
+                    <p class="footer-list-title">Follow Us:</p>
+                  </li>
+
+                  <ul class="social-list">
+
+                    <li>
+                      <a href="#" class="social-link">
+                        <i class="fa-brands fa-facebook-messenger"></i>
+                      </a>
+                    </li>
+        
+                    <li>
+                      <a href="#" class="social-link">
+                        <i class="fa-brands fa-twitter"></i>
+                      </a>
+                    </li>
+        
+                    <li>
+                      <a href="#" class="social-link">
+                        <i class="fa-brands fa-github"></i>
+                      </a>
+                    </li>
+        
+                    <li>
+                      <a href="#" class="social-link">
+                        <i class="fa-brands fa-linkedin"></i>
+                      </a>
+                    </li>
+        
+                  </ul>
+        
+
+                </ul>
+
+
+        
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Get In Touch</p>
+          </li>
+
+          <li class="footer-item">
+            <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+
+            <a href="tel:+604-689-2192" class="item-link">+604-689-2192</a>
+          </li>
+<br>
+          <li class="footer-item">
+            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+
+            <a href="mailto:supportvast@gmail.com" class="item-link">thriversupport@gmail.com</a>
+          </li>
+          <br>
+          
+
+        </ul>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2023 All Rights Reserved by <a href="#" class="copyright-link">Thrive - Langara College</a>.
+        </p>
+
+      </div>
+    </div>
+
+  </footer>
+
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+  </a>
+
+
+
+  <!-- For SignOut Option -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBc9M5HY-HDmgagACY6Ap4t6YXY1UxoKPs",
+      authDomain: "authentication-app-cc0a3.firebaseapp.com",
+      databaseURL: "https://authentication-app-cc0a3-default-rtdb.firebaseio.com",
+      projectId: "authentication-app-cc0a3",
+      storageBucket: "authentication-app-cc0a3.appspot.com",
+      messagingSenderId: "353753930218",
+      appId: "1:353753930218:web:077677333092728a533a93"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    const signOutButton = document.getElementById("signOut");
+    signOutButton.addEventListener("click", () => {
+      auth.signOut()
+        .then(() => {
+          alert("User logged out");
+          window.location.href = "./index.html"; // Redirect to the login page
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  </script>
+</body>
+</html>

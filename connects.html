@@ -13,54 +13,57 @@
   <header class="header" data-header>
     <div class="container">
       <a href="#" class="logo">SmartPack</a>
-
+  
       <nav class="navbar" data-navbar>
         <ul class="navbar-list container">
           <li>
-            <a href="#home" class="navbar-link active" data-nav-link>Profile</a>
+            <a href="#home" class="navbar-link active" data-nav-link>My Lists</a>
           </li>
-
-          <li>
-            <a href="#features" class="navbar-link" data-nav-link>My Lists</a>
-          </li>
-
+  
           <li>
             <a href="#about" class="navbar-link" data-nav-link>Create a List</a>
           </li>
-
+  
           <li>
             <a href="#app" class="navbar-link" data-nav-link>Friends</a>
           </li>
-
+  
           <li>
             <a href="#team" class="navbar-link" data-nav-link>Discover</a>
           </li>
-
-          <li>
+  
+          <!-- <li>
             <a href="#settings" class="navbar-link">Settings</a>
+          </li> -->
+  
+          <li class="dropdown">
+            <a href="#" class="navbar-link" onclick="toggleDropdown()">Account</a>
+            <div class="dropdown-content" id="dropdownContent">
+              <ul>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#" id="signOut">SignOut</a></li>
+              </ul>
+              
+            </div>
           </li>
-
-          <li>
-            <!-- <a href="#signOut" class="navbar-link">Sign Out</a> -->
-            <!-- <a href="./index.html"> -->
-              <button id="signOut">Sign Out Button</button>
-            <!-- </a> -->
-          </li>
-
         </ul>
       </nav>
-
     </div>
   </header>
+  
+  
 
   <main>
       
       <!-- People API work  -->
       <!--Add buttons to initiate auth sequence and sign out-->
-      <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+      <button id="authorize_button" onclick="handleAuthClick()">Sync Contacts</button>
       <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
   
-      <pre id="content" style="white-space: pre-wrap;"></pre>
+      <div class="content-grid">
+        <pre id="content" style="white-space: pre-wrap;"></pre>
+      </div>
   
       <script type="text/javascript">
         /* exported gapiLoaded */
@@ -382,6 +385,72 @@
           console.log(error);
         });
     });
+
+
+
+    //for the nav bar
+    
+    function toggleDropdown() {
+    var dropdownContent = document.getElementById("dropdownContent");
+    dropdownContent.classList.toggle("show");
+  }
+
+
+
+  //for displaying friends list
+  async function listConnectionNames() {
+  let response;
+  try {
+    response = await gapi.client.people.people.connections.list({
+      'resourceName': 'people/me',
+      'pageSize': 10,
+      'personFields': 'names,emailAddresses,photos',
+    });
+  } catch (err) {
+    document.getElementById('content').innerText = err.message;
+    return;
+  }
+
+  const connections = response.result.connections;
+  if (!connections || connections.length === 0) {
+    document.getElementById('content').innerText = 'No connections found.';
+    return;
+  }
+
+  const contentElement = document.getElementById('content');
+  contentElement.innerHTML = '';
+
+  for (let i = 0; i < connections.length; i++) {
+    const person = connections[i];
+
+    const box = document.createElement('div');
+    box.classList.add('content-box');
+
+    const image = document.createElement('img');
+    if (person.photos && person.photos.length > 0) {
+      image.src = person.photos[0].url;
+    } else {
+      image.src = 'default-image.png'; // Replace with your default image URL
+    }
+    box.appendChild(image);
+
+    const details = document.createElement('div');
+    details.classList.add('details');
+
+    const name = document.createElement('h3');
+    name.innerText = person.names[0].displayName;
+    details.appendChild(name);
+
+    const username = document.createElement('p');
+    username.innerText = person.names[0].displayName;
+    details.appendChild(username);
+
+    box.appendChild(details);
+    contentElement.appendChild(box);
+  }
+}
+
+
   </script>
 </body>
 </html>

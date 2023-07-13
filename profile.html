@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="profile-card">
+    <h1>User Profile</h1>
+    <p><b>Email:</b> <span id="profileEmail"></span></p>
+    <p><b>Name:</b> <span id="profileName"></span></p>
+    <p><b>Bio:</b> <span id="profileBio"></span></p>
+    <img id="profileImage" src="" alt="Profile Image">
+
+    <h2>Edit Profile</h2>
+    <form id="editProfileForm">
+      <label for="editName">Name:</label>
+      <input type="text" id="editName" required>
+      <label for="editBio">Bio:</label>
+      <textarea id="editBio" rows="4"></textarea>
+      <label for="imageUpload">Profile Image:</label>
+      <input type="file" id="imageUpload" accept="image/*">
+      <button id="cameraButton" type="button">Open Camera</button>
+      <button type="submit">Save</button>
+    </form>
+
+    <div class="camera-container" style="display: none;">
+      <video id="cameraVideo" autoplay playsinline></video>
+      <button id="captureButton">Capture Photo</button>
+    </div>
+  </div>
+
+  <script type="module">
+    // Import Firebase libraries
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getAuth, updateProfile } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+    import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDhsH_gMswEQpLI6Kfn2AJaDILOC5CWjjw",
+      authDomain: "authentication-app-cc0a3.firebaseapp.com",
+      databaseURL: "https://authentication-app-cc0a3-default-rtdb.firebaseio.com",
+      projectId: "authentication-app-cc0a3",
+      storageBucket: "authentication-app-cc0a3.appspot.com",
+      messagingSenderId: "353753930218",
+      appId: "1:353753930218:web:077677333092728a533a93"
+    };
+
+    // Initialize Firebase app
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    // Get DOM elements
+    const profileEmail = document.getElementById("profileEmail");
+    const profileName = document.getElementById("profileName");
+    const profileBio = document.getElementById("profileBio");
+    const profileImage = document.getElementById("profileImage");
+    const editProfileForm = document.getElementById("editProfileForm");
+    const editNameInput = document.getElementById("editName");
+    const editBioInput = document.getElementById("editBio");
+    const imageUploadInput = document.getElementById("imageUpload");
+    const cameraButton = document.getElementById("cameraButton");
+    const cameraContainer = document.querySelector(".camera-container");
+    const cameraVideo = document.getElementById("cameraVideo");
+    const captureButton = document.getElementById("captureButton");
+
+    // Retrieve current user data from Firestore
+    const userRef = collection(db, "users");
+    const querySnapshot = await getDocs(userRef);
+    const currentUser = querySnapshot.docs.find(
+      (doc) => doc.data().userId === auth.currentUser.uid
+    );
+    const currentUserData = currentUser.data();
+
+    // Update profile information on the page
+    profileEmail.textContent = currentUserData.email;
+    profileName.textContent = currentUserData.name;
+    profileBio.textContent = currentUserData.bio;
+    profileImage.src = currentUserData.profileImage || "";
+
+    // Set initial values for edit profile form inputs
+    editNameInput.value = currentUserData.name;
+    editBioInput.value = currentUserData.bio;
+
+    // Handle submit event for edit profile form
+    editProfileForm.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      // Get updated values from form inputs
+      const updatedName = editNameInput.value;
+      const updatedBio = editBioInput.value;
+
+      try {
+        // Update user profile in Firestore
+        await updateDoc(currentUser.ref, {
+          name: updatedName,
+          bio: updatedBio
+        });
+
+        // Update profile information on the page
+        profileName.textContent = updatedName;
+        profileBio.textContent = updatedBio;
+
+        console.log("User profile updated successfully!");
+      } catch (error) {
+        console.error("Error updating user profile:", error);
+      }
+    });
+
+    // Handle click event for opening the camera
+    cameraButton.addEventListener("click", function(event) {
+      // Open camera capture functionality
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(function(stream) {
+            // Display camera stream
+            cameraContainer.style.display = "block";
+            cameraVideo.srcObject = stream;
+            cameraVideo.play();
+          })
+          .catch(function(error) {
+            console.error("Error accessing camera:", error);
+          });
+      }
+    });
+
+    // Handle click event for capturing photo from video stream
+    captureButton.addEventListener("click", function(event) {
+      const canvas = document.createElement("canvas");
+      canvas.width = cameraVideo.videoWidth;
+      canvas.height = cameraVideo.videoHeight;
+      canvas.getContext("2d").drawImage(cameraVideo, 0, 0, canvas.width, canvas.height);
+      const photoUrl = canvas.toDataURL("image/png");
+
+      // Update profile image on the page
+      profileImage.src = photoUrl;
+      cameraContainer.style.display = "none";
+      cameraVideo.srcObject = null;
+
+      // Save captured photo to Firebase Storage
+      const fileName = `profileImages/${auth.currentUser.uid}/${Date.now()}.png`;
+      const storageRef = ref(storage, fileName);
+      const photoBlob = dataURItoBlob(photoUrl);
+
+      uploadBytes(storageRef, photoBlob)
+        .then(() => {
+          return getDownloadURL(storageRef);
+        })
+        .then((downloadURL) => {
+          return updateDoc(currentUser.ref, {
+            profileImage: downloadURL
+          });
+        })
+        .then(() => {
+          console.log("Profile image uploaded successfully!");
+        })
+        .catch((error) => {
+          console.error("Error uploading profile image:", error);
+        });
+    });
+
+    // Handle change event for file upload input
+    imageUploadInput.addEventListener("change", async function(event) {
+      const file = event.target.files[0];
+      const storageRef = ref(storage, `profileImages/${auth.currentUser.uid}/${file.name}`);
+      const snapshot = await uploadBytes(storageRef, file);
+      const downloadURL = await getDownloadURL(storageRef);
+
+      try {
+        // Update profile image URL in Firestore
+        await updateDoc(currentUser.ref, {
+          profileImage: downloadURL
+        });
+
+        // Update profile image on the page
+        profileImage.src = downloadURL;
+
+        console.log("Profile image uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading profile image:", error);
+      }
+    });
+
+ 
+    function dataURItoBlob(dataURI) {
+      const byteString = atob(dataURI.split(",")[1]);
+      const mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
+
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new Blob([ab], { type: mimeString });
+    }
+  </script>
+</body>
+</html>

@@ -1,5 +1,4 @@
 :root {
-
     /**
      * colors
      */
@@ -67,11 +66,7 @@
     --cubic-out: cubic-bezier(0.33, 0.85, 0.4, 0.96);
   
   }
-  
-  
-  
-  
-  
+
   /*-----------------------------------*\
     #RESET
   \*-----------------------------------*/
@@ -131,10 +126,6 @@
   ::-webkit-scrollbar-thumb { background-color: hsl(0, 0%, 80%); }
   
   ::-webkit-scrollbar-thumb:hover { background-color: hsl(0, 0%, 70%); }
-  
-  
-  
-  
   
   /*-----------------------------------*\
     #REUSED STYLE
@@ -229,11 +220,7 @@
     object-fit: cover;
     transition: var(--transition-2);
   }
-  
-  
-  
-  
-  
+
   /*-----------------------------------*\
     #HEADER
   \*-----------------------------------*/
@@ -317,10 +304,6 @@
   
   .navbar .btn { margin-block: 8px; }
   
-  
-  
-  
-  
   /*-----------------------------------*\
     #HERO
   \*-----------------------------------*/
@@ -336,10 +319,6 @@
   .hero-title { margin-block: 15px 20px; }
   
   .hero .section-text { margin-block-end: 30px; }
-  
-  
-  
-  
   
   /*-----------------------------------*\
     #FEATURES
@@ -391,10 +370,6 @@
   
   .features-card .card-title { margin-block: 18px 15px; }
   
-  
-  
-  
-  
   /*-----------------------------------*\
     #ABOUT
   \*-----------------------------------*/
@@ -424,10 +399,6 @@
   
   .about-item .item-title { margin-block-end: 10px; }
   
-  
-  
-  
-  
   /*-----------------------------------*\
     #ABOUT 2
   \*-----------------------------------*/
@@ -435,11 +406,6 @@
   .about-2 .section-text:last-of-type { margin-block: 30px; }
   
   .about-2 .about-content { margin-block-end: 30px; }
-  
-  
-  
-  
-  
   /*-----------------------------------*\
     #APP
   \*-----------------------------------*/
@@ -454,10 +420,6 @@
   .app .section-title { color: var(--white); }
   
   .app .section-text { margin-block-end: 30px; }
-  
-  
-  
-  
   
   /*-----------------------------------*\
     #BLOG
@@ -998,3 +960,8 @@
     .back-top-btn.active { transform: translateX(-80px); }
   
   }
+
+  .section.footer-top {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

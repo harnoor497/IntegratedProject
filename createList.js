@@ -97,4 +97,3 @@ if (checklistId) {
       console.error('Error retrieving checklist: ', error);
     });
 }
-

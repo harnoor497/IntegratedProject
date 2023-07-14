@@ -2,7 +2,13 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Firebase Authentication Example</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/connects-style.css">
+  
+  <!-- script file to add -->
+<script src="./js/script.js" defer></script>
+
+  <title>SmartPAck-SignUp</title>
   <script type="module">
     // Import Firebase libraries
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
@@ -65,6 +71,50 @@
   </script>
 </head>
 <body>
+  <!-- header section  -->
+  <header class="header" data-header>
+    <div class="container">
+      <a href="#" class="logo">SmartPack</a>
+  
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list container">
+          <li>
+            <a href="./home.html" class="navbar-link" data-nav-link>My Lists</a>
+          </li>
+  
+          <li>
+            <a href="./createList.html" class="navbar-link" data-nav-link>Create a List</a>
+          </li>
+  
+          <li>
+            <a href="./connects.html" class="navbar-link active" data-nav-link>Friends</a>
+          </li>
+  
+          <li>
+            <a href="#team" class="navbar-link" data-nav-link>Discover</a>
+          </li>
+  
+          <!-- <li>
+            <a href="#settings" class="navbar-link">Settings</a>
+          </li> -->
+  
+          <li class="dropdown">
+            <a href="#" class="navbar-link" onclick="toggleDropdown()">Account</a>
+            <div class="dropdown-content" id="dropdownContent">
+              <ul>
+                <li><a href="./profile.html">Profile</a></li>
+                <li><a href="./settings.html">Settings</a></li>
+                <li><a href="./index.html"><button id="signOutButton">Sign Out</button></a></li>
+              </ul>
+              
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- main section -->
   <div class="container">
     <div class="card">
       <h1 class="title">SMART PACK</h1>
@@ -84,5 +134,120 @@
       </div>
     </div>
   </div>
+
+  <!-- footer section -->
+  <footer class="footer">
+
+    <div class="section footer-top">
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">SmartPack</a>
+
+          <p class="section-text">
+            Elevate your event planning game with our extraordinary app that empowers anyone, regardless of their expertise, to effortlessly organize and coordinate any gathering or celebration with absolute ease and efficiency.
+          </p>
+        </div>
+
+        
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Useful Links</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Create an Account</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Sign In</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Download App Now</a>
+          </li>
+
+        </ul>
+        <ul class="footer-list">
+
+                  <li>
+                    <p class="footer-list-title">Follow Us:</p>
+                  </li>
+
+                  <ul class="social-list">
+
+                    <li>
+                      <a href="#" class="social-link">
+                        <i class="fa-brands fa-facebook-messenger"></i>
+                      </a>
+                    </li>
+        
+                    <li>
+                      <a href="#" class="social-link">
+                        <i class="fa-brands fa-twitter"></i>
+                      </a>
+                    </li>
+        
+                    <li>
+                      <a href="#" class="social-link">
+                        <i class="fa-brands fa-github"></i>
+                      </a>
+                    </li>
+        
+                    <li>
+                      <a href="#" class="social-link">
+                        <i class="fa-brands fa-linkedin"></i>
+                      </a>
+                    </li>
+        
+                  </ul>
+        
+
+                </ul>
+
+
+        
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Get In Touch</p>
+          </li>
+
+          <li class="footer-item">
+            <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+
+            <a href="tel:+604-689-2192" class="item-link">+604-689-2192</a>
+          </li>
+<br>
+          <li class="footer-item">
+            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+
+            <a href="mailto:supportvast@gmail.com" class="item-link">thriversupport@gmail.com</a>
+          </li>
+          <br>
+          
+
+        </ul>
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2023 All Rights Reserved by <a href="#" class="copyright-link">Thrive - Langara College</a>.
+        </p>
+
+      </div>
+    </div>
+
+  </footer>
+
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+  </a>
 </body>
 </html>

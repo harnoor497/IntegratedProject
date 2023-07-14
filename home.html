@@ -5,11 +5,17 @@
   <title>Home Page</title>
   <link rel="stylesheet" href="./css/style.css">
   <link rel="stylesheet" href="./css/connects-style.css">
-  <script type="module">
+  <!-- script file to add -->
+<script src="./js/script.js" defer></script>
 
+  <script type="module">
+  
+    // Import Firebase libraries
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
     import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 
+    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyDhsH_gMswEQpLI6Kfn2AJaDILOC5CWjjw",
       authDomain: "authentication-app-cc0a3.firebaseapp.com",
@@ -20,9 +26,12 @@
       appId: "1:353753930218:web:077677333092728a533a93"
     };
 
+    // Initialize Firebase app
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
+    // Handle sign out button click event
     const signOutButton = document.getElementById("signOutButton");
     signOutButton.addEventListener("click", async function(event) {
       event.preventDefault();
@@ -34,6 +43,25 @@
         console.error("Sign-out error:", error);
       }
     });
+
+    // Retrieve user details from Firestore
+    const userRef = collection(db, "users");
+    const querySnapshot = await getDocs(userRef);
+    const currentUser = querySnapshot.docs.find(
+      (doc) => doc.data().userId === auth.currentUser.uid
+    );
+    const currentUserData = currentUser.data();
+
+    // Update navbar with user details
+    const profileName = document.getElementById("profileName");
+    const profileEmail = document.getElementById("profileEmail");
+    const profileImage = document.getElementById("profileImage");
+
+    profileName.textContent = currentUserData.name;
+    profileEmail.textContent = currentUserData.email;
+
+    // Set the profile image
+    profileImage.src = currentUserData.profileImage;
   </script>
 </head>
 <body>
@@ -44,7 +72,7 @@
       <nav class="navbar" data-navbar>
         <ul class="navbar-list container">
           <li>
-            <a href="#home" class="navbar-link active" data-nav-link>My Lists</a>
+            <a href="./home.html" class="navbar-link active" data-nav-link >My Lists</a>
           </li>
   
           <li>
@@ -67,8 +95,8 @@
             <a href="#" class="navbar-link" onclick="toggleDropdown()">Account</a>
             <div class="dropdown-content" id="dropdownContent">
               <ul>
-                <li><a href="#profile">Profile</a></li>
-                <li><a href="#settings">Settings</a></li>
+                <li><a href="./profile.html">Profile</a></li>
+                <li><a href="./settings.html">Settings</a></li>
                 <li><a href="./index.html"><button id="signOutButton">Sign Out</button></a></li>
               </ul>
               
@@ -78,125 +106,89 @@
       </nav>
     </div>
   </header>
-  
-    <main>
-      <h1>Welcome to the Home Page</h1>
-    </main>
-  
-    <footer class="footer">
 
-      <div class="section footer-top">
-        <div class="container">
-  
-          <div class="footer-brand">
-  
-            <a href="#" class="logo">SmartPack</a>
-  
-            <p class="section-text">
-              Elevate your event planning game with our extraordinary app that empowers anyone, regardless of their expertise, to effortlessly organize and coordinate any gathering or celebration with absolute ease and efficiency.
-            </p>
-          </div>
-  
-          
-          <ul class="footer-list">
-  
-            <li>
-              <p class="footer-list-title">Useful Links</p>
-            </li>
-  
-            <li>
-              <a href="#" class="footer-link">Create an Account</a>
-            </li>
-  
-            <li>
-              <a href="#" class="footer-link">Sign In</a>
-            </li>
-  
-            <li>
-              <a href="#" class="footer-link">Download App Now</a>
-            </li>
-  
-          </ul>
-          <ul class="footer-list">
-  
-                    <li>
-                      <p class="footer-list-title">Follow Us:</p>
-                    </li>
-  
-                    <ul class="social-list">
-  
-                      <li>
-                        <a href="#" class="social-link">
-                          <i class="fa-brands fa-facebook-messenger"></i>
-                        </a>
-                      </li>
-          
-                      <li>
-                        <a href="#" class="social-link">
-                          <i class="fa-brands fa-twitter"></i>
-                        </a>
-                      </li>
-          
-                      <li>
-                        <a href="#" class="social-link">
-                          <i class="fa-brands fa-github"></i>
-                        </a>
-                      </li>
-          
-                      <li>
-                        <a href="#" class="social-link">
-                          <i class="fa-brands fa-linkedin"></i>
-                        </a>
-                      </li>
-          
-                    </ul>
-          
-  
-                  </ul>
-  
-  
-          
-          <ul class="footer-list">
-  
-            <li>
-              <p class="footer-list-title">Get In Touch</p>
-            </li>
-  
-            <li class="footer-item">
-              <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
-  
-              <a href="tel:+604-689-2192" class="item-link">+604-689-2192</a>
-            </li>
-  <br>
-            <li class="footer-item">
-              <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
-  
-              <a href="mailto:supportvast@gmail.com" class="item-link">thriversupport@gmail.com</a>
-            </li>
-            <br>
-            
-  
-          </ul>
-  
-        </div>
-      </div>
-  
-      <div class="footer-bottom">
-        <div class="container">
-  
-          <p class="copyright">
-            &copy; 2023 All Rights Reserved by <a href="#" class="copyright-link">Thrive - Langara College</a>.
+  <!-- main section -->
+  <main>
+    <h1>Welcome to the Home Page</h1>
+  </main>
+  <footer class="footer">
+    <!-- Footer content -->
+    <div class="section footer-top">
+      <div class="container">
+        <div class="footer-brand">
+          <a href="#" class="logo">SmartPack</a>
+          <p class="section-text">
+            Elevate your event planning game with our extraordinary app that empowers anyone, regardless of their expertise, to effortlessly organize and coordinate any gathering or celebration with absolute ease and efficiency.
           </p>
-  
         </div>
+        <ul class="footer-list">
+          <li>
+            <p class="footer-list-title">Useful Links</p>
+          </li>
+          <li>
+            <a href="#" class="footer-link">Create an Account</a>
+          </li>
+          <li>
+            <a href="#" class="footer-link">Sign In</a>
+          </li>
+          <li>
+            <a href="#" class="footer-link">Download App Now</a>
+          </li>
+        </ul>
+        <ul class="footer-list">
+          <li>
+            <p class="footer-list-title">Follow Us:</p>
+          </li>
+          <ul class="social-list">
+            <li>
+              <a href="#" class="social-link">
+                <i class="fa-brands fa-facebook-messenger"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="social-link">
+                <i class="fa-brands fa-twitter"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="social-link">
+                <i class="fa-brands fa-github"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="social-link">
+                <i class="fa-brands fa-linkedin"></i>
+              </a>
+            </li>
+          </ul>
+        </ul>
+        <ul class="footer-list">
+          <li>
+            <p class="footer-list-title">Get In Touch</p>
+          </li>
+          <li class="footer-item">
+            <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+            <a href="tel:+604-689-2192" class="item-link">+604-689-2192</a>
+          </li>
+          <br>
+          <li class="footer-item">
+            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+            <a href="mailto:supportvast@gmail.com" class="item-link">thriversupport@gmail.com</a>
+          </li>
+          <br>
+        </ul>
       </div>
-  
-    </footer>
-  
-    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
-      <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
-    </a>
-
-
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="copyright">
+          &copy; 2023 All Rights Reserved by <a href="#" class="copyright-link">Thrive - Langara College</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
+  </a>
 </body>
 </html>

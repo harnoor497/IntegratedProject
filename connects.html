@@ -2,15 +2,11 @@
 <html>
 <head>
   <title>Connects Page</title>
-  <!-- <link rel="stylesheet" href="./css/style.css"> -->
-  <!-- <link rel="stylesheet" href="./css/connects-style.css"> -->
-  <link rel="stylesheet" href="./css/connects-friends.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link rel="stylesheet" type="text/css" href="./css/connects-style.css">
   <script src="./js/script.js"></script>
   <script src="https://kit.fontawesome.com/c69dc532d6.js" crossorigin="anonymous"></script>
-<!-- script file to add -->
-<script src="./js/script.js" defer></script>
-  <!-- font awesome link -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
 </head>
 <body>
@@ -58,61 +54,189 @@
   
   
 
-  <main>      
-     <!-- main section of the page -->
-     <div class="container">
-      <div class="topic">My Network</div>
-      <div class="content">
-        <input type="radio" name="slider" checked id="home">
-        <input type="radio" name="slider" id="blog">
-        <input type="radio" name="slider" id="help">
-        
-        <div class="list">
-          <label for="home" class="home">
-          <i class="fas fa-home"></i>
-          <span class="title">Friends</span>
-          </label>
-          <label for="blog" class="blog">
-          <span class="icon"><i class="fas fa-blog"></i></span>
-          <span class="title">Requests</span>
-          </label>
-          <label for="help" class="help">
-          <span class="icon"><i class="fas fa-code"></i></span>
-          <span class="title">Add New</span>
-          </label>
-        
-          <div class="slider"></div>
-        </div>
-        
-        <div class="text-content">
-          <div class="home text">
-            <div class="title">Friends</div>
-            <div class="content-grid">
-              <pre id="content-friends" style="white-space: pre-wrap;"></pre>
-          </div>
-          </div>
-          <div class="blog text">
-            <div class="title">Requests</div>
-            <div class="content-grid">
-              <pre id="content-request" style="white-space: pre-wrap;"></pre>
-          </div>
-          </div>
-          <div class="help text">
-            <div class="title">Add Friends</div>
-            
-            <p>
-              <!-- <button id="authorize_button" onclick="handleAuthClick()">Sync Contacts</button> -->
-              <button id="authorize_button" onclick="handleAuthClick()">Sync Contacts</button> 
+  <main>
+      
+      <!-- People API work  -->
+      <!--Add buttons to initiate auth sequence and sign out-->
+      <button id="authorize_button" onclick="handleAuthClick()">Sync Contacts</button>
       <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-              <div class="content-grid">
+  
+      <div class="content-grid">
         <pre id="content" style="white-space: pre-wrap;"></pre>
       </div>
-            </p>
+  
+      <script type="text/javascript">
+        /* exported gapiLoaded */
+        /* exported gisLoaded */
+        /* exported handleAuthClick */
+        /* exported handleSignoutClick */
+  
+        // TODO(developer): Set to client ID and API key from the Developer Console
+        const CLIENT_ID = '353753930218-nqo0gfvtekfplv54205nq9bkmq9tpu1k.apps.googleusercontent.com';
+        const API_KEY = 'AIzaSyDhsH_gMswEQpLI6Kfn2AJaDILOC5CWjjw';
+  
+  
+        // Discovery doc URL for APIs used by the quickstart
+        const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/people/v1/rest';
+  
+        // Authorization scopes required by the API; multiple scopes can be
+        // included, separated by spaces.
+        const SCOPES = 'https://www.googleapis.com/auth/contacts.readonly';
+  
+        let tokenClient;
+        let gapiInited = false;
+        let gisInited = false;
+  
+        document.getElementById('authorize_button').style.visibility = 'hidden';
+        document.getElementById('signout_button').style.visibility = 'hidden';
+  
+        /**
+         * Callback after api.js is loaded.
+         */
+        function gapiLoaded() {
+          gapi.load('client', initializeGapiClient);
+        }
+  
+        /**
+         * Callback after the API client is loaded. Loads the
+         * discovery doc to initialize the API.
+         */
+        async function initializeGapiClient() {
+          await gapi.client.init({
+            apiKey: API_KEY,
+            discoveryDocs: [DISCOVERY_DOC],
+          });
+          gapiInited = true;
+          maybeEnableButtons();
+        }
+  
+        /**
+         * Callback after Google Identity Services are loaded.
+         */
+        function gisLoaded() {
+          tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: CLIENT_ID,
+            scope: SCOPES,
+            callback: '', // defined later
+          });
+          gisInited = true;
+          maybeEnableButtons();
+        }
+  
+        /**
+         * Enables user interaction after all libraries are loaded.
+         */
+        function maybeEnableButtons() {
+          if (gapiInited && gisInited) {
+            document.getElementById('authorize_button').style.visibility = 'visible';
+          }
+        }
+  
+        /**
+         *  Sign in the user upon button click.
+         */
+        function handleAuthClick() {
+          tokenClient.callback = async (resp) => {
+            if (resp.error !== undefined) {
+              throw (resp);
+            }
+            document.getElementById('signout_button').style.visibility = 'visible';
+            document.getElementById('authorize_button').innerText = 'Refresh';
+            await listConnectionNames();
+          };
+  
+          if (gapi.client.getToken() === null) {
+            // Prompt the user to select a Google Account and ask for consent to share their data
+            // when establishing a new session.
+            tokenClient.requestAccessToken({prompt: 'consent'});
+          } else {
+            // Skip display of account chooser and consent dialog for an existing session.
+            tokenClient.requestAccessToken({prompt: ''});
+          }
+        }
+  
+        /**
+         *  Sign out the user upon button click.
+         */
+        function handleSignoutClick() {
+          const token = gapi.client.getToken();
+          if (token !== null) {
+            google.accounts.oauth2.revoke(token.access_token);
+            gapi.client.setToken('');
+            document.getElementById('content').innerText = '';
+            document.getElementById('authorize_button').innerText = 'Authorize';
+            document.getElementById('signout_button').style.visibility = 'hidden';
+          }
+        }
+  
+        /**
+         * Print the display name if available for 10 connections.
+         */
+        async function listConnectionNames() {
+          let response;
+          try {
+            // Fetch first 10 files
+            response = await gapi.client.people.people.connections.list({
+              'resourceName': 'people/me',
+              'pageSize': 10,
+              'personFields': 'names,emailAddresses',
+            });
+          } catch (err) {
+            document.getElementById('content').innerText = err.message;
+            return;
+          }
+          const connections = response.result.connections;
+          if (!connections || connections.length == 0) {
+            document.getElementById('content').innerText = 'No connections found.';
+            return;
+          }
+          // Flatten to string to display
+          const output = connections.reduce(
+              (str, person) => {
+                if (!person.names || person.names.length === 0) {
+                  return `${str}Missing display name\n`;
+                }
+                return `${str}${person.names[0].displayName}\n`;
+              },
+              'Connections:\n');
+          document.getElementById('content').innerText = output;
+        }
+      </script>
+
+      <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+      <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    
+  
+      <!-- main section layout work -->
+
+      <!-- <div class="friends">
+        <div class="tab-header">
+          <div class="tabs-indicator">
+
           </div>
-          
+          <div class="tab-body">
+            <div class="active">
+              <h2>This is Friends section</h2>
+              <p>Lorem ipsum dolor sit amet.</p>
+            </div>
+            <div>
+              <h2>This is requests section</h2>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti repellat sequi numquam corrupti tempora cupiditate quia consectetur est. Iusto aut voluptates impedit id.</p>
+            </div>
         </div>
-      </div>
-    </div>
+          <div class="active">
+            <h4>Friends</h4>
+          </div>
+          <div>
+            <h4>Requests</h4>
+          </div>
+        </div>
+        
+
+       
+
+      </div> -->
+
   </main>    
 
   <footer class="footer">
@@ -229,240 +353,12 @@
     <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
   </a>
 
-  <!-- FireBASE settings and configuration -->
-
-  <!-- People API work  -->
-      <!--Add buttons to initiate auth sequence and sign out-->
-       <!-- <button id="authorize_button" onclick="handleAuthClick()">Sync Contacts</button> 
-      <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button> -->
-  
-  
-      <script type="text/javascript" defer>
-        /* exported gapiLoaded */
-        /* exported gisLoaded */
-        /* exported handleAuthClick */
-        /* exported handleSignoutClick */
-  
-        // TODO(developer): Set to client ID and API key from the Developer Console
-        const CLIENT_ID = '353753930218-nqo0gfvtekfplv54205nq9bkmq9tpu1k.apps.googleusercontent.com';
-        const API_KEY = 'AIzaSyDhsH_gMswEQpLI6Kfn2AJaDILOC5CWjjw';
-  
-  
-        // Discovery doc URL for APIs used by the quickstart
-        const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/people/v1/rest';
-  
-        // Authorization scopes required by the API; multiple scopes can be
-        // included, separated by spaces.
-        const SCOPES = 'https://www.googleapis.com/auth/contacts.readonly';
-  
-        let tokenClient;
-        let gapiInited = false;
-        let gisInited = false;
-  
-        document.getElementById('authorize_button').style.visibility = 'hidden';
-        document.getElementById('signout_button').style.visibility = 'hidden';
-  
-        /**
-         * Callback after api.js is loaded.
-         */
-        function gapiLoaded() {
-          gapi.load('client', initializeGapiClient);
-        }
-  
-        /**
-         * Callback after the API client is loaded. Loads the
-         * discovery doc to initialize the API.
-         */
-        async function initializeGapiClient() {
-          await gapi.client.init({
-            apiKey: API_KEY,
-            discoveryDocs: [DISCOVERY_DOC],
-          });
-          gapiInited = true;
-          maybeEnableButtons();
-        }
-  
-        /**
-         * Callback after Google Identity Services are loaded.
-         */
-        function gisLoaded() {
-          tokenClient = google.accounts.oauth2.initTokenClient({
-            client_id: CLIENT_ID,
-            scope: SCOPES,
-            callback: '', // defined later
-          });
-          gisInited = true;
-          maybeEnableButtons();
-        }
-  
-        /**
-         * Enables user interaction after all libraries are loaded.
-         */
-        function maybeEnableButtons() {
-          if (gapiInited && gisInited) {
-            document.getElementById('authorize_button').style.visibility = 'visible';
-          }
-        }
-  
-        /**
-         *  Sign in the user upon button click.
-         */
-        function handleAuthClick() {
-          tokenClient.callback = async (resp) => {
-            if (resp.error !== undefined) {
-              throw (resp);
-            }
-            document.getElementById('signout_button').style.visibility = 'visible';
-            document.getElementById('authorize_button').innerText = 'Refresh';
-            await listConnectionNames();
-          };
-  
-          if (gapi.client.getToken() === null) {
-            // Prompt the user to select a Google Account and ask for consent to share their data
-            // when establishing a new session.
-            tokenClient.requestAccessToken({prompt: 'consent'});
-          } else {
-            // Skip display of account chooser and consent dialog for an existing session.
-            tokenClient.requestAccessToken({prompt: ''});
-          }
-        }
-  
-        /**
-         *  Sign out the user upon button click.
-         */
-        function handleSignoutClick() {
-          const token = gapi.client.getToken();
-          if (token !== null) {
-            google.accounts.oauth2.revoke(token.access_token);
-            gapi.client.setToken('');
-            document.getElementById('content').innerText = '';
-            document.getElementById('authorize_button').innerText = 'Authorize';
-            document.getElementById('signout_button').style.visibility = 'hidden';
-          }
-        }
-  
-        /**
-         * Print the display name if available for 10 connections.
-         */
-        async function listConnectionNames() {
-          let response;
-          try {
-            
-            response = await gapi.client.people.people.connections.list({
-              'resourceName': 'people/me',
-              'pageSize': 10,
-              'personFields': 'names,emailAddresses,photos',
-            });
-          } catch (err) {
-            document.getElementById('content').innerText = err.message;
-            return;
-          }
-          const connections = response.result.connections;
-          if (!connections || connections.length == 0) {
-            document.getElementById('content').innerText = 'No connections found.';
-            return;
-          }
-          // Flatten to string to display
-          const output = connections.reduce(
-              (str, person) => {
-                if (!person.names || person.names.length === 0) {
-                  return `${str}Missing display name\n`;
-                }
-                const displayName = person.names[0].displayName;
-      const photoUrl = person.photos && person.photos.length > 0 ? person.photos[0].url : 'default_photo_url.jpg'; // Set a default photo URL if not available
-
-      return `${str}<div class="user-card">
-              <img src="${photoUrl}" alt="User Photo" class="user-photo">
-              <div class="user-info">
-                <span class="display-name" data-name="${displayName}">${displayName}</span>
-                <button onclick="connectUser('${displayName}')" class="connect-button">Connect</button>
-              </div>
-            </div>`;
 
 
-    },
-    '<strong>Your Google Contacts:</strong><br>'
-  );
-
-  document.getElementById('content').innerHTML = output;
-        }
-   
-        // connect users
-        // Connect user and move to Requests section
-        // Connect user and move to Requests section
-function connectUser(displayName) {
-  alert(`${displayName} is your friend!`);
-
-  const connectionCard = document.querySelector(`#content .user-card span.display-name[data-name="${displayName}"]`).closest('.user-card');
-
-  if (connectionCard) {
-    // Move the card to the "Requests" section
-    const requestsSection = document.querySelector('#content-request');
-    requestsSection.appendChild(connectionCard);
-
-    // Remove the "No requests yet!" message if any requests exist
-    const noRequestsMessage = document.querySelector('.blog.text p');
-    if (noRequestsMessage) {
-      noRequestsMessage.remove();
-    }
-
-    // Add the "Confirm" button to the connection card
-    const confirmButton = document.createElement('button');
-    confirmButton.innerText = 'Confirm';
-    confirmButton.onclick = () => confirmRequest(displayName);
-    connectionCard.querySelector('.user-info').appendChild(confirmButton);
-  }
-}
-
-
-function confirmRequest(displayName) {
-  const requestCard = document.querySelector(`#content-request .user-card span.display-name[data-name="${displayName}"]`).closest('.user-card');
-  
-  if (requestCard) {
-    // Move the card to the "Friends" section
-    const friendsSection = document.querySelector('#content-friends');
-    friendsSection.appendChild(requestCard);
-    
-    // Show the "Remove" button
-    const removeButton = document.createElement('button');
-    removeButton.innerText = 'Remove';
-    removeButton.onclick = () => removeFriend(displayName);
-    requestCard.querySelector('.user-info').appendChild(removeButton);
-    
-    // Remove the "No friends !! Click on Add Friends and add new friends" message if any friends exist
-    const noFriendsMessage = document.querySelector('.home.text p');
-    if (noFriendsMessage) {
-      noFriendsMessage.remove();
-    }
-  }
-}
-
-// Remove friend from Friends section
-
-function removeFriend(displayName) {
-  const friendCard = document.querySelector(`#content-friends .user-card span.display-name[data-name="${displayName}"]`).closest('.user-card');
-
-  if (friendCard) {
-    friendCard.remove();
-
-    // Show the "No friends !! Click on Add Friends and add new friends" message if no friends exist
-    const friendsSection = document.querySelector('#content-friends');
-    if (friendsSection.children.length === 0) {
-      const noFriendsMessage = document.createElement('p');
-      noFriendsMessage.innerText = 'No friends !! Click on Add Friends and add new friends';
-      friendsSection.appendChild(noFriendsMessage);
-    }
-  }
-}
-   </script>
-
-      <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
-      <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
-
-      <!-- For SignOut Option -->
-      <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
-      <script>
+  <!-- For SignOut Option -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+  <script>
     // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyBc9M5HY-HDmgagACY6Ap4t6YXY1UxoKPs",
@@ -498,6 +394,62 @@ function removeFriend(displayName) {
     var dropdownContent = document.getElementById("dropdownContent");
     dropdownContent.classList.toggle("show");
   }
+
+
+
+  //for displaying friends list
+  async function listConnectionNames() {
+  let response;
+  try {
+    response = await gapi.client.people.people.connections.list({
+      'resourceName': 'people/me',
+      'pageSize': 10,
+      'personFields': 'names,emailAddresses,photos',
+    });
+  } catch (err) {
+    document.getElementById('content').innerText = err.message;
+    return;
+  }
+
+  const connections = response.result.connections;
+  if (!connections || connections.length === 0) {
+    document.getElementById('content').innerText = 'No connections found.';
+    return;
+  }
+
+  const contentElement = document.getElementById('content');
+  contentElement.innerHTML = '';
+
+  for (let i = 0; i < connections.length; i++) {
+    const person = connections[i];
+
+    const box = document.createElement('div');
+    box.classList.add('content-box');
+
+    const image = document.createElement('img');
+    if (person.photos && person.photos.length > 0) {
+      image.src = person.photos[0].url;
+    } else {
+      image.src = 'default-image.png'; // Replace with your default image URL
+    }
+    box.appendChild(image);
+
+    const details = document.createElement('div');
+    details.classList.add('details');
+
+    const name = document.createElement('h3');
+    name.innerText = person.names[0].displayName;
+    details.appendChild(name);
+
+    const username = document.createElement('p');
+    username.innerText = person.names[0].displayName;
+    details.appendChild(username);
+
+    box.appendChild(details);
+    contentElement.appendChild(box);
+  }
+}
+
 
   </script>
 </body>

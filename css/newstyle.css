@@ -1,0 +1,670 @@
+body{
+    margin:0;
+    padding: 0;
+    
+    
+}
+
+header{
+    padding-top: 0;
+}
+.land-nav{
+  display: none;
+}
+h1{
+    padding-top: 0;
+}
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+.land{
+    background-color: rgba(255, 255, 255, 0.4);
+margin-bottom: 0;
+padding-bottom: 0;
+
+text-align: center;
+
+margin-left: 1rem;
+margin-right: 1rem;
+border-top-left-radius: 20px;
+border-top-right-radius: 20px; 
+margin-bottom: 1rem;
+
+
+}
+
+
+.logo{
+    width: 258px;
+    height: 74.241px;
+    margin-top: 0;
+    padding-top: 0;
+    margin-top: 66.99px;
+    margin-bottom: 65.09;
+  
+}
+.txt1{
+    color: #FFF;
+text-align: center;
+font-family: Inter;
+font-size: 25px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.txt2{
+    color: #FFF;
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+text-align: center;
+
+
+}
+
+.txt3{
+    color: #FFF;
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-bottom: 46px;
+}
+
+.login-btn , .signup-btn{
+    background: #937DFF;
+    margin-bottom: 6px;
+    width: 280px;
+height: 50px;
+color: white;
+border-radius: 5px;
+font-family: Inter;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+}
+
+
+#signUpForm{
+
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+   
+   
+
+  
+}
+#signUpForm input{
+    border-radius: 5px;
+    width: 306px;
+    height: 44px;
+
+}
+#signUpForm label{
+    color: #5A5A5A;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px; /* 125% */
+
+}
+#signUpForm button{
+   background-color:  #937DFF;
+   width: 280px;
+   height: 50px;
+   border-radius: 5px;
+   color: #FFF;
+text-align: center;
+font-family: Inter;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-top: 4rem;
+
+}
+header {
+   text-align: center;
+    margin-top: 108px;
+    margin-bottom: 100px;
+   ;
+} 
+
+footer p{
+    color: #C785CF;
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+text-align: center;
+
+}
+
+footer a{
+    width: 20.665px;
+    height: 20.665px;
+color: #C785CF;
+}
+
+.social-icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+
+#signInForm{
+
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+   
+
+  
+}
+
+#signInForm input{
+    border-radius: 5px;
+    width: 306px;
+    height: 44px;
+
+}
+#signInForm label{
+    color: #5A5A5A;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+
+}
+#signInForm button{
+   background-color:  #937DFF;
+   width: 280px;
+   height: 50px;
+   border-radius: 5px;
+   color: #FFF;
+text-align: center;
+font-family: Inter;
+font-size: 18px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+margin-top: 4rem;
+
+}
+
+
+
+#signinForm p{
+    color: #5A5A5A;
+font-family: Inter;
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: 19.5px;
+}
+
+.profile{
+    background-color: white;
+padding-bottom: 0;
+
+
+text-align: center;
+margin-top: 105px;
+border-top-left-radius: 20px;
+border-top-right-radius: 20px; 
+margin-bottom: 1rem;
+
+
+}
+
+.profile-card{
+    height:1100px;
+    width:2250px;
+  
+  }
+  
+  img#profileImage {
+    height: 300px;
+    width: 300px;
+    border-radius: 12px;
+  }
+
+  .profile-card {
+
+   
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  .p1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+   
+    margin-bottom: 1rem;
+  }
+  .p2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-card h1 {
+    font-size: 24px;
+    margin-top: 0;
+  }
+  
+  .profile-card h2 {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  
+
+  #profileImage {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 1rem;
+    
+  }
+  
+
+  #editProfileForm {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #editProfileForm label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  #editProfileForm input[type="text"],
+  #editProfileForm textarea {
+
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #editProfileForm button {
+    display: block;
+width: 280px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #937DFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+  }
+  
+
+  .camera-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+  }
+  
+  #cameraVideo {
+    width: 100%;
+    max-width: 300px;
+    height: 100px;
+    border-radius: 5px;
+  }
+  
+  #captureButton {
+    margin-top: 10px;
+    display: block;
+    width: 280px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: rgb(147, 125, 255);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .home{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    color: #F0F0F2;
+text-align: center;
+font-family: Inter;
+font-size: 15px;
+font-style: normal;
+padding-left: 1rem;
+padding-right: 1rem;
+line-height: normal;
+margin-top: 4rem;
+  }
+
+
+  .success-image{
+    width: 211px;
+height: 211px;
+  }
+
+  .success-main{
+    color: #9F80F8;
+text-align: center;
+font-family: Inter;
+font-size: 20px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+  }
+
+  .success-btn{
+    width: 280px;
+height: 50px;
+border-radius: 5px;
+background: #937DFF;
+  }
+  .success{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 4rem;
+  }
+  .land nav ul{
+    display: none;
+  }
+
+  .logo-signup ul{
+display: none;
+  }
+
+  .landing-logo{
+
+    size: 100px;
+    }
+
+    .form-wrapper p{
+      display: none;
+    }
+    .camera-container{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+@media screen and (min-width:600px){
+.land-btn{
+ display: flex;
+  flex-direction:column;
+  padding-left: 188px;
+
+}
+.land-text{
+  display: flex;
+  flex-direction:column;
+  justify-content: start;
+  align-items: flex-start;
+  width: 539px;
+  padding-left: 77px;
+ 
+}
+.txt1{
+  font-size: 60px;
+}
+.txt2{
+  font-size: 25px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.land-post {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+}
+
+.land-post img{
+  grid-column-start: 2;
+  justify-self: end;
+  width: 593px;
+height: 653.159px;
+}
+/* .land nav{
+  display: flex;
+  flex-direction: column;
+  
+} */
+.land nav ul li{
+  list-style: none;
+}
+.land nav a{
+  text-decoration: none;
+  color: #FFF;
+text-align: center;
+font-family: Inter;
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+.land header{
+  display: flex;
+  flex: row wrap;
+  justify-content:space-between;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.land nav ul{
+  display: flex;
+  justify-content: space-between;
+  width: 879px;
+  height: 50px;
+}
+
+
+
+.logo-signup header{
+  display: flex;
+  flex: row wrap;
+  justify-content:space-between;
+  padding-left: 2rem;
+  padding-right: 2rem;
+ 
+}
+.logo-signup nav ul{
+  display: flex;
+  justify-content: space-between;
+  width: 879px;
+  height: 50px;
+}
+
+  .logo-signup nav ul li{
+    list-style: none;
+  }
+
+  .logo-signup nav a{
+    text-decoration: none;
+    color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  }
+
+  .logo-signup{
+    background-color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 0;
+    padding-bottom: 0;
+    text-align: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    margin-bottom: 1rem;
+    height: 1200px;
+  }
+
+
+  body{
+  
+      background-color: #937DFF;
+    };
+
+    #signUpForm{
+      height: 500px;
+    }
+
+    #signUpForm input {
+      border-radius: 5px;
+      width: 493px;
+      height: 94px;
+  }
+
+#signUpForm label{
+  width: 211px;
+  height: 31px;
+  color: #5A5A5A;
+font-family: Inter;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: 20px; 
+}
+
+#signUpForm button{
+  width: 320px;
+height: 50px;
+}
+
+    
+    #signInForm input{
+      width: 493px;
+height: 94px;
+    }
+
+    
+
+    #signInForm label{
+      width: 211px;
+      height: 31px;
+      color: #5A5A5A;
+font-family: Inter;
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: 20px; 
+    }
+
+    #signInForm button{
+      width: 320px;
+height: 50px;
+    }
+  
+  .container{
+    background-color: #fff;
+    margin-left: 10rem;
+    border-top-left-radius: 32px;
+    height:1000px ;
+  }
+  form{
+    padding-top: 4rem;
+  }
+.form-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+  .form-wrapper p{
+    display: flex;
+    color: #957EFE;
+text-align: center;
+font-family: Inter;
+font-size: 40px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+width: 748px;
+height: 94px;
+
+  }
+.signup-footer{
+  margin: 3rem;
+}
+
+#editProfileForm input[type="text"],
+  #editProfileForm textarea{
+  width: 493px;
+height: 94px;
+}
+
+#editProfileForm input[type="button"],
+#editProfileForm input[type="submit"]{
+  width: 320px;
+height: 50px;
+}
+#editProfileForm button {
+ 
+  width: 320px;
+  height: 50px;
+ 
+  
+}
+
+#profileEmail, #profileName, #profileBio{
+ 
+text-align: center;
+font-family: Inter;
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+#editProfileForm input[type="file"]{
+  
+}
+
+}

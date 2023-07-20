@@ -1,197 +1,433 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Checklist Feature</title>
-  <!-- <link rel="stylesheet" href="./css/style.css"> -->
-  <!-- <link rel="stylesheet" href="./css/connects-style.css"> -->
-  <style>
-    #checklist-container {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    #checklist-container li {
-      margin-bottom: 10px;
-    }
-  </style>
-  <!-- script file to add -->
-<script src="./js/script.js" defer></script>
-
-</head>
-<body>
-  <header class="header" data-header>
-    <div class="container">
-      <a href="#" class="logo">SmartPack</a>
-  
-      <nav class="navbar" data-navbar>
-        <ul class="navbar-list container">
-          <li>
-            <a href="./home.html" class="navbar-link" data-nav-link>My Lists</a>
-          </li>
-  
-          <li>
-            <a href="./createList.html" class="navbar-link" data-nav-link>Create a List</a>
-          </li>
-  
-          <li>
-            <a href="./connects.html" class="navbar-link active" data-nav-link>Friends</a>
-          </li>
-  
-          <li>
-            <a href="#team" class="navbar-link" data-nav-link>Discover</a>
-          </li>
-  
-          <!-- <li>
-            <a href="#settings" class="navbar-link">Settings</a>
-          </li> -->
-  
-          <li class="dropdown">
-            <a href="#" class="navbar-link" onclick="toggleDropdown()">Account</a>
-            <div class="dropdown-content" id="dropdownContent">
-              <ul>
-                <li><a href="./profile.html">Profile</a></li>
-                <li><a href="./settings.html">Settings</a></li>
-                <li><a href="./index.html"><button id="signOutButton">Sign Out</button></a></li>
-              </ul>
-              
-            </div>
-          </li>
-        </ul>
-      </nav>
+  <head>
+    <title>Create Checklists</title>
+    <link rel="stylesheet" href="createList.css" />
+  </head>
+  <body>
+  <div class="container">
+    <h1>Create new Checklist</h1>
+    <input
+      type="text"
+      id="todo-input"
+      placeholder="Enter a new todo list title"
+    />
+    <button id="create-button">Create Todo List</button>
+    <div class="button-container">
+      <!-- <button id="add-item-camera-button">Add Image from Camera</button>
+      <button id="add-item-image-button">Add Image from File</button>
+      <button id="add-item-button">Add Item</button> -->
     </div>
-  </header>
+    <ul id="todo-list"></ul>
+  </div>
 
-  <main>
-  <h1>Checklist Feature</h1>
+    <!-- Javascript Logic -->
 
-  <input type="text" id="checklist-input" placeholder="Enter checklist item">
-  <button id="create-button">Create Checklist</button>
+        <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+      import { getFirestore, collection, doc, addDoc, getDocs, deleteDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"
 
-  <h2>Checklists</h2>
-  <ul id="checklist-container"></ul>
-</main>
-
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-  <script src="createList.js">
-    
-  </script>
-
-  <footer class="footer">
-
-    <div class="section footer-top">
-      <div class="container">
-
-        <div class="footer-brand">
-
-          <a href="#" class="logo">SmartPack</a>
-
-          <p class="section-text">
-            Elevate your event planning game with our extraordinary app that empowers anyone, regardless of their expertise, to effortlessly organize and coordinate any gathering or celebration with absolute ease and efficiency.
-          </p>
-        </div>
-
-        
-        <ul class="footer-list">
-
-          <li>
-            <p class="footer-list-title">Useful Links</p>
-          </li>
-
-          <li>
-            <a href="#" class="footer-link">Create an Account</a>
-          </li>
-
-          <li>
-            <a href="#" class="footer-link">Sign In</a>
-          </li>
-
-          <li>
-            <a href="#" class="footer-link">Download App Now</a>
-          </li>
-
-        </ul>
-        <ul class="footer-list">
-
-                  <li>
-                    <p class="footer-list-title">Follow Us:</p>
-                  </li>
-
-                  <ul class="social-list">
-
-                    <li>
-                      <a href="#" class="social-link">
-                        <i class="fa-brands fa-facebook-messenger"></i>
-                      </a>
-                    </li>
-        
-                    <li>
-                      <a href="#" class="social-link">
-                        <i class="fa-brands fa-twitter"></i>
-                      </a>
-                    </li>
-        
-                    <li>
-                      <a href="#" class="social-link">
-                        <i class="fa-brands fa-github"></i>
-                      </a>
-                    </li>
-        
-                    <li>
-                      <a href="#" class="social-link">
-                        <i class="fa-brands fa-linkedin"></i>
-                      </a>
-                    </li>
-        
-                  </ul>
-        
-
-                </ul>
+      // Initialize Firebase
+    const firebaseConfig = {
+      apiKey: 'AIzaSyDhsH_gMswEQpLI6Kfn2AJaDILOC5CWjjw',
+      authDomain: 'authentication-app-cc0a3.firebaseapp.com',
+      databaseURL:
+        'https://authentication-app-cc0a3-default-rtdb.firebaseio.com',
+      projectId: 'authentication-app-cc0a3',
+      storageBucket: 'authentication-app-cc0a3.appspot.com',
+      messagingSenderId: '353753930218',
+      appId: '1:353753930218:web:077677333092728a533a93',
+    };
 
 
-        
-        <ul class="footer-list">
+const app = initializeApp(firebaseConfig);
+const firestore = getFirestore(app);
+// Store the todo lists
+let todoLists = [];
 
-          <li>
-            <p class="footer-list-title">Get In Touch</p>
-          </li>
+// Fetch and render existing checklists
+function fetchChecklists() {
+  const checklistRef = collection(firestore, 'checklists');
+  getDocs(checklistRef)
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const checklist = doc.data();
+        checklist.checklistId = doc.id;
+        todoLists.push(checklist);
+        renderTodoList(checklist);
+      });
+    })
+    .catch((error) => {
+      console.error('Error fetching checklists:', error);
+    });
+}
 
-          <li class="footer-item">
-            <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
+// Call the fetchChecklists function to load existing checklists on page load
+window.addEventListener('DOMContentLoaded', fetchChecklists);
 
-            <a href="tel:+604-689-2192" class="item-link">+604-689-2192</a>
-          </li>
-<br>
-          <li class="footer-item">
-            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
 
-            <a href="mailto:supportvast@gmail.com" class="item-link">thriversupport@gmail.com</a>
-          </li>
-          <br>
-          
 
-        </ul>
+// Create a new todo list
+function createTodoList() {
+  const titleInput = document.getElementById('todo-input');
+  const title = titleInput.value.trim();
 
-      </div>
-    </div>
+  if (title === '') {
+    alert('Please enter a valid title.');
+    return;
+  }
 
-    <div class="footer-bottom">
-      <div class="container">
+  const checklist = {
+    createdAt: new Date(),
+    title: title,
+    items: [],
+  };
 
-        <p class="copyright">
-          &copy; 2023 All Rights Reserved by <a href="#" class="copyright-link">Thrive - Langara College</a>.
-        </p>
+  // Save the checklist to Firebase Firestore
+ addDoc(collection(firestore, 'checklists'), checklist)
+    .then((docRef) => {
+      checklist.checklistId = docRef.id;
 
-      </div>
-    </div>
+      todoLists.push(checklist);
 
-  </footer>
+      // Clear the input field
+      titleInput.value = '';
 
-  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
-    <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
-  </a>
+      // Render the todo list
+      renderTodoList(checklist);
 
+          // Fetch and render existing checklists
+      // fetchChecklists();
+    })
+    .catch((error) => {
+      console.error('Error creating checklist:', error);
+    });
+
+    todoLists.push(checklist);
+checklist.checklistId = docRef.id; // Assign the newly generated `checklistId` to the checklist
+
+}
+
+// Render a todo list
+function renderTodoList(todoList) {
+  const todoListElement = document.createElement('li');
+  todoListElement.className = 'todo-item';
+  todoListElement.id = todoList.checklistId;
+
+  const titleElement = document.createElement('h2');
+  titleElement.textContent = todoList.title;
+
+  const shareButton = document.createElement('button');
+  shareButton.textContent = 'Share';
+  shareButton.onclick = function () {
+    shareTodoList(todoList);
+  };
+
+  const addItemInput = document.createElement('input');
+  addItemInput.type = 'text';
+  addItemInput.placeholder = 'Enter a new item';
+  addItemInput.className = 'item-input';
+
+  const addItemCameraButton = document.createElement('button');
+  addItemCameraButton.textContent = 'Add Image from Camera';
+  addItemCameraButton.onclick = function () {
+    captureItemImage(todoList, addItemInput);
+  };
+
+  const addItemImageButton = document.createElement('button');
+  addItemImageButton.textContent = 'Add Image from File';
+  addItemImageButton.onclick = function () {
+    addItemImage(todoList, addItemInput);
+  };
+
+  const addItemButton = document.createElement('button');
+  addItemButton.textContent = 'Add Item';
+  addItemButton.onclick = function () {
+    addItem(todoList, addItemInput);
+  };
+
+  const itemList = document.createElement('ul');
+  itemList.className = 'item-list';
+
+  todoListElement.appendChild(titleElement);
+  todoListElement.appendChild(shareButton);
+  todoListElement.appendChild(addItemInput);
+  todoListElement.appendChild(addItemCameraButton);
+  todoListElement.appendChild(addItemImageButton);
+  todoListElement.appendChild(addItemButton);
+  todoListElement.appendChild(itemList);
+
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Delete Todo List';
+  deleteButton.onclick = function () {
+    deleteTodoList(todoList);
+  };
+
+  todoListElement.appendChild(deleteButton);
+
+  // Save the items to Firebase Firestore
+  todoList.items.forEach((item) => {
+    saveItemToFirestore(todoList.checklistId, item);
+  });
+
+
+
+  const todoListContainer = document.getElementById('todo-list');
+
+  // Check if there are any existing checklists
+  if (todoListContainer.childNodes.length === 0) {
+    // If there are no existing checklists, simply append the new one
+    todoListContainer.appendChild(todoListElement);
+  } else {
+    // If there are existing checklists, insert the new one at the top
+    todoListContainer.insertBefore(todoListElement, todoListContainer.firstChild);
+  }}
+
+// Share the todo list
+function shareTodoList(todoList) {
+  const shareUrl = generateShareUrl(todoList);
+  // TODO: Implement sharing functionality, e.g., copy the share URL to the clipboard
+  alert('Share this URL with others: ' + shareUrl);
+}
+
+// Generate a shareable URL for the todo list
+function generateShareUrl(todoList) {
+  const baseUrl = 'https://example.com/share-todo-list';
+  const todoListId = encodeURIComponent(todoList.checklistId);
+  return `${baseUrl}?id=${todoListId}`;
+}
+
+// Add an image to a todo list item
+function addItemImage(todoList, inputElement) {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.accept = 'image/*';
+  fileInput.onchange = function () {
+    handleImageSelection(todoList, fileInput.files[0], inputElement);
+  };
+  fileInput.click();
+}
+
+// Capture an image from the camera
+function captureItemImage(todoList, inputElement) {
+  const video = document.createElement('video');
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  navigator.mediaDevices
+    .getUserMedia({ video: true })
+    .then((stream) => {
+      video.srcObject = stream;
+      video.onloadedmetadata = function () {
+        video.play();
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageDataURL = canvas.toDataURL('image/jpeg');
+        stopVideoStream(video.srcObject);
+        addItem(todoList, inputElement, imageDataURL);
+      };
+    })
+    .catch((error) => {
+      console.log('Error accessing camera:', error);
+    });
+}
+
+// Stop the video stream from the camera
+function stopVideoStream(stream) {
+  if (!stream) return;
+  const tracks = stream.getTracks();
+  tracks.forEach((track) => {
+    track.stop();
+  });
+}
+
+// Handle image selection
+function handleImageSelection(todoList, file, inputElement) {
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const image = reader.result;
+      addItem(todoList, inputElement, image);
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+// Add an item to a todo list
+function addItem(todoList, inputElement, image = null) {
+  const itemText = inputElement.value.trim();
+
+  if (itemText === '') {
+    alert('Please enter a valid item.');
+    return;
+  }
+
+  const item = {
+    description: itemText,
+    marked: false,
+    createdAt: new Date(),
+  };
+
+  if (image) {
+    item.image = image;
+  }
+
+  todoList.items.push(item);
+
+  // Clear the input field
+  inputElement.value = '';
+
+  // Render the item
+  renderTodoItem(todoList.checklistId, item);
+
+  // Save the item to Firebase Firestore
+  saveItemToFirestore(todoList.checklistId, item);
+
+}
+
+// Render an item
+function renderTodoItem(checklistId, item) {
+  const todoListElement = document.getElementById(checklistId);
+  const itemList = todoListElement.querySelector('.item-list');
+
+  const itemElement = document.createElement('li');
   
+  // Create a checkbox for the item
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.checked = item.marked; // Set the initial state of the checkbox based on the item's marked property
+  checkbox.addEventListener('change', function () {
+    // Handle the checkbox change event
+    item.marked = checkbox.checked; // Update the item's marked property
+    updateItemInFirestore(checklistId, item); // Save the updated item to Firestore
+  });
+  
+  // Create a label for the checkbox
+  const label = document.createElement('label');
+  label.textContent = item.description;
 
-</body>
+  if (item.image) {
+    const imageElement = document.createElement('img');
+    imageElement.src = item.image;
+    itemElement.appendChild(imageElement);
+  }
+
+  const deleteItemButton = document.createElement('button');
+  deleteItemButton.textContent = 'Delete';
+  deleteItemButton.onclick = function () {
+    deleteItem(checklistId, item);
+  };
+
+  itemElement.appendChild(checkbox);
+  itemElement.appendChild(label);
+  itemElement.appendChild(deleteItemButton);
+
+  itemList.appendChild(itemElement);
+}
+
+function deleteItem(checklistId, item) {
+  const collectionRef = firestore
+    .collection('checklists')
+    .doc(checklistId)
+    .collection('items');
+  collectionRef
+    .doc(item.itemId)
+    .delete()
+    .then(() => {
+      const todoList = todoLists.find((list) => list.checklistId === checklistId);
+      const index = todoList.items.indexOf(item);
+      if (index > -1) {
+        todoList.items.splice(index, 1);
+
+        // Remove the item element from the DOM
+        const todoListElement = document.getElementById(checklistId);
+        const itemList = todoListElement.querySelector('.item-list');
+        itemList.removeChild(itemList.childNodes[index]); // Remove the corresponding item from the DOM
+      }
+    })
+    .catch((error) => {
+      console.error('Error deleting item:', error);
+    });
+}
+
+
+// Delete a todo list
+function deleteTodoList(todoList) {
+  deleteDoc(doc(firestore, 'checklists', todoList.checklistId))
+    .then(() => {
+      const index = todoLists.indexOf(todoList);
+      if (index > -1) {
+        todoLists.splice(index, 1);
+
+        // Remove the todo list element from the DOM
+        const todoListContainer = document.getElementById('todo-list');
+        const todoListElement = document.getElementById(todoList.checklistId);
+        todoListContainer.removeChild(todoListElement); // Remove the corresponding list item from the DOM
+      }
+    })
+    .catch((error) => {
+      console.error('Error deleting checklist:', error);
+    });
+}
+
+function updateItemInFirestore(checklistId, item) {
+  const collectionRef = firestore
+    .collection('checklists')
+    .doc(checklistId)
+    .collection('items');
+  collectionRef
+    .doc(item.itemId) // Assuming you have a unique itemId for each item
+    .update({ marked: item.marked })
+    .then(() => {
+      console.log('Item updated in Firestore:', item);
+    })
+    .catch((error) => {
+      console.error('Error updating item:', error);
+    });
+
+      // Save the updated item to Firebase Firestore
+  saveItemToFirestore(checklistId, item); // Call the function to save the updated item
+}
+
+
+// Save an item to Firebase Firestore
+// Save an item to Firebase Firestore
+function saveItemToFirestore(checklistId, item) {
+  const collectionRef = firestore
+    .collection('checklists')
+    .doc(checklistId)
+    .collection('items');
+
+  // If the item already has an `itemId`, update the existing document
+  if (item.itemId) {
+    collectionRef
+      .doc(item.itemId)
+      .update(item)
+      .then(() => {
+        console.log('Item updated in Firestore:', item);
+      })
+      .catch((error) => {
+        console.error('Error updating item:', error);
+      });
+  } else {
+    // If the item doesn't have an `itemId`, create a new document
+    collectionRef
+      .add(item)
+      .then((docRef) => {
+        item.itemId = docRef.id; // Assign the newly generated `itemId` to the item
+        console.log('Item added to Firestore:', item);
+      })
+      .catch((error) => {
+        console.error('Error adding item:', error);
+      });
+  }
+}
+
+const createButton = document.getElementById('create-button');
+createButton.onclick = createTodoList;
+
+
+    </script>
+  </body>
 </html>

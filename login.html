@@ -6,6 +6,9 @@
   <!-- <link rel="stylesheet" href="./css/connects-style.css"> -->
   <!-- script file to add -->
 <script src="./js/script.js" defer></script>
+<link rel="stylesheet" href="./css/newstyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 
   <title>SmartPack-Login</title>
   <script type="module">
@@ -31,10 +34,10 @@
     const db = getFirestore(app);
 
     // Handle sign up button click event
-    const signupBtn = document.getElementById("signup-btn");
-    signupBtn.addEventListener("click", () => {
-      window.location.href = "signup.html";
-    });
+    // const signupBtn = document.getElementById("signup-btn");
+    // signupBtn.addEventListener("click", () => {
+    //   window.location.href = "signup.html";
+    // });
 
     // Handle sign in form submit event
     const signInForm = document.getElementById("signInForm");
@@ -68,10 +71,10 @@
   </script>
 </head>
 <body>
-  <div class="form-wrapper">
+  <!-- <div class="form-wrapper">
     <h2>Sign In</h2>
     <form id="signInForm">
-      <!-- Sign in form -->
+     
       <label for="signInEmail"><i class="fas fa-envelope"></i> Email:</label>
       <input type="email" id="signInEmail" required>
       <label for="signInPassword"><i class="fas fa-lock"></i> Password:</label>
@@ -80,7 +83,67 @@
       <p id="signInError" class="error-message"></p>
     </form>
     <button id="signup-btn">Sign Up Here</button>
+  </div> -->
+  <div class="logo-signup">
+  <header>
+   
+    <img src="./images/mobile/signup/Group 987.png" style="padding-top: 2rem;" class="landing-logo" alt="">
+    <nav>
+      <ul>
+          <li><a href="./landing.html">Home</a></li>
+          <li><a href="#inFooter">Contact Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="./signup.html">Sign Up</a></li>
+      </ul>
+  </nav>
+  </header>
+
+  <div class="container">
+  <main>
+    
+      <div class="card">
+  
+        <div class="form-wrapper" >
+          <p>Welcome Back! Log In to Unleash Your Event Planning Superpowers!</p>
+       
+          <form id="signInForm">
+           
+            <label for="signInEmail">Email address</label>
+            <input type="email" id="signInEmail" required>
+            <label for="signInPassword">Password</label>
+            <input type="password" id="signInPassword" required>
+            <button type="submit">Sign In</button>
+            <p id="signInError" class="error-message"></p>
+          </form>
+    
+        </div>
+      </div>
+ 
+  </main>
+ 
+
+  <footer id="inFooter">
+    <p>Follow Us<p>
+    
+    <div class="social-icons">
+      <a href="https://www.facebook.com/">
+          <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://www.instagram.com/">
+          <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://twitter.com/">
+          <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://www.linkedin.com/">
+          <i class="fab fa-linkedin"></i>
+      </a>
   </div>
+
+  </footer>
+</div>
+  </div>
+ 
 
  
 </body>

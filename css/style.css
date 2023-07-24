@@ -170,7 +170,11 @@
     color: var(--white);
   }
   
-  .section { padding-block: var(--section-padding); }
+  /* .section { padding-block: var(--section-padding); } */
+
+  .section.footer-top{
+    padding-block: 70px;
+    }
   
   .section-subtitle {
     color: var(--pumpkin);
@@ -229,8 +233,7 @@
     object-fit: cover;
     transition: var(--transition-2);
   }
-  
-  
+
   
   
   
@@ -998,3 +1001,24 @@
     .back-top-btn.active { transform: translateX(-80px); }
   
   }
+
+
+  /* for navbar dropdown button  */
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.show {
+  display: block;
+}
+
+
+#signout_button{
+  display: none;
+}

@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Connects Page</title>
-  <!-- <link rel="stylesheet" href="./css/style.css">
-  <link rel="stylesheet" href="./css/connects-style.css"> -->
-  <link rel="stylesheet" href="./css/connects-friends.css">
-  <script src="./js/script.js"></script>
-  <script src="https://kit.fontawesome.com/c69dc532d6.js" crossorigin="anonymous"></script>
-<!-- script file to add -->
-<script src="./js/script.js" defer></script>
-  <!-- font awesome link -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Connects Page</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/connects-chat.css">
+    <!-- font awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- script file to add -->
+    <script src="./js/script.js" defer></script>
+    <script src="./js/connects.js"></script>
+    <script src="https://kit.fontawesome.com/c69dc532d6.js" crossorigin="anonymous"></script>
+    <!-- firebase scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  
 </head>
 <body>
-  <header class="header" data-header>
+   <header class="header" data-header>
     <div class="container">
       <a href="#" class="logo">SmartPack</a>
   
@@ -33,13 +36,14 @@
           </li>
   
           <li>
-            <a href="#team" class="navbar-link" data-nav-link>Discover</a>
+            <a href="./discover.html" class="navbar-link" data-nav-link>Discover</a>
           </li>
   
-          <!-- <li>
+          <!-- not to inculde below li 
+           <li>
             <a href="#settings" class="navbar-link">Settings</a>
-          </li> -->
-  
+          </li> 
+   -->
           <li class="dropdown">
             <a href="#" class="navbar-link" onclick="toggleDropdown()">Account</a>
             <div class="dropdown-content" id="dropdownContent">
@@ -56,63 +60,172 @@
     </div>
   </header>
   
-  
-
-  <main>      
+  <main>
      <!-- main section of the page -->
-     <div class="container">
-      <div class="topic">My Network</div>
-      <div class="content">
-        <input type="radio" name="slider" checked id="home">
-        <input type="radio" name="slider" id="blog">
-        <input type="radio" name="slider" id="help">
-        
-        <div class="list">
-          <label for="home" class="home">
-          <i class="fas fa-home"></i>
-          <span class="title">Friends</span>
-          </label>
-          <label for="blog" class="blog">
-          <span class="icon"><i class="fas fa-blog"></i></span>
-          <span class="title">Requests</span>
-          </label>
-          <label for="help" class="help">
-          <span class="icon"><i class="fas fa-code"></i></span>
-          <span class="title">Add New</span>
-          </label>
-        
-          <div class="slider"></div>
-        </div>
-        
-        <div class="text-content">
-          <div class="home text">
-            <div class="title">Friends</div>
-            <div class="content-grid">
-              <pre id="content-friends" style="white-space: pre-wrap;"></pre>
-          </div>
-          </div>
-          <div class="blog text">
-            <div class="title">Requests</div>
-            <div class="content-grid">
-              <pre id="content-request" style="white-space: pre-wrap;"></pre>
-          </div>
-          </div>
-          <div class="help text">
-            <div class="title">Add Friends</div>
-            
-            <p>
-              <!-- <button id="authorize_button" onclick="handleAuthClick()">Sync Contacts</button> -->
-              <button id="authorize_button" onclick="handleAuthClick()">Sync Contacts</button> 
-      <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-              <div class="content-grid">
-        <pre id="content" style="white-space: pre-wrap;"></pre>
-      </div>
-            </p>
-          </div>
-          
-        </div>
-      </div>
-    </div>
+    <div class="homeFrnd">
+      <div class="containerFrnd">
+        <div class="sidebarFrnd">
+            <div class="navbarFrnd">
+            <span class="logoFrnd">New Message</span>
+            <div class="userFrnd">
+              <img  id="chatImgFrnd" alt="">
+              <span>John</span>
+              <button id="chatBtnFrnd">Logout</button>
+            </div> <!--user-->
+            </div> <!--navbar ends-->
+
+            <div class="searchFrnd">
+            <div class="searchFormFrnd">
+              <input type="text" name="" id="" placeholder="Find a User">
+            </div>
+            </div><!--search  ends-->
+
+            <div class="chatsFrnd">
+                  <div class="userChatFrnd">
+                    <img src="./images/icons/48x48.png" alt="" id="userImg">
+                    <div class="userChatInfoFrnd">
+                      <span>Jack</span>
+                      <p>hello</p>
+                    </div>
+                  </div>
+                  <div class="userChatFrnd">
+                    <img src="./images/icons/48x48.png" alt="" id="userImgFrnd">
+                    <div class="userChatInfoFrnd">
+                      <span>Jack</span>
+                    </div>
+                  </div>
+                  
+            </div><!--chats  ends-->
+        </div><!--sidebar -->
+
+        <div class="chatFrnd">
+          <div class="chatInfoFrnd">
+            <span>Jane</span>
+            <div class="chatIconsFrnd">
+              <img src="./images/chat/camera.png" alt="" id="oneUserImgFrnd"><!--Camera-->
+              <img src="./images/chat/add.png" alt="" id="oneUserImgFrnd"><!--Add-->
+              <img src="./images/chat/more.png" alt="" id="oneUserImgFrnd"><!--More-->
+            </div> <!-- chat icons -->
+            </div> <!-- chat info  endss -->
+
+            <div class="messagesFrnd">
+              <div class="messageFrnd owner">
+                <div class="messageInfoFrnd">
+                   <img src="./images/icons/48x48.png" alt="">
+                   <span>just now</span>
+                </div>
+                <div class="messageContentFrnd">
+                  <p>hello</p>
+                  <img src="./images/icons/48x48.png" alt="">
+                </div>
+              </div> <!--messages ends-->
+              <div class="messageFrnd owner">
+                <div class="messageInfoFrnd">
+                   <img src="./images/icons/48x48.png" alt="">
+                   <span>just now</span>
+                </div>
+                <div class="messageContentFrnd">
+                  <p>hello</p>
+                  <img src="./images/icons/48x48.png" alt="">
+                </div>
+              </div>
+              <div class="messageFrnd owner">
+                <div class="messageInfoFrnd">
+                   <img src="./images/icons/48x48.png" alt="">
+                   <span>just now</span>
+                </div>
+                <div class="messageContentFrnd">
+                  <p>hello</p>
+                  <img src="./images/icons/48x48.png" alt="">
+                </div>
+              </div>
+              <div class="messageFrnd owner">
+                <div class="messageInfoFrnd">
+                   <img src="./images/icons/48x48.png" alt="">
+                   <span>just now</span>
+                </div>
+                <div class="messageContentFrnd">
+                  <p>hello</p>
+                  <img src="./images/icons/48x48.png" alt="">
+                </div>
+              </div>
+              <div class="messageFrnd owner">
+                <div class="messageInfoFrnd">
+                   <img src="./images/icons/48x48.png" alt="">
+                   <span>just now</span>
+                </div>
+                <div class="messageContentFrnd">
+                  <p>hello</p>
+                  <img src="./images/icons/48x48.png" alt="">
+                </div>
+              </div>
+              <div class="messageFrnd owner">
+                <div class="messageInfoFrnd">
+                   <img src="./images/icons/48x48.png" alt="">
+                   <span>just now</span>
+                </div>
+                <div class="messageContentFrnd">
+                  <p>hello</p>
+                  <img src="./images/icons/48x48.png" alt="">
+                </div>
+              </div>
+              <div class="messageFrnd owner">
+                <div class="messageInfoFrnd">
+                   <img src="./images/icons/48x48.png" alt="">
+                   <span>just now</span>
+                </div>
+                <div class="messageContentFrnd">
+                  <p>hello</p>
+                  <img src="./images/icons/48x48.png" alt="">
+                </div>
+              </div>
+              <div class="messageFrnd owner">
+                <div class="messageInfoFrnd">
+                   <img src="./images/icons/48x48.png" alt="">
+                   <span>just now</span>
+                </div>
+                <div class="messageContentFrnd">
+                  <p>hello</p>
+                  <img src="./images/icons/48x48.png" alt="">
+                </div>
+              </div>
+              <div class="messageFrnd owner">
+                <div class="messageInfoFrnd">
+                   <img src="./images/icons/48x48.png" alt="">
+                   <span>just now</span>
+                </div>
+                <div class="messageContentFrnd">
+                  <p>hello</p>
+                  <img src="./images/icons/48x48.png" alt="">
+                </div>
+              </div>
+              <div class="messageFrnd owner">
+                <div class="messageInfoFrnd">
+                   <img src="./images/icons/48x48.png" alt="">
+                   <span>just now</span>
+                </div>
+                <div class="messageContentFrnd">
+                  <p>hello</p>
+                  <img src="./images/icons/48x48.png" alt="">
+                </div>
+              </div> 
+            </div><!--messages end here-->
+
+            <div class="inputFrnd">
+              <input type="text"  placeholder="Type Something...">
+              <div class="sendFrnd">
+                <img src="./images/chat/attach.png" alt="">
+                <input type="file" style="display: none;" id="fileFrnd">
+                <label htmlfor="file">
+                  <img src="./images/chat/file.png" alt="" >
+                </label>
+                <button>Send</button>
+              </div>
+            </div> <!--input ends-->
+
+        </div><!--chat over-->
+      </div> <!--container  ends-->
+    </div><!--home  ends--> 
   </main>    
 
   <footer class="footer">
@@ -237,7 +350,7 @@
       <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button> -->
   
   
-      <script type="text/javascript" defer>
+      <!-- <script type="text/javascript" defer>
         /* exported gapiLoaded */
         /* exported gisLoaded */
         /* exported handleAuthClick */
@@ -454,12 +567,12 @@ function removeFriend(displayName) {
     }
   }
 }
-   </script>
-
+   </script> -->
+<!-- 
       <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
       <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 
-      <!-- For SignOut Option -->
+ For SignOut Option
       <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
       <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
       <script>
@@ -499,6 +612,6 @@ function removeFriend(displayName) {
     dropdownContent.classList.toggle("show");
   }
 
-  </script>
+  </script> -->
 </body>
 </html>

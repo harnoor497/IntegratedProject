@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Button</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+<!-- font awesome link -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- firebase scripts added -->
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ff7d7d;
+        }
+        
+        .share-btn {
+            position: relative;
+            border: none;
+            background: #fff;
+            color: #ff7d7d;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 30px;
+            padding-top: 2.5px;
+            padding-right: 3px;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .share-options {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            width: auto;
+            height: auto;
+            transform-origin: bottom left;
+            transform: scale(0);
+            border-top-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            background: rgba(15, 15, 15, 0.5);
+            color: #fff;
+            padding: 20px;
+            font-family: 'roboto';
+            transition: .5s;
+            transition-delay: .5s;
+            ;
+        }
+        
+        .share-options.active {
+            transform: scale(1);
+            transition-delay: 0s;
+        }
+        
+        .title {
+            opacity: 0;
+            transition: .5s;
+            transition-delay: 0s;
+            font-size: 20px;
+            text-transform: capitalize;
+            border-bottom: 1px solid #fff;
+            width: fit-content;
+            padding: 0 20px 3px 0;
+        }
+        
+        .social-media {
+            opacity: 0;
+            transition: .5s;
+            transition-delay: 0s;
+            width: 250px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        
+        .social-media-btn {
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #000;
+            color: #fff;
+            line-height: 50px;
+            font-size: 25px;
+            cursor: pointer;
+            margin: 0 5px;
+            text-align: center;
+        }
+        
+        .social-media-btn:nth-child(1) {
+            background: #FFA654;
+        }
+        
+        .social-media-btn:nth-child(2) {
+            background: #25D366;
+        }
+        
+        .social-media-btn:nth-child(3) {
+            background: #E4405F;
+        }
+        
+        .social-media-btn:nth-child(4) {
+            background: #1DA1F2;
+        }
+        
+        .social-media-btn:nth-child(5) {
+            background: #1877F2;
+        }
+        
+        .social-media-btn:nth-child(6) {
+            background: #0A66C2;
+        }
+        
+        .link-container {
+            opacity: 0;
+            transition: .5s;
+            transition-delay: 0s;
+            width: 100%;
+            position: relative;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            border-radius: 40px;
+            background-color: #fff;
+            overflow: hidden;
+            padding: 0 10px;
+        }
+        
+        .link {
+            width: 80%;
+            height: 100%;
+            line-height: 40px;
+            color: #000;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            right: 0;
+            cursor: pointer;
+            background: #000;
+            color: #fff;
+            border: none;
+            height: 100%;
+            width: 30%;
+            text-transform: capitalize;
+            font-size: 16px;
+        }
+        
+        .share-options.active .title,
+        .share-options.active .social-media,
+        .share-options.active .link-container {
+            opacity: 1;
+            transition: .5s;
+            transition-delay: .5s;
+        }
+
+        .popup{
+            background:rgba(0,0,0,0.15);
+            width:100%;
+            height:100%;
+            position:fixed;
+            top:0;
+            left:0;
+            display:none;
+            justify-content: center;
+            align-items: center;
+            /* display: flex; */
+            /* text-align: center; */
+        }
+
+        .popup-content{
+            margin-top:60px;
+            margin-bottom: 30px;
+            height: 600px;
+            width: 430px;
+            background-color: whitesmoke;
+            padding:10px;
+            border-radius:5px;
+            position:relative;
+            left:35%;
+            
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            align-items: center;
+            
+        }
+        .heading{
+            display:flex;
+            flex-direction: row;
+            align-items:center;
+            /* margin-bottom:10px; */
+        }
+        .heading span{
+            font-weight: bold;
+            margin-right:5px;
+        }
+        input{
+            margin:20px auto;
+            display:block;
+            width: 100%;
+            padding:8px;
+            border:1px solid gray
+        }
+        input#searchBar {
+    border-radius: 12px;
+    padding: 6px;
+    font-size:23px;
+        }
+        .close{
+            font-size:30px;
+            position:absolute;
+            top:4px;
+            right:30px;
+            background: white;
+            height: 0px;
+            width: 0px;
+            border-radius: 50%;
+            cursor:pointer;
+        }
+        #userList {
+            overflow-y: auto;
+            border:1px solid black;
+            background:wheat;
+            width:100%;
+            padding:10px;
+        }
+        .user-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+        }
+
+        .user-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+        }
+
+        .user-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        }
+
+        .user-details p {
+            margin: 0;
+        }
+        .user-details p:nth-child(1){
+            font-weight: bold;
+        }
+        .user-details p:not(:last-child) {
+            margin-bottom: 5px;
+        }
+
+        .send-message-btn {
+            margin-left: auto;
+            width: 60px;
+            height: 30px;
+        }
+        .user-item:hover {
+            background-color: #f9f9f9;
+        }
+        .hidden-user-item {
+    visibility: hidden;
+}
+
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <button class="share-btn" id="shareBtn">
+            <i class="fas fa-share-alt"></i>
+        </button>
+        <div class="share-options">
+            <p class="title">Share</p>
+            
+            <div class="social-media">
+                <button class=" social-media-btn open-message-btn" id="new-message"><i class="fa-regular fa-comment-plus"></i></button>
+                <!--it will open a new window which will give you in ap users list you can share with-->
+                <button class="social-media-btn" onclick="shareOnWhatsApp()"><i class="fab fa-whatsapp"></i></button>
+                <button class="social-media-btn" onclick="shareOnInstagram()"><i class="fab fa-instagram"></i></button>
+                <button class="social-media-btn" onclick="shareOnTwitter()"><i class="fab fa-twitter"></i></button>
+                <button class="social-media-btn" onclick="shareOnFacebook()"><i class="fab fa-facebook-f"></i></button>
+                <button class="social-media-btn" onclick="shareOnLinkedIn()"><i class="fab fa-linkedin-in"></i></button>
+            </div>
+            <div class="link-container">
+                <p class="link" id="shareUrl">https://example.com/share</p>
+                <button class="copy-btn" onclick="copyShareUrl()">copy</button>
+            </div>
+        </div>
+    </div>
+    <!-- For new message content -->
+    <div class="popup" id="messageWindow">
+        <div class="popup-content">
+            <button class="close" ><i class="fa-regular fa-circle-xmark"></i></button>
+            <div class="heading">
+                <button><span><i class="fa-regular fa-comment-pen"></i></span></button>
+                <span>New Message</span>
+            </div>
+            <input type="text" id="searchBar" placeholder="Search by username or email">
+            <div class="user-list" id="userList">
+                <!-- User items will be dynamically populated here -->
+            </div>
+          
+        </div>
+    </div>
+</div>
+</body>
+
+<!-- To display users from the firebase -->
+<script type="module" defer>
+    //firebase configurations
+    const firebaseConfig = { 
+        apiKey: "AIzaSyBc9M5HY-HDmgagACY6Ap4t6YXY1UxoKPs",
+        authDomain: "authentication-app-cc0a3.firebaseapp.com",
+        databaseURL: "https://authentication-app-cc0a3-default-rtdb.firebaseio.com", 
+        projectId: "authentication-app-cc0a3", 
+        storageBucket:"authentication-app-cc0a3.appspot.com", 
+        messagingSenderId: "353753930218", 
+        appId: "1:353753930218:web:077677333092728a533a93" 
+    }; 
+    // Initialize Firebase 
+    firebase.initializeApp(firebaseConfig); 
+    const auth = firebase.auth(); 
+    const db = firebase.firestore();
+      //display user data
+    function displayUserData() { 
+        const userDataDiv = document.getElementById('userList'); 
+        userDataDiv.innerHTML = ''; 
+        const currentUser = firebase.auth().currentUser;  
+        const usersRef = db.collection('users'); 
+        usersRef.get().then((querySnapshot)=> { 
+            querySnapshot.forEach((doc) => { 
+                const user = doc.data(); 
+                const userId = doc.id; 
+                // Check if the current user is the same as the user being iterated 
+                if (currentUser && currentUser.uid === userId) { 
+                    return; // Skip displaying the current user's profile 
+                } 
+                const userElement = document.createElement('div');
+                userElement.classList.add('user-item'); 
+                userElement.innerHTML = ` 
+                    <img src="${user.profileImage}" width="100" height="100" border-radius="50%" alt="Profile Image">
+                    <p>${user.name}<br>${user.bio}</p>
+                    <button class="send-message-btn" data-username="${user.name}" data-email="${user.email}">Send</button>
+                    <hr>`; 
+                userDataDiv.appendChild(userElement); 
+                }); 
+        }); 
+    } 
+    document.addEventListener('DOMContentLoaded', () => { 
+        displayUserData(); 
+    });
+    
+
+</script>
+<!-- firebase script over -->
+
+<!-- for other on click functionalities script -->
+<script>
+    const shareBtn = document.querySelector('.share-btn');
+    const shareOptions = document.querySelector('.share-options');
+
+    shareBtn.addEventListener('click', () => {
+        shareOptions.classList.toggle('active');
+    })
+    
+    // SEND BUTTON
+    // document.querySelector(".send-message-btn").addEventListener("click",function(){
+    //     window.location.href = "connects.html";
+    // })
+
+    //for handling search
+    document.getElementById('searchBar').addEventListener('input', handleSearch);
+
+    function handleSearch() {
+    const searchText = document.getElementById('searchBar').value.toLowerCase();
+    const userItems = document.getElementsByClassName('user-item');
+
+    for (const userItem of userItems) {
+        const username = userItem.querySelector('p').textContent.toLowerCase();
+        const email = userItem.querySelector('button').getAttribute('data-email').toLowerCase();
+
+        if (username.includes(searchText) || email.includes(searchText)) {
+            userItem.classList.remove('hidden-user-item');
+        } else {
+            userItem.classList.add('hidden-user-item');
+        }
+    }
+}
+    //search funct ENDS here
+    //Share options functionality STARTS
+    function shareOnWhatsApp() {
+        // Implement the logic to share on WhatsApp
+        // You can use window.open() with a WhatsApp URL scheme to open WhatsApp application.
+        // Replace the message and URL with the content you want to share.
+        window.open('https://api.whatsapp.com/send?text=Check out this link: https://example.com/share', '_blank');
+    }
+
+    function shareOnInstagram() {
+        // Implement the logic to share on Instagram
+        // You can use window.open() with a custom URL scheme for sharing on Instagram.
+        // Replace the URL with the appropriate one for your application.
+        window.open('https://instagram.com/share?url=https://example.com/share', '_blank');
+    }
+
+    function shareOnTwitter() {
+        // Implement the logic to share on Twitter
+        // You can use window.open() with a custom URL scheme for sharing on Twitter.
+        // Replace the URL with the appropriate one for your application.
+        window.open('https://twitter.com/intent/tweet?url=https://example.com/share&text=Check out this link!', '_blank');
+    }
+
+    function shareOnFacebook() {
+        // Implement the logic to share on Facebook
+        // You can use window.open() with a custom URL scheme for sharing on Facebook.
+        // Replace the URL with the appropriate one for your application.
+        window.open('https://www.facebook.com/sharer/sharer.php?u=https://example.com/share', '_blank');
+    }
+
+    function shareOnLinkedIn() {
+        // Implement the logic to share on LinkedIn
+        // You can use window.open() with a custom URL scheme for sharing on LinkedIn.
+        // Replace the URL with the appropriate one for your application.
+        window.open('https://www.linkedin.com/shareArticle?url=https://example.com/share', '_blank');
+    }
+
+    function copyShareUrl() {
+        // Implement the logic to copy the share URL to the clipboard
+        var shareUrlElement = document.getElementById('shareUrl');
+        var shareUrlText = shareUrlElement.textContent;
+        
+        // Create a temporary textarea element to copy the text
+        var tempTextArea = document.createElement('textarea');
+        tempTextArea.value = shareUrlText;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        
+        // Copy the text to the clipboard
+        document.execCommand('copy');
+        
+        // Remove the temporary textarea
+        document.body.removeChild(tempTextArea);
+    }
+    //Share options functionality  ENDS
+   
+    // for div pop up content STARTS
+    document.getElementById("new-message").addEventListener("click",function(){
+            document.querySelector(".popup").style.display="flex";
+            document.querySelector("#shareBtn").style.display="none";
+            document.getElementById("messageWindow").style.display = "block";
+    
+        })
+    
+    document.querySelector(".close").addEventListener("click",function(){
+            document.querySelector(".popup").style.display="none";
+            document.querySelector(".share-btn").style.display="block";
+        })
+    // for div pop up content ENDS
+</script>
+</html>
+
+<!-- const shareButton = document.createElement('button');
+  shareButton.textContent = 'Share';
+  shareButton.onclick = function () {
+    shareTodoList(todoList);
+  }; 
+
+  function shareTodoList(todoList) {
+  const shareUrl = generateShareUrl(todoList);
+  // TODO: Implement sharing functionality, e.g., copy the share URL to the clipboard
+  alert('Share this URL with others: ' + shareUrl);
+}
+
+-->

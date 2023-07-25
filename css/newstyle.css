@@ -1,670 +1,314 @@
-body{
-    margin:0;
-    padding: 0;
-    
-    
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
-header{
-    padding-top: 0;
-}
-.land-nav{
-  display: none;
-}
-h1{
-    padding-top: 0;
-}
-img{
-    max-width: 100%;
-    height: auto;
-}
-
-
-
-.land{
-    background-color: rgba(255, 255, 255, 0.4);
-margin-bottom: 0;
-padding-bottom: 0;
-
-text-align: center;
-
-margin-left: 1rem;
-margin-right: 1rem;
-border-top-left-radius: 20px;
-border-top-right-radius: 20px; 
-margin-bottom: 1rem;
-
-
-}
-
-
-.logo{
-    width: 258px;
-    height: 74.241px;
-    margin-top: 0;
-    padding-top: 0;
-    margin-top: 66.99px;
-    margin-bottom: 65.09;
-  
-}
-.txt1{
-    color: #FFF;
-text-align: center;
-font-family: Inter;
-font-size: 25px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-}
-
-.txt2{
-    color: #FFF;
-font-family: Inter;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-text-align: center;
-
-
-}
-
-.txt3{
-    color: #FFF;
-font-family: Inter;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-margin-bottom: 46px;
-}
-
-.login-btn , .signup-btn{
-    background: #937DFF;
-    margin-bottom: 6px;
-    width: 280px;
-height: 50px;
-color: white;
-border-radius: 5px;
-font-family: Inter;
-font-size: 18px;
-font-style: normal;
-font-weight: 500;
-}
-
-
-#signUpForm{
-
-    display: flex;
-    flex-direction: column;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-   
-   
-
-  
-}
-#signUpForm input{
-    border-radius: 5px;
-    width: 306px;
-    height: 44px;
-
-}
-#signUpForm label{
-    color: #5A5A5A;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px; /* 125% */
-
-}
-#signUpForm button{
-   background-color:  #937DFF;
-   width: 280px;
-   height: 50px;
-   border-radius: 5px;
-   color: #FFF;
-text-align: center;
-font-family: Inter;
-font-size: 18px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-margin-top: 4rem;
-
-}
-header {
-   text-align: center;
-    margin-top: 108px;
-    margin-bottom: 100px;
-   ;
-} 
-
-footer p{
-    color: #C785CF;
-font-family: Inter;
-font-size: 16px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
-text-align: center;
-
-}
-
-footer a{
-    width: 20.665px;
-    height: 20.665px;
-color: #C785CF;
-}
-
-.social-icons{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-
-
-#signInForm{
-
-    display: flex;
-    flex-direction: column;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-   
-
-  
-}
-
-#signInForm input{
-    border-radius: 5px;
-    width: 306px;
-    height: 44px;
-
-}
-#signInForm label{
-    color: #5A5A5A;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px;
-
-}
-#signInForm button{
-   background-color:  #937DFF;
-   width: 280px;
-   height: 50px;
-   border-radius: 5px;
-   color: #FFF;
-text-align: center;
-font-family: Inter;
-font-size: 18px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-margin-top: 4rem;
-
-}
-
-
-
-#signinForm p{
-    color: #5A5A5A;
-font-family: Inter;
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: 19.5px;
-}
-
-.profile{
-    background-color: white;
-padding-bottom: 0;
-
-
-text-align: center;
-margin-top: 105px;
-border-top-left-radius: 20px;
-border-top-right-radius: 20px; 
-margin-bottom: 1rem;
-
-
-}
-
-.profile-card{
-    height:1100px;
-    width:2250px;
-  
-  }
-  
-  img#profileImage {
-    height: 300px;
-    width: 300px;
-    border-radius: 12px;
-  }
-
-  .profile-card {
-
-   
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-
-    display: flex;
-    flex-direction: column;
-    
-  }
-
-  .p1{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-   
-    margin-bottom: 1rem;
-  }
-  .p2{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .profile-card h1 {
-    font-size: 24px;
-    margin-top: 0;
-  }
-  
-  .profile-card h2 {
-    font-size: 18px;
-    margin-top: 20px;
-  }
-  
-
-  #profileImage {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-top: 10px;
-    margin-bottom: 1rem;
-    
-  }
-  
-
-  #editProfileForm {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  #editProfileForm label {
-    display: block;
-    font-weight: bold;
-  }
-  
-  #editProfileForm input[type="text"],
-  #editProfileForm textarea {
-
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  #editProfileForm button {
-    display: block;
-width: 280px;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #937DFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    
-  }
-  
-
-  .camera-container {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    text-align: center;
-  }
-  
-  #cameraVideo {
-    width: 100%;
-    max-width: 300px;
-    height: 100px;
-    border-radius: 5px;
-  }
-  
-  #captureButton {
-    margin-top: 10px;
-    display: block;
-    width: 280px;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: rgb(147, 125, 255);
-    color: rgb(255, 255, 255);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .home{
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-    color: #F0F0F2;
-text-align: center;
-font-family: Inter;
-font-size: 15px;
-font-style: normal;
-padding-left: 1rem;
-padding-right: 1rem;
-line-height: normal;
-margin-top: 4rem;
-  }
-
-
-  .success-image{
-    width: 211px;
-height: 211px;
-  }
-
-  .success-main{
-    color: #9F80F8;
-text-align: center;
-font-family: Inter;
-font-size: 20px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-  }
-
-  .success-btn{
-    width: 280px;
-height: 50px;
-border-radius: 5px;
-background: #937DFF;
-  }
-  .success{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 4rem;
-  }
-  .land nav ul{
-    display: none;
-  }
-
-  .logo-signup ul{
-display: none;
-  }
-
-  .landing-logo{
-
-    size: 100px;
-    }
-
-    .form-wrapper p{
-      display: none;
-    }
-    .camera-container{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-
-@media screen and (min-width:600px){
-.land-btn{
- display: flex;
-  flex-direction:column;
-  padding-left: 188px;
-
-}
-.land-text{
+.main-section {
+   background: linear-gradient(180deg, #937DFF 0%, #C785CF 100%);
+  height: 100vh;
   display: flex;
-  flex-direction:column;
-  justify-content: start;
-  align-items: flex-start;
-  width: 539px;
-  padding-left: 77px;
- 
-}
-.txt1{
-  font-size: 60px;
-}
-.txt2{
-  font-size: 25px;
-  margin-bottom: 0;
-  padding-bottom: 0;
+  justify-content: center;
+  align-items: center;
 }
 
-.land-post {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.transparent-section {
+  background-image: radial-gradient(404.51% 129.50% at 7.25% 14.15%, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.00) 100%);
+  backdrop-filter: blur(50px);
+  width: 90%; /* Increase width to 90% */
+  height: 90%;
+  max-width: 1200px;
+  padding: 40px; /* Increase padding for more space inside the transparent section */
+  border: 2px solid white; /* Add white border */
+  border-radius: 20px; /* Add border radius for rounded corners */
+  margin-top: -5%; /* Negative margin to reduce space at the top */
+  margin-bottom: -10%; /* Negative margin to increase height only at the bottom */
 
 }
 
-.land-post img{
-  grid-column-start: 2;
-  justify-self: end;
-  width: 593px;
-height: 653.159px;
+h1 {
+  font-size: 60px; /* Set font size to 60px */
+  font-weight: bold; /* Make the heading bold */
+  color: white; /* Set text color to white */
 }
-/* .land nav{
+
+p {
+  font-size: 25px; /* Set font size to 25px */
+  color: white; /* Set text color to white */
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar {
+  margin-top: 20px; /* Add margin to the navbar for spacing */
+}
+
+.navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar li {
+  margin-left: 20px;
+}
+
+.navbar li:first-child {
+  margin-left: 0;
+}
+
+.navbar a {
+  font-size: 32px; /* Set font size to 32px */
+  font-weight: bold; /* Make the navbar items bold */
+  color: white; /* Set text color to white */
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+.navbar a:hover {
+  background-color: #eaeaea;
+}
+
+button {
+  font-size: 28px; /* Set font size to 28px for a bigger button */
+  font-weight: bold;
+  color: white;
+  background-color: #937DFF; /* Set the background color to #937DFF */
+  padding: 15px 30px; /* Increase padding for more button size */
+  border: none;
+  border-radius: 10px; /* Add border radius for rounded corners */
+  cursor: pointer;
+    align-self: center; /* Center the button horizontally within the .left-column */
+
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-column {
+  flex: 1;
+  max-width: 600px;
+   display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the content vertically */
+}
+
+.right-column {
+  flex: 1;
+  max-width: 600px;
+  text-align: center;
+}
+
+.left-column h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.left-column p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.left-column button {
+  background-color: #937DFF;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.right-column img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 767px) {
+  .transparent-section {
+    width: 90%;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .navbar {
+    margin-top: 10px;
+  }
+  
+  .left-column, .right-column {
+    max-width: 100%;
+  }
+}
+
+
+
+/* Log IN Page */
+.login-section {
   display: flex;
   flex-direction: column;
-  
-} */
-.land nav ul li{
-  list-style: none;
+  justify-content: center; /* Center the content vertically */
+  align-items: center; /* Center the content horizontally */
+  max-width: 600px;
+  margin: 0 auto;
 }
-.land nav a{
-  text-decoration: none;
-  color: #FFF;
-text-align: center;
-font-family: Inter;
-font-size: 32px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+
+.login-section h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
 }
-.land header{
+
+.login-section form {
   display: flex;
-  flex: row wrap;
-  justify-content:space-between;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
 }
-.land nav ul{
+
+.login-section label {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.login-section input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.login-section button {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: #937DFF;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.login-section p {
+  font-size: 16px;
+}
+
+.login-section button:last-child {
+  margin-left: 5px;
+}
+
+.main-section {
+  background-color: #937DFF;
+  height: 100vh;
   display: flex;
-  justify-content: space-between;
-  width: 879px;
-  height: 50px;
+  justify-content: center;
+  align-items: center;
 }
 
-
-
-.logo-signup header{
-  display: flex;
-  flex: row wrap;
-  justify-content:space-between;
-  padding-left: 2rem;
-  padding-right: 2rem;
- 
-}
-.logo-signup nav ul{
-  display: flex;
-  justify-content: space-between;
-  width: 879px;
-  height: 50px;
+.transparent-section {
+  background-color: rgba(147, 125, 255, 0.2);
+  width: 90%;
+  max-width: 1200px;
+  padding: 20px;
+  border: 2px solid white;
+  border-radius: 20px;
+  margin-top: -10px;
+  margin-bottom: -20px;
 }
 
-  .logo-signup nav ul li{
-    list-style: none;
-  }
-
-  .logo-signup nav a{
-    text-decoration: none;
-    color: #FFF;
-  text-align: center;
-  font-family: Inter;
-  font-size: 32px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  }
-
-  .logo-signup{
-    background-color: rgba(255, 255, 255, 0.4);
-    margin-bottom: 0;
-    padding-bottom: 0;
-    text-align: center;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    margin-bottom: 1rem;
-    height: 1200px;
-  }
-
-
-  body{
-  
-      background-color: #937DFF;
-    };
-
-    #signUpForm{
-      height: 500px;
-    }
-
-    #signUpForm input {
-      border-radius: 5px;
-      width: 493px;
-      height: 94px;
-  }
-
-#signUpForm label{
-  width: 211px;
-  height: 31px;
-  color: #5A5A5A;
-font-family: Inter;
-font-size: 20px;
-font-style: normal;
-font-weight: 600;
-line-height: 20px; 
-}
-
-#signUpForm button{
-  width: 320px;
-height: 50px;
-}
-
-    
-    #signInForm input{
-      width: 493px;
-height: 94px;
-    }
-
-    
-
-    #signInForm label{
-      width: 211px;
-      height: 31px;
-      color: #5A5A5A;
-font-family: Inter;
-font-size: 20px;
-font-style: normal;
-font-weight: 600;
-line-height: 20px; 
-    }
-
-    #signInForm button{
-      width: 320px;
-height: 50px;
-    }
-  
-  .container{
-    background-color: #fff;
-    margin-left: 10rem;
-    border-top-left-radius: 32px;
-    height:1000px ;
-  }
-  form{
-    padding-top: 4rem;
-  }
-.form-wrapper{
+.login-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-  .form-wrapper p{
-    display: flex;
-    color: #957EFE;
-text-align: center;
-font-family: Inter;
-font-size: 40px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-width: 748px;
-height: 94px;
-
-  }
-.signup-footer{
-  margin: 3rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-#editProfileForm input[type="text"],
-  #editProfileForm textarea{
-  width: 493px;
-height: 94px;
+.login-section h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
 }
 
-#editProfileForm input[type="button"],
-#editProfileForm input[type="submit"]{
-  width: 320px;
-height: 50px;
-}
-#editProfileForm button {
- 
-  width: 320px;
-  height: 50px;
- 
-  
+.login-section form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
 }
 
-#profileEmail, #profileName, #profileBio{
- 
-text-align: center;
-font-family: Inter;
-font-size: 32px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
-}
-#editProfileForm input[type="file"]{
-  
+.login-section label {
+  font-size: 18px;
+  margin-bottom: 5px;
 }
 
+.login-section input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
 }
+
+.login-section button {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: #937DFF;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.login-section p {
+  font-size: 16px;
+}
+
+.login-section button:last-child {
+  margin-left: 5px;
+}
+.footer {
+  /* background-image: radial-gradient(ellipse, rgba(255, 255, 255, 1) 0%, rgba(147, 125, 255, 1) 100%); */
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Add flex-direction to stack the elements vertically */
+}
+
+.footer p {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 10px; /* Add some space between the "Follow us" text and icons */
+}
+
+.footer-icons {
+  display: flex;
+}
+
+.footer-icons a {
+  color: white;
+  font-size: 20px;
+  margin-right: 15px;
+  text-decoration: none;
+}
+

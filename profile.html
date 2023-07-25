@@ -2,11 +2,11 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="stylesheet" href="./css/connects-style.css">
+  <!-- <link rel="stylesheet" href="./css/style.css"> -->
+  <!-- <link rel="stylesheet" href="./css/connects-style.css"> -->
   <!-- script file to add -->
 <script src="./js/script.js" defer></script>
-<link rel="stylesheet" href="./css/newstyle.css">
+<!-- <link rel="stylesheet" href="./css/newstyle.css"> -->
 
   <title>User Profile</title>
   <link rel="stylesheet" href="./css/newstyle.css">
@@ -17,68 +17,65 @@
   </style>
 </head>
 <body>
-  <body style="background-color: #937DFF;">
-    
-
- 
-
-
-
-
-    
-
-
-    <div class="home">
-      <h1>User Profile</h1>
-      <a href="./landing.html"><img src="./images/mobile/signup/home.png" alt="home" width="50px" height="50px"></a>
-    </div>
-   
-
-           
-        <main >
+  <!-- <body style="background-color: #937DFF;"> -->
+    <div class="main-section">
+      <div class="transparent-section">
+        <header class="header">
+          <div class="logo"> <a href=""><img src="./images/mobile/signup/Group 985Login_page_mobile.png" alt=""></a></div>
+          <nav class="navbar">
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="./createList.html">Create New List</a></li>
+              <li><a href="./profile.html">Profile</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a id="signOutButton" href="./index.html">Sign Out</a></li>
+              
+            </ul>
+          </nav>
+        </header>
+        
           <div class="profile-card">
             <div class="p1">
-              <p> <span id="profileEmail"></span></p>
-              <p><span id="profileName"></span></p>
+              <p style="display: none;"> <span id="profileEmail"></span></p>
+              <p style="display: none;"><span id="profileName"></span></p>
             </div>
            <div class="p2">
             <img id="profileImage" src="" alt="Profile Image">
             <p><span id="profileBio"></span></p>
            </div>
             
-        
+           <form id="editProfileForm">
+            <div class="form-group">
+                <label for="editName">Name:</label>
+                <input type="text" id="editName" required>
+            </div>
+            <div class="form-group">
+            <label for="editBio">Bio:</label>
+            <textarea id="editBio" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+            <label for="imageUpload">Profile Image:</label>
+            <input type="file" id="imageUpload" accept="image/*">
             
-            <form id="editProfileForm">
-              <label for="editName">Name:</label>
-              <input type="text" id="editName" required>
-              <label for="editBio">Bio:</label>
-              <textarea id="editBio" rows="4"></textarea>
-              <label for="imageUpload">Profile Image:</label>
-              <input type="file" id="imageUpload" accept="image/*">
-              <button id="cameraButton" type="button">Open Camera</button>
-              <button type="submit">Save</button>
-              <div class="camera-container" style="display: none;">
-                <video id="cameraVideo" autoplay playsinline></video>
-                <button id="captureButton">Capture Photo</button>
-              </div>
-            </form>
+            <button id="cameraButton" type="button">Open Camera</button>
+            </div>
+            
+            <button type="submit">Save</button>
+            <div class="camera-container" style="display: none;">
+              <video id="cameraVideo" autoplay playsinline></video>
+              <button id="captureButton">Capture Photo</button>
+            </div>
+          </form>
         
            
           </div>
-        </main>
-      
-  
-        
-  
-
-
-
+        </div>
+        </div>
+    <!-- <div class="home">
+      <h1>User Profile</h1>
+      <a href="./landing.html"><img src="./images/mobile/signup/home.png" alt="home" width="50px" height="50px"></a>
+    </div> -->
 </body>
-
-
-
-
-
 
   <!-- script section of the page -->
   <script type="module">

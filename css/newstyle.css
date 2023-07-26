@@ -412,3 +412,9 @@ form#editProfileForm {
 .transparent-section{
   overflow: scroll;
 }
+
+.inputImage{
+  display: flex;
+  flex-direction: row;
+  gap:2px;
+}

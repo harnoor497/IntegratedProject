@@ -3,23 +3,41 @@
   <head>
     <title>Create Checklists</title>
     <link rel="stylesheet" href="createList.css" />
+    <link rel="stylesheet" href="./css/newstyle.css">
   </head>
   <body>
-  <div class="container">
-    <h1>Create new Checklist</h1>
-    <input
-      type="text"
-      id="todo-input"
-      placeholder="Enter a new todo list title"
-    />
-    <button id="create-button">Create Todo List</button>
-    <div class="button-container">
-      <!-- <button id="add-item-camera-button">Add Image from Camera</button>
-      <button id="add-item-image-button">Add Image from File</button>
-      <button id="add-item-button">Add Item</button> -->
-    </div>
-    <ul id="todo-list"></ul>
-  </div>
+    <div class="main-section">
+      <div class="transparent-section">
+        <header class="header">
+          <div class="logo"> <a href=""><img src="./images/mobile/signup/Group 987.png" alt=""></a></div>
+          <nav class="navbar">
+            <ul>
+              <li><a href="./home.html">Home</a></li>
+              <li><a href="./createList.html">Create New List</a></li>
+              <li><a href="./profile.html">Profile</a></li>
+              <li><a href="./blog.html">Blog</a></li>
+              <li><a id="signOutButton" href="./index.html">Sign Out</a></li>
+              
+            </ul>
+          </nav>
+        </header>
+        <div class="container" style="border-radius: 20px; overflow: scroll;">
+          <h3 style="color: black;">Create new Checklist</h3>
+          <input
+            type="text"
+            id="todo-input"
+            placeholder="Enter a new todo list title"
+          />
+          <button id="create-button" style="background-color: gray;">Create Todo List</button>
+          <div class="button-container">
+            <!-- <button id="add-item-camera-button">Add Image from Camera</button>
+            <button id="add-item-image-button">Add Image from File</button>
+            <button id="add-item-button">Add Item</button> -->
+          </div>
+          <ul id="todo-list"></ul>
+        </div>
+        </div>
+        </div>
 
     <!-- Javascript Logic -->
 

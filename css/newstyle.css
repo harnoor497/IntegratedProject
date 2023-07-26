@@ -327,7 +327,7 @@ button {
 
 /* Profile Page styling */
 .profile-card{
-  /* overflow: scroll; */
+  overflow: scroll;
   display: flex;
   flex-direction: row;
   margin-top: 100px;
@@ -351,13 +351,14 @@ button {
 form#editProfileForm {
   display: flex;
   flex-direction: column;
-  flex: 2;
-  align-items: center; /* Center the form horizontally */
+  flex: 3;
+  align-items: left; /* Center the form horizontally */
   justify-content: space-between;
   margin-top: 20px; /* Add some margin at the top for spacing */
 }
 
 #editProfileForm button {
+  width: 125px;
   font-size: 15px;
   font-weight: bold;
   color: white;
@@ -381,15 +382,16 @@ form#editProfileForm {
 
 .form-group label {
   flex: 1;
-  text-align: right;
+  text-align: left;
   margin-right: 10px;
   width: 100px;
+  font-size:22px;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group button {
-  flex: 2;
+  flex: 1;
 }
 #editBio, #editName{
   padding: 5px; /* Add padding to create space around the inputs */
@@ -409,9 +411,9 @@ form#editProfileForm {
   margin-top: 10px;
 }
 
-/* .transparent-section{
+.transparent-section{
   overflow: scroll;
-} */
+}
 
 .inputImage{
   display: flex;

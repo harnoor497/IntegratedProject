@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create Checklists</title>
+    <link rel="stylesheet" href="./css/newstyle.css" />
+
+	<style>
+		/* Existing styles for the header and other sections */
+
+.transparent-section {
+  background-color: rgba(147, 125, 255, 0.2);
+  width: 90%;
+  max-width: 1200px;
+  padding: 20px;
+  border: 2px solid white;
+  border-radius: 20px;
+  margin-top: -10px;
+  margin-bottom: -20px;
+}
+
+.transparent-section h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.transparent-section p {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+#checklist-form {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+#item-input {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+#checklist-form button {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  background-color: #937DFF;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+#checklist {
+  list-style-type: none;
+  padding: 0;
+}
+
+#checklist li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#checklist li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+#checklist li label {
+  flex: 1;
+  font-size: 18px;
+}
+	</style>
+  </head>
+  <body>
+
+<div class="main-section">
+  <div class="transparent-section">
+
+	            <header class="header">
+        <div class="logo"> <a href=""><img src="./images/mobile/signup/Group 987.png" alt=""></a></div>
+        <nav class="navbar">
+          <ul>
+               <li><a href="./home.html">Home</a></li>
+              <li><a href="./createList.html">Create New List</a></li>
+              <li><a href="./profile.html">Profile</a></li>
+              <li><a href="./blog.html">Blog</a></li>
+              <li><a id="signOutButton" href="./index.html">Sign Out</a></li>
+              </ul>
+        </nav>
+      </header>
+    <h1>Welcome to My App</h1>
+    <p>This is a sample landing page for My App.</p>
+    <p>Feel free to explore the features.</p>
+    <p>Get started by creating your checklist below:</p>
+
+    <form id="checklist-form">
+      <input type="text" id="item-input" placeholder="Add item">
+      <button type="button" id="addItemButton">Add</button>
+      <button id="shareButton" class="share-button">Share Checklist</button>
+
+
+    </form>
+
+    <ul id="checklist">
+      <!-- List items will be added dynamically here -->
+    </ul>
+  </div>
+</div>
+
+<script type="module">
+
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getFirestore, addDoc, doc, getDoc, collection, getDocs, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+  import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js";
+
+      // Initialize Firebase
+    const firebaseConfig = {
+      apiKey: 'AIzaSyDhsH_gMswEQpLI6Kfn2AJaDILOC5CWjjw',
+      authDomain: 'authentication-app-cc0a3.firebaseapp.com',
+      databaseURL:
+        'https://authentication-app-cc0a3-default-rtdb.firebaseio.com',
+      projectId: 'authentication-app-cc0a3',
+      storageBucket: 'authentication-app-cc0a3.appspot.com',
+      messagingSenderId: '353753930218',
+      appId: '1:353753930218:web:077677333092728a533a93',
+    };
+
+ // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  // Initialize Firestore
+  const firestore = getFirestore(app);
+
+  // Initialize Firebase Storage
+  const storage = getStorage(app);
+  const urlParams = new URLSearchParams(window.location.search);
+const checklistId = urlParams.get("id");
+
+
+
+      // Add event listener to the form for editing the checklist
+      document.addEventListener("DOMContentLoaded", async function () {
+        const form = document.getElementById("checklist-form");
+
+        // Get the checklist ID from the URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const checklistId = urlParams.get("id");
+
+        if (checklistId) {
+          try {
+            const docRef = doc(firestore, "checklists", checklistId);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+              const data = docSnap.data();
+
+              // Populate the form fields with checklist data
+              document.getElementById("item-input").value = ""; // Clear the input field
+              document.getElementById("checklist").innerHTML = ""; // Clear the checklist items
+
+              if (data.items && Array.isArray(data.items)) {
+                data.items.forEach((item) => {
+                  addItemToList(item);
+                });
+              } else {
+                console.warn("Checklist items not found or not an array");
+              }
+            } else {
+              console.error("Document not found");
+            }
+          } catch (error) {
+            console.error("Error fetching document:", error);
+          }
+        }
+      });
+	  
+	 // Function to add an item to the checklist
+      function addItemToList(item) {
+        const checklist = document.getElementById("checklist");
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+          <label>
+            <input type="checkbox">
+            ${item}
+          </label>
+		        <button class="capture-button">Capture Image</button>
+				    <button class="delete-button">Delete</button>
+
+
+        `;
+        checklist.appendChild(listItem);
+
+  // Add event listener to the capture button for the current item
+  const captureButton = listItem.querySelector(".capture-button");
+  captureButton.addEventListener("click", () => {
+    requestCameraPermissionAndCapture(item, listItem); // Pass the listItem parameter here
+  });
+    // Add event listener to the delete button for the current item
+  const deleteButton = listItem.querySelector(".delete-button");
+  deleteButton.addEventListener("click", () => {
+    deleteItemFromList(item, listItem); // Pass the listItem parameter here
+  });
+      }
+
+  // Function to request camera permission and capture image
+  async function requestCameraPermissionAndCapture(item, listItem) {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+
+      // Camera access is granted, handle the stream or call the captureImageAndUpload function.
+      // In this example, we will call the captureImageAndUpload function passing the item name, the stream, and the list item.
+      captureImageAndUpload(item, stream, listItem);
+    } catch (error) {
+      console.error("Error accessing camera:", error);
+    }
+  }
+
+  // Function to capture an image from the user's device and upload it to Firebase Storage
+  function captureImageAndUpload(item, stream, listItem) {
+    const video = document.createElement("video");
+    video.srcObject = stream;
+    video.autoplay = true;
+    video.onloadedmetadata = async () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // Stop the media stream
+      stream.getTracks().forEach((track) => track.stop());
+
+      // Convert canvas content to a Data URL representing the captured image
+      const dataURL = canvas.toDataURL();
+
+  // Upload the image to Firebase Storage
+  uploadImageToStorage(item, dataURL, listItem);
+    };
+  }
+
+
+  // Function to upload the captured image to Firebase Storage
+  function uploadImageToStorage(item, dataURL, listItem) {
+    const storageRef = ref(storage, `checklist_images/${item}-${Date.now()}.png`);
+
+    // Convert the Data URL to a Blob object
+    const byteString = atob(dataURL.split(",")[1]);
+    const mimeString = dataURL.split(",")[0].split(":")[1].split(";")[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ab], { type: mimeString });
+
+    // Upload the Blob to Firebase Storage
+    uploadBytes(storageRef, blob)
+      .then((snapshot) => {
+        console.log("Image uploaded successfully.");
+        // You can save the image URL to the Firestore document associated with the checklist item if needed.
+
+        // Once the image is uploaded, create an <img> element and set the image source
+        const imgElement = document.createElement("img");
+        imgElement.src = dataURL;
+        imgElement.alt = "Captured Image";
+        imgElement.style.width = "100px"; // You can adjust the size of the image as needed.
+
+        // Append the image to the list item, next to the item name
+        listItem.appendChild(imgElement);
+      })
+      .catch((error) => {
+        console.error("Error uploading image:", error);
+      });
+  }
+
+
+      // Add event listener to the "Add" button
+      document.getElementById("addItemButton").addEventListener("click", async () => {
+        const itemInput = document.getElementById("item-input");
+        const itemValue = itemInput.value.trim();
+
+        if (itemValue !== "") {
+          addItemToList(itemValue);
+          itemInput.value = ""; // Clear the input field
+          // Get the checklist ID from the URL query parameter
+          const urlParams = new URLSearchParams(window.location.search);
+          const checklistId = urlParams.get("id");
+
+       if (checklistId) {
+      try {
+        // Get the reference to the checklist document in Firestore
+        const docRef = doc(firestore, "checklists", checklistId);
+
+        // Add the new item to the 'items' field using the arrayUnion function
+        await updateDoc(docRef, {
+          items: arrayUnion(itemValue),
+        });
+
+        console.log("Item added to Firestore successfully.");
+      } catch (error) {
+        console.error("Error adding item to Firestore:", error);
+      }
+    }
+        }
+      });
+
+
+// Function to delete an item from the checklist in Firestore
+async function deleteItemFromFirestore(item) {
+  // Get the checklist ID from the URL query parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const checklistId = urlParams.get("id");
+
+  if (checklistId) {
+    try {
+      // Get the reference to the checklist document in Firestore
+      const docRef = doc(firestore, "checklists", checklistId);
+
+      // Update the 'items' field in Firestore by removing the deleted item
+      await updateDoc(docRef, {
+        items: arrayRemove(item),
+      });
+
+      console.log("Item deleted from Firestore successfully.");
+    } catch (error) {
+      console.error("Error deleting item from Firestore:", error);
+    }
+  }
+}
+
+// Function to handle deletion of an item from the checklist
+function deleteItemFromList(item, listItem) {
+  if (confirm("Are you sure you want to delete this item?")) {
+    // Remove the item from the checklist UI
+    listItem.remove();
+
+    // Delete the item from Firestore
+    deleteItemFromFirestore(item);
+  }
+}
+
+// // Add event listener to the "Share Checklist" button
+document.getElementById("shareButton").addEventListener("click", () => {
+  // Get the checklist items and create a formatted message
+  const checklistItems = Array.from(document.querySelectorAll("#checklist li label"))
+    .map((label) => label.textContent.trim())
+    .join("\n");
+
+  // Encode the message to be used in the share links
+  const encodedMessage = encodeURIComponent(`Checklist Items:\n${checklistItems}`);
+
+  // Create the WhatsApp share link
+  const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
+
+  // Create the SMS share link
+  const smsLink = `sms:?body=${encodedMessage}`;
+
+  // Create the email share link
+  const emailLink = `mailto:?subject=Checklist Items&body=${encodedMessage}`;
+
+  // Show the user options to choose the sharing method
+  const shareOptions = [
+    { label: "WhatsApp", link: whatsappLink },
+    { label: "SMS", link: smsLink },
+    { label: "Email", link: emailLink },
+  ];
+
+  const chosenOption = prompt(
+    "Choose a sharing method:\n\n" +
+      shareOptions.map((option, index) => `${index + 1}. ${option.label}`).join("\n")
+  );
+
+  if (chosenOption) {
+    const index = parseInt(chosenOption) - 1;
+    if (index >= 0 && index < shareOptions.length) {
+      // Open the chosen sharing link in a new tab/window
+      window.open(shareOptions[index].link, "_blank");
+    } else {
+      alert("Invalid option selected.");
+    }
+  }
+});
+
+
+// ... Rest of the code ...
+
+	 </script>
+
+  </body>
+  </html>>

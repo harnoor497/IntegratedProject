@@ -327,7 +327,7 @@ button {
 
 /* Profile Page styling */
 .profile-card{
-  overflow: scroll;
+  /* overflow: scroll; */
   display: flex;
   flex-direction: row;
   margin-top: 100px;
@@ -409,9 +409,9 @@ form#editProfileForm {
   margin-top: 10px;
 }
 
-.transparent-section{
+/* .transparent-section{
   overflow: scroll;
-}
+} */
 
 .inputImage{
   display: flex;

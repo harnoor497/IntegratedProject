@@ -5,7 +5,14 @@
   <!-- <link rel="stylesheet" href="./css/style.css"> -->
   <!-- <link rel="stylesheet" href="./css/connects-style.css"> -->
   <!-- script file to add -->
+  <!-- google fonts link  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 <script src="./js/script.js" defer></script>
+<link rel="stylesheet" href="./css/newstyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 
   <title>SmartPack-Login</title>
   <script type="module">
@@ -31,10 +38,10 @@
     const db = getFirestore(app);
 
     // Handle sign up button click event
-    const signupBtn = document.getElementById("signup-btn");
-    signupBtn.addEventListener("click", () => {
-      window.location.href = "signup.html";
-    });
+    // const signupBtn = document.getElementById("signup-btn");
+    // signupBtn.addEventListener("click", () => {
+    //   window.location.href = "signup.html";
+    // });
 
     // Handle sign in form submit event
     const signInForm = document.getElementById("signInForm");
@@ -68,20 +75,88 @@
   </script>
 </head>
 <body>
-  <div class="form-wrapper">
-    <h2>Sign In</h2>
-    <form id="signInForm">
-      <!-- Sign in form -->
-      <label for="signInEmail"><i class="fas fa-envelope"></i> Email:</label>
-      <input type="email" id="signInEmail" required>
-      <label for="signInPassword"><i class="fas fa-lock"></i> Password:</label>
-      <input type="password" id="signInPassword" required>
-      <button type="submit">Sign In</button>
-      <p id="signInError" class="error-message"></p>
-    </form>
-    <button id="signup-btn">Sign Up Here</button>
+        <div class="main-section">
+    <div class="transparent-section">
+      <nav class="navbar">
+        <div class="brand-title">
+          <a href=""><img src="./images/Login_page_mobile.png" alt="Logo"></a>
+        </div>
+        <!-- <a href="#" class="toggle-button">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+      <div class="navbar-links">
+        <ul class="navbar-links">
+            <li>
+              <a href="./home.html">Home</a>
+            </li>
+            <li>
+              <a href="./createList.html">Create New List</a>
+            </li>
+            <li>
+              <a href="./profile.html">Profile</a>
+            </li>
+            <li>
+              <a href="./blog.html">Blog</a>
+            </li>
+            <li>
+              <a id="signOutButton" href="./index.html">Sign Out</a>
+            </li>
+        </ul>
+    </div> -->
+    </nav>
+      <div class="login-section">
+        <h1 style="color: #957EFE; text-align: center;">Welcome Back!<br><br> Log In to Unleash Your Event Planning Superpowers!</h1>
+        <form id="signInForm">
+          <label for="signInEmail">Email Address:</label>
+          <input type="email" id="signInEmail" name="email" placeholder="Enter your email">
+
+          <label for="signInPassword">Password:</label>
+          <input type="password" id="signInPassword" name="password" placeholder="Enter your password">
+
+          <button type="submit">Login</button>
+          <p id="signInError" class="error-message"></p>
+        </form>
+        <p>Don't have an account? <a href="./signup.html">Sign Up</a></p>
+            <footer class="footer">
+          <p>Follow Us<p>
+    <div class="footer-icons">
+      <a href="https://www.facebook.com/">
+          <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://www.instagram.com/">
+          <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://twitter.com/">
+          <i class="fab fa-twitter"></i>
+      </a>
+            <a href="https://www.linkedin.com/">
+          <i class="fab fa-linkedin"></i>
+      </a>
+        </div>
+  </footer>
+      </div>
+    </div>
   </div>
+
+
+
+    <!-- for hamburger navbar -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+            const toggleButton = document.getElementsByClassName('toggle-button')[0];
+            const navbarLinks = document.getElementsByClassName('navbar-links')[0];
+
+            toggleButton.addEventListener('click', () => {
+                navbarLinks.classList.toggle('active');
+            });
+        });
+    </script>
+
+ 
 
  
 </body>
+
 </html>

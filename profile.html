@@ -2,211 +2,121 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="stylesheet" href="./css/connects-style.css">
-  <!-- script file to add -->
-<script src="./js/script.js" defer></script>
+  <!-- google fonts link  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <script src="./js/script.js" defer></script>
+  <!-- bootstraps links -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <title>User Profile</title>
-  <!-- <link rel="stylesheet" href="./style.css"> -->
+  <link rel="stylesheet" href="./css/newstyle.css">
 
   <style>
-    .profile-card{
-  height:1000px;
-  width:1000px;
+        .profile-image-container {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
-}
-
-img#profileImage {
-  height: 300px;
-  width: 300px;
-  border-radius: 12px;
-}
+    #profileImage {
+      width: 60%;
+      height: 80%;
+      object-fit: cover;
+    }
+  
   </style>
 </head>
 <body>
-    <header class="header" data-header>
-        <div class="container">
-          <a href="#" class="logo">SmartPack</a>
-      
-          <nav class="navbar" data-navbar>
-            <ul class="navbar-list container">
+  
+    <div class="main-section">
+      <div class="transparent-section">
+        <nav class="navbar">
+          <div class="brand-title">
+            <a href=""><img src="./images/Login_page_mobile.png" alt="Logo"></a>
+          </div>
+          <a href="#" class="toggle-button">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </a>
+        <div class="navbar-links">
+          <ul class="navbar-links">
               <li>
-                <a href="./home.html" class="navbar-link" data-nav-link>My Lists</a>
+                <a href="./home.html">Home</a>
               </li>
-      
               <li>
-                <a href="./createList.html" class="navbar-link" data-nav-link>Create a List</a>
+                <a href="./createList.html">Create New List</a>
               </li>
-      
               <li>
-                <a href="./connects.html" class="navbar-link active" data-nav-link>Friends</a>
+                <a href="./profile.html">Profile</a>
               </li>
-      
               <li>
-                <a href="#team" class="navbar-link" data-nav-link>Discover</a>
+                <a href="./blog.html">Blog</a>
               </li>
-      
-              <!-- <li>
-                <a href="#settings" class="navbar-link">Settings</a>
-              </li> -->
-      
-              <li class="dropdown">
-                <a href="#" class="navbar-link" onclick="toggleDropdown()">Account</a>
-                <div class="dropdown-content" id="dropdownContent">
-                  <ul>
-                    <li><a href="./profile.html">Profile</a></li>
-                    <li><a href="./settings.html">Settings</a></li>
-                    <li><a href="./index.html"><button id="signOutButton">Sign Out</button></a></li>
-                  </ul>
-                  
+              <li>
+                <a id="signOutButton" href="./index.html">Sign Out</a>
+              </li>
+          </ul>
+      </div>
+        </nav>
+
+        <div class="container mt-5">
+          <div class="p1" style="display: none;">
+            <p style="display: none;"> <span id="profileEmail"></span></p>
+            <p style="display: none;"><span id="profileName"></span></p>
+          </div> 
+          <div class="row">
+            <div class="col-lg-4 mb-3 mb-lg-0">
+              <div class="p-2 bg-light text-center">
+                <img id="profileImage" src="" alt="Profile Image" class="img-thumbnail" style="max-width: 100%;">
+                <p><span id="profileBio"></span></p>
+              </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="formContainer">
+                <div class="formWrapper bg-light p-4">
+                  <h2 class="mb-4">Edit Profile</h2>
+                  <form id="editProfileForm">
+                    <div class="mb-3">
+                      <label class="form-label">Add an image</label>
+                      <div class="d-lg-flex justify-content-between align-items-center">
+                        <div class="input-group">
+                          <input type="file" id="imageUpload" accept="image/*" class="form-control" style="width: 100px;">
+                        </div>
+                        <div class="mt-3 mt-lg-0">
+                          <button id="cameraButton" type="button" class="btn btn-primary">Open Camera</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="editName" class="form-label">Display Name</label>
+                      <input type="text" name="displayName" id="editName" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="editBio" class="form-label">Bio</label>
+                      <textarea name="bio" id="editBio" rows="4" class="form-control" placeholder="Add Your Bio"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </form>
+                  <div class="camera-container" style="display: none;">
+                    <video id="cameraVideo" autoplay playsinline></video>
+                    <button id="captureButton">Capture Photo</button>
+                  </div>
                 </div>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-
-      <!-- main content -->
-  <div class="profile-card">
-    <h1>User Profile</h1>
-    <p><b>Email:</b> <span id="profileEmail"></span></p>
-    <p><b>Name:</b> <span id="profileName"></span></p>
-    <p><b>Bio:</b> <span id="profileBio"></span></p>
-    <img id="profileImage" src="" alt="Profile Image">
-
-    <h2>Edit Profile</h2>
-    <form id="editProfileForm">
-      <label for="editName">Name:</label>
-      <input type="text" id="editName" required>
-      <label for="editBio">Bio:</label>
-      <textarea id="editBio" rows="4"></textarea>
-      <label for="imageUpload">Profile Image:</label>
-      <input type="file" id="imageUpload" accept="image/*">
-      <button id="cameraButton" type="button">Open Camera</button>
-      <button type="submit">Save</button>
-    </form>
-
-    <div class="camera-container" style="display: none;">
-      <video id="cameraVideo" autoplay playsinline></video>
-      <button id="captureButton">Capture Photo</button>
-    </div>
-  </div>
-
-  <!-- footer section -->
-  <footer class="footer">
-
-    <div class="section footer-top">
-      <div class="container">
-
-        <div class="footer-brand">
-
-          <a href="#" class="logo">SmartPack</a>
-
-          <p class="section-text">
-            Elevate your event planning game with our extraordinary app that empowers anyone, regardless of their expertise, to effortlessly organize and coordinate any gathering or celebration with absolute ease and efficiency.
-          </p>
-        </div>
-
-        
-        <ul class="footer-list">
-
-          <li>
-            <p class="footer-list-title">Useful Links</p>
-          </li>
-
-          <li>
-            <a href="#" class="footer-link">Create an Account</a>
-          </li>
-
-          <li>
-            <a href="#" class="footer-link">Sign In</a>
-          </li>
-
-          <li>
-            <a href="#" class="footer-link">Download App Now</a>
-          </li>
-
-        </ul>
-        <ul class="footer-list">
-
-                  <li>
-                    <p class="footer-list-title">Follow Us:</p>
-                  </li>
-
-                  <ul class="social-list">
-
-                    <li>
-                      <a href="#" class="social-link">
-                        <i class="fa-brands fa-facebook-messenger"></i>
-                      </a>
-                    </li>
-        
-                    <li>
-                      <a href="#" class="social-link">
-                        <i class="fa-brands fa-twitter"></i>
-                      </a>
-                    </li>
-        
-                    <li>
-                      <a href="#" class="social-link">
-                        <i class="fa-brands fa-github"></i>
-                      </a>
-                    </li>
-        
-                    <li>
-                      <a href="#" class="social-link">
-                        <i class="fa-brands fa-linkedin"></i>
-                      </a>
-                    </li>
-        
-                  </ul>
-        
-
-                </ul>
-
-
-        
-        <ul class="footer-list">
-
-          <li>
-            <p class="footer-list-title">Get In Touch</p>
-          </li>
-
-          <li class="footer-item">
-            <ion-icon name="call-outline" aria-hidden="true"></ion-icon>
-
-            <a href="tel:+604-689-2192" class="item-link">+604-689-2192</a>
-          </li>
-<br>
-          <li class="footer-item">
-            <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
-
-            <a href="mailto:supportvast@gmail.com" class="item-link">thriversupport@gmail.com</a>
-          </li>
-          <br>
-          
-
-        </ul>
-
+              </div>
+            </div>
+          </div>
+        </div>   
       </div>
     </div>
-
-    <div class="footer-bottom">
-      <div class="container">
-
-        <p class="copyright">
-          &copy; 2023 All Rights Reserved by <a href="#" class="copyright-link">Thrive - Langara College</a>.
-        </p>
-
-      </div>
-    </div>
-
-  </footer>
-
-  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
-    <ion-icon name="chevron-up" aria-hidden="true"></ion-icon>
-  </a>
+    
+</body>
 
   <!-- script section of the page -->
   <script type="module">
@@ -283,8 +193,8 @@ img#profileImage {
         // Update profile information on the page
         profileName.textContent = updatedName;
         profileBio.textContent = updatedBio;
-
-        console.log("User profile updated successfully!");
+        alert("User profile updated successfully");
+        // console.log("User profile updated successfully!");
       } catch (error) {
         console.error("Error updating user profile:", error);
       }
@@ -345,8 +255,11 @@ img#profileImage {
     // Handle change event for file upload input
     imageUploadInput.addEventListener("change", async function(event) {
       const file = event.target.files[0];
+      console.log("Selected file:", selectedFile);
       const storageRef = ref(storage, `profileImages/${auth.currentUser.uid}/${file.name}`);
+      console.log("Selected image:", storageRef);
       const snapshot = await uploadBytes(storageRef, file);
+      console.log("Selected snapshot:", snapshot);
       const downloadURL = await getDownloadURL(storageRef);
 
       try {
@@ -377,6 +290,18 @@ img#profileImage {
 
       return new Blob([ab], { type: mimeString });
     }
+  </script>
+
+   <!-- for hamburger navbar -->
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+          const toggleButton = document.getElementsByClassName('toggle-button')[0];
+          const navbarLinks = document.getElementsByClassName('navbar-links')[0];
+
+          toggleButton.addEventListener('click', () => {
+              navbarLinks.classList.toggle('active');
+          });
+      });
   </script>
 </body>
 </html>

@@ -1,0 +1,426 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.main-section {
+   background: linear-gradient(180deg, #937DFF 0%, #C785CF 100%);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transparent-section {
+  background-image: radial-gradient(404.51% 129.50% at 7.25% 14.15%, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.00) 100%);
+  backdrop-filter: blur(50px);
+  width: 90%; /* Increase width to 90% */
+  height: 90%;
+  max-width: 1200px;
+  padding: 40px; /* Increase padding for more space inside the transparent section */
+  border: 2px solid white; /* Add white border */
+  border-radius: 20px; /* Add border radius for rounded corners */
+  margin-top: -5%; /* Negative margin to reduce space at the top */
+  margin-bottom: -10%; /* Negative margin to increase height only at the bottom */
+
+}
+
+h1 {
+  font-size: 60px;
+  font-weight: bold;
+  color: black; 
+}
+
+p {
+  font-size: 25px;
+  color: black; 
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+  .navbar{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    color: #937DFF;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    position: sticky;
+  }
+  .brand-title{
+    font-size: 1.5rem;
+    margin: 0.5rem;
+  }
+  .navbar-links ul{
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  .navbar-links li {
+    list-style: none;
+  }
+  .navbar-links li a{
+    text-decoration: none;
+    color: #937DFF;
+    padding: 1rem;
+    display: block;
+  }
+  .navbar-links li:hover{
+    background-color: #fbf277;
+  }
+  .toggle-button{
+    position:absolute;
+    top: .75rem;
+    right: 1rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+  }
+  .toggle-button .bar{
+    height: 3px;
+    width: 100%;
+    background-color: black;
+    border-radius: 10px;
+  }
+  @media(max-width:780px){
+    .toggle-button{
+      display: flex;
+    }
+    .navbar-links{
+      display: none;
+      width: 100%;
+    }
+    .navbar{
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .navbar-links ul{
+      flex-direction: column;
+      width: 100%;
+    }
+    .navbar-links li{
+      text-align: center;
+    }
+    .navbar-links li a{
+      padding: .5rem 1rem;
+    }
+    .navbar-links.active{
+      display: flex;
+    }
+  }
+
+  button {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-column {
+  flex: 1;
+  max-width: 600px;
+   display: flex;
+  flex-direction: column;
+  justify-content: center; 
+}
+
+.right-column {
+  flex: 1;
+  max-width: 600px;
+  text-align: center;
+}
+
+.left-column h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.left-column p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.left-column button {
+  background-color: #937DFF;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.right-column img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Mobile responsiveness */
+@media screen and (max-width: 767px) {
+  .transparent-section {
+    width: 90%;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .navbar {
+    margin-top: 10px;
+  }
+  
+  .left-column, .right-column {
+    max-width: 100%;
+  }
+}
+
+
+
+/* Log IN Page */
+.login-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the content vertically */
+  align-items: center; /* Center the content horizontally */
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.login-section h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.login-section form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-section label {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.login-section input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.login-section button {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  background-color: #937DFF;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.login-section p {
+  font-size: 16px;
+}
+
+.login-section button:last-child {
+  margin-left: 5px;
+}
+
+.main-section {
+  background-color: #937DFF;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transparent-section {
+  background-color: rgba(147, 125, 255, 0.2);
+  width: 90%;
+  max-width: 1200px;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+  margin-top: -10px;
+  margin-bottom: -20px;
+}
+
+.login-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.login-section h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.login-section form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-section label {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.login-section input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.login-section button {
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  background-color: #937DFF;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.login-section p {
+  font-size: 16px;
+}
+
+.login-section button:last-child {
+  margin-left: 5px;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-direction: row; /* Add flex-direction to stack the elements vertically */
+}
+
+.footer p {
+  color: rgb(49, 8, 132);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.footer-icons {
+  display: flex;
+  gap: 30px;
+}
+
+.footer-icons a {
+  color: black;
+  font-size: 30px;
+  gap: 10px;
+  text-decoration: none;
+}
+
+
+.transparent-section{
+  overflow: scroll;
+}
+/* Blog page  */
+h1, h2{
+  text-align: center;
+}
+
+.transparent-section {
+background-color: rgba(147, 125, 255, 0.2);
+width: 90%;
+max-width: 1200px;
+padding: 20px;
+border: 2px solid white;
+border-radius: 20px;
+margin-top: -10px;
+margin-bottom: -20px;
+}
+
+.transparent-section h2 {
+font-size: 24px;
+margin-bottom: 15px;
+}
+
+.columns {
+display: flex;
+flex-wrap: wrap;
+}
+
+.column {
+flex: 1;
+max-width: calc(33.33% - 20px); /* 33.33% width for each column with 20px margin between them */
+margin: 10px;
+}
+
+.show-image img {
+max-width: 100%;
+height: auto;
+display: block;
+border-radius: 10px;
+}
+
+.card {
+background-color: #fff;
+padding: 15px;
+border-radius: 10px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+font-size: 20px;
+margin-bottom: 10px;
+}
+
+.buttons {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.buttons button {
+font-size: 16px;
+font-weight: bold;
+color: white;
+background-color: #937DFF;
+padding: 12px 30px;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+margin-bottom: 10px;
+}

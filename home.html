@@ -5,6 +5,10 @@
   <title>Home Page</title>
   <link rel="stylesheet" href="./css/newstyle.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+ <!-- google fonts link  -->
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
    <!-- Slick Carousel CSS -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
 
@@ -279,19 +283,35 @@ card.addEventListener("click", () => {
 <body>
     <div class="main-section">
     <div class="transparent-section">
-      <header class="header">
-        <div class="logo"> <a href=""><img src="./images/mobile/signup/Group 987.png" alt=""></a></div>
-        <nav class="navbar">
-          <ul>
-            <li><a href="./home.html">Home</a></li>
-            <li><a href="./createList.html">Create New List</a></li>
-            <li><a href="./profile.html">Profile</a></li>
-            <li><a href="./blog.html">Blog</a></li>
-            <li><a id="signOutButton" href="./index.html">Sign Out</a></li>
-            
-          </ul>
-        </nav>
-      </header>
+      <nav class="navbar">
+        <div class="brand-title">
+          <a href=""><img src="./images/Login_page_mobile.png" alt="Logo"></a>
+        </div>
+        <a href="#" class="toggle-button">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+      <div class="navbar-links">
+        <ul class="navbar-links">
+            <li>
+              <a href="./home.html">Home</a>
+            </li>
+            <li>
+              <a href="./createList.html">Create New List</a>
+            </li>
+            <li>
+              <a href="./profile.html">Profile</a>
+            </li>
+            <li>
+              <a href="./blog.html">Blog</a>
+            </li>
+            <li>
+              <a id="signOutButton" href="./index.html">Sign Out</a>
+            </li>
+        </ul>
+    </div>
+    </nav>
       <div>
           <h1>Upcoming Event</h1>
             <div class="columns">
@@ -321,5 +341,17 @@ card.addEventListener("click", () => {
       </div>
       </div>
     </div>
+        <!-- for hamburger navbar -->
+        <script>
+          document.addEventListener('DOMContentLoaded', () => {
+                const toggleButton = document.getElementsByClassName('toggle-button')[0];
+                const navbarLinks = document.getElementsByClassName('navbar-links')[0];
+    
+                toggleButton.addEventListener('click', () => {
+                    navbarLinks.classList.toggle('active');
+                });
+            });
+        </script>
+    
 </body>
 </html>

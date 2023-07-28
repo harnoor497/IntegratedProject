@@ -1,7 +1,10 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
+  /* font-family: 'Bebas Neue', sans-serif; */
+/* font-family: 'Crimson Text', serif; */
+font-family: 'Roboto Mono', monospace;
 }
 
 .main-section {
@@ -29,12 +32,12 @@ body {
 h1 {
   font-size: 60px; /* Set font size to 60px */
   font-weight: bold; /* Make the heading bold */
-  color: white; /* Set text color to white */
+  color: black; /* Set text color to white */
 }
 
 p {
   font-size: 25px; /* Set font size to 25px */
-  color: white; /* Set text color to white */
+  color: black; /* Set text color to white */
 }
 .header {
   display: flex;
@@ -48,8 +51,83 @@ p {
   font-weight: bold;
 }
 
-.navbar {
-  margin-top: 20px; /* Add margin to the navbar for spacing */
+
+  .navbar{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    color: #937DFF;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    position: sticky;
+  }
+  .brand-title{
+    font-size: 1.5rem;
+    margin: 0.5rem;
+  }
+  .navbar-links ul{
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  .navbar-links li {
+    list-style: none;
+  }
+  .navbar-links li a{
+    text-decoration: none;
+    color: #937DFF;
+    padding: 1rem;
+    display: block;
+  }
+  .navbar-links li:hover{
+    background-color: #fbf277;
+  }
+  .toggle-button{
+    position:absolute;
+    top: .75rem;
+    right: 1rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+  }
+  .toggle-button .bar{
+    height: 3px;
+    width: 100%;
+    background-color: black;
+    border-radius: 10px;
+  }
+  @media(max-width:780px){
+    .toggle-button{
+      display: flex;
+    }
+    .navbar-links{
+      display: none;
+      width: 100%;
+    }
+    .navbar{
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .navbar-links ul{
+      flex-direction: column;
+      width: 100%;
+    }
+    .navbar-links li{
+      text-align: center;
+    }
+    .navbar-links li a{
+      padding: .5rem 1rem;
+    }
+    .navbar-links.active{
+      display: flex;
+    }
+  }
+
+/* .navbar {
+  margin-top: 20px; 
 }
 
 .navbar ul {
@@ -68,9 +146,9 @@ p {
 }
 
 .navbar a {
-  font-size: 20px; /* Set font size to 32px */
-  font-weight: bold; /* Make the navbar items bold */
-  color: white; /* Set text color to white */
+  font-size: 20px;
+  font-weight: bold; 
+  color: black; 
   text-decoration: none;
   padding: 5px 10px;
 }
@@ -79,19 +157,19 @@ p {
   background-color: #6d6fef;
   border-radius: 20px;
   padding: 10px;
-  border: 1px solid whitesmoke;
-}
+  border: 1px solid black;
+} */
 
-#signOutButton:hover{
+/* #signOutButton:hover{
   background-color: #0d12af;
   border-radius: 20px;
   padding: 10px;
-}
+} */
 
 button {
   font-size: 20px; /* Set font size to 28px for a bigger button */
   font-weight: bold;
-  color: white;
+  color: black;
   /* background-color: #937DFF; Set the background color to #937DFF */
   /* padding: 15px 30px; Increase padding for more button size */
   border: none;
@@ -206,7 +284,7 @@ button {
 .login-section button {
   font-size: 18px;
   font-weight: bold;
-  color: white;
+  color: black;
   background-color: #937DFF;
   padding: 12px 30px;
   border: none;
@@ -236,7 +314,7 @@ button {
   width: 90%;
   max-width: 1200px;
   padding: 20px;
-  border: 2px solid white;
+  border: 2px solid black;
   border-radius: 20px;
   margin-top: -10px;
   margin-bottom: -20px;
@@ -279,7 +357,7 @@ button {
 .login-section button {
   font-size: 18px;
   font-weight: bold;
-  color: white;
+  color: black;
   background-color: #937DFF;
   padding: 12px 30px;
   border: none;
@@ -318,7 +396,7 @@ button {
 }
 
 .footer-icons a {
-  color: white;
+  color: black;
   font-size: 30px;
   gap: 10px;
   /* margin-right: 15px; */
@@ -361,7 +439,7 @@ form#editProfileForm {
   width: 125px;
   font-size: 15px;
   font-weight: bold;
-  color: white;
+  color: black;
   background-color: #937DFF; 
   padding-top: 5px;
   padding-bottom: 5px;
@@ -419,4 +497,73 @@ form#editProfileForm {
   display: flex;
   flex-direction: row;
   gap:2px;
+}
+
+/* Blog page  */
+h1, h2{
+  text-align: center;
+}
+
+.transparent-section {
+background-color: rgba(147, 125, 255, 0.2);
+width: 90%;
+max-width: 1200px;
+padding: 20px;
+border: 2px solid white;
+border-radius: 20px;
+margin-top: -10px;
+margin-bottom: -20px;
+}
+
+.transparent-section h2 {
+font-size: 24px;
+margin-bottom: 15px;
+}
+
+.columns {
+display: flex;
+flex-wrap: wrap;
+}
+
+.column {
+flex: 1;
+max-width: calc(33.33% - 20px); /* 33.33% width for each column with 20px margin between them */
+margin: 10px;
+}
+
+.show-image img {
+max-width: 100%;
+height: auto;
+display: block;
+border-radius: 10px;
+}
+
+.card {
+background-color: #fff;
+padding: 15px;
+border-radius: 10px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+font-size: 20px;
+margin-bottom: 10px;
+}
+
+.buttons {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.buttons button {
+font-size: 16px;
+font-weight: bold;
+color: white;
+background-color: #937DFF;
+padding: 12px 30px;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+margin-bottom: 10px;
 }

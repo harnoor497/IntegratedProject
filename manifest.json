@@ -2,13 +2,14 @@
   "short_name": "Pack Smartly",
   "name": "Smart Pack",
   "start_url": "/index.html",
-  "display": "fullscreen",
-  "background_color": "#6A6AAA",
-  "theme_color": "#6A6AAA",
+  "display": "standalone",
+  "background_color": "#937DFF",
+  "theme_color": "#937DFF",
+  "id":"./index.html",
   "icons": [
     {
       "src": "images/icons/48X48.png",
-      "sizes": "72x72",
+      "sizes": "48X48",
       "type": "image/png"
     },
     {
@@ -40,7 +41,6 @@
       "src": "./images/icons/512x512.png",
       "sizes": "512x512",
       "type": "image/png"
-
     }
   ]
 }

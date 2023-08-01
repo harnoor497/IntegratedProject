@@ -424,3 +424,22 @@ border-radius: 10px;
 cursor: pointer;
 margin-bottom: 10px;
 }
+
+/* Style for vertical scrollbar */
+.transparent-section::-webkit-scrollbar {
+  width: 1px;
+}
+
+.transparent-section::-webkit-scrollbar-thumb {
+  background-color: #937DFF;
+  border-radius: 5px;
+}
+
+/* Style for horizontal scrollbar */
+.transparent-section::-webkit-scrollbar-horizontal {
+  height: 1px;
+}
+
+.transparent-section::-webkit-scrollbar-thumb:hover {
+  background-color: #7459E6;
+}

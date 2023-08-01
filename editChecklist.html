@@ -9,13 +9,37 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   
 	<style>
-		/* Existing styles for the header and other sections */
+
+    /* Modify the input style for the checklist form */
+    #item-input {
+      flex: 1;
+      padding: 10px 5px; /* Reduce horizontal padding for a smaller input */
+      font-size: 16px;
+    }
+
+    /* Modify the button style for the checklist form */
+    #checklist-form button {
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background-color: #937DFF;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    /* Apply border radius to the "Add" button */
+    #addItemButton {
+      border-radius: 10px;
+    }
 
 .transparent-section {
   background-color: rgba(147, 125, 255, 0.2);
   width: 90%;
   max-width: 1200px;
-  padding: 20px;
+  padding:  20px;
   border: 2px solid white;
   border-radius: 20px;
   margin-top: -10px;
@@ -37,43 +61,85 @@
   margin-bottom: 20px;
 }
 
-#item-input {
-  flex: 1;
-  padding: 10px;
-  font-size: 16px;
-}
-
-#checklist-form button {
-  font-size: 18px;
-  font-weight: bold;
-  color: white;
-  background-color: #937DFF;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
 #checklist {
   list-style-type: none;
   padding: 0;
 }
+    /* Style for the added checklist items */
+    #checklist li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Add this property to evenly distribute elements */
+      margin-bottom: 10px;
+      padding: 8px; /* Add padding to the checklist items */
+      border: 2px solid #937DFF; /* Add border to the checklist items */
+      border-radius: 8px; /* Add border radius to the checklist items */
+    }
 
-#checklist li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
+    #checklist li input[type="checkbox"] {
+      /* Move the checkbox to the beginning and increase its size */
+      order: -1; /* Move the checkbox to the beginning */
+      margin-right: 10px;
+      transform: scale(1.5); /* Increase the checkbox size */
+    }
 
-#checklist li input[type="checkbox"] {
-  margin-right: 10px;
-}
+    #checklist li label {
+      flex: 1;
+      font-size: 18px;
+      text-align: center; /* Center align the text */
+    }
 
-#checklist li label {
-  flex: 1;
-  font-size: 18px;
-}
+    /* Style for the buttons at the end of the list item */
+    #checklist li .capture-button,
+    #checklist li .delete-button {
+      margin-left: 10px;
+      font-size: 14px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+     /* Styles for the modal */
+  .modal {
+    display: none; /* Hide the modal by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+
+    /* Styles for the buttons inside the modal */
+  .modal-content button {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+  }
+
+  #captureImageButton {
+    background-color: #937DFF;
+  }
+
+  #closeModalButton {
+    background-color: #FF6363;
+  }
 	</style>
   </head>
   <body>
@@ -110,30 +176,50 @@
   </div>
   </nav>
 
-    <h1>Welcome to My App</h1>
-    <p>This is a sample landing page for My App.</p>
-    <p>Feel free to explore the features.</p>
-    <p>Get started by creating your checklist below:</p>
+    <h1>Edit Checklist</h1>
+    <div>
+                    <button id="shareButton" class="share-button">Share Checklist</button>
 
+<div id="sharingMenu" style="display: none;">
+  <p>Share this checklist:</p>
+  <ul>
+    <!-- Use anchor elements for sharing options -->
+    <li><a id="whatsappOption" href="#">Share via WhatsApp</a></li>
+    <li>
+      <!-- Use the "sms" link directly for sharing via text message -->
+      <a id="textMessageOption" href="#">Share via Text Message</a>
+    </li>
+  </ul>
+</div>
+    </div>
+    <h2>Checklist Name</h2>
     <form id="checklist-form">
       <input type="text" id="item-input" placeholder="Add item">
-      <button type="button" id="addItemButton">Add</button>
-      <button id="shareButton" class="share-button">Share Checklist</button>
-
-
+      <button type="button" id="addItemButton">+</button>
     </form>
 
     <ul id="checklist">
       <!-- List items will be added dynamically here -->
     </ul>
+
+    <!-- Modal for capturing image -->
+<div id="cameraModal" class="modal">
+  <div class="modal-content">
+    <video id="cameraStream" autoplay></video>
+    <button id="captureImageButton">Capture Image</button>
+    <button id="closeModalButton">Close</button>
   </div>
 </div>
+  </div>
+</div>
+
+
 
 <script type="module">
 
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
     import { getFirestore, addDoc, doc, getDoc, collection, getDocs, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
-  import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js";
+  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-storage.js";
 
       // Initialize Firebase
     const firebaseConfig = {
@@ -156,9 +242,7 @@
   // Initialize Firebase Storage
   const storage = getStorage(app);
   const urlParams = new URLSearchParams(window.location.search);
-const checklistId = urlParams.get("id");
-
-
+  const checklistId = urlParams.get("id");
 
       // Add event listener to the form for editing the checklist
       document.addEventListener("DOMContentLoaded", async function () {
@@ -175,6 +259,20 @@ const checklistId = urlParams.get("id");
 
             if (docSnap.exists()) {
               const data = docSnap.data();
+
+          // Update the <h2> element with the checklist title
+          const checklistTitle = data.title; // Assuming the title field exists in the Firestore document
+          const h2Element = document.querySelector("h2");
+          h2Element.innerText = checklistTitle;
+
+          // Update the <p> element with the checklist location and date
+          const checklistLocation = data.location; // Assuming the location field exists in the Firestore document
+          const checklistDate = data.date; // Assuming the date field exists in the Firestore document
+          const pElement = document.createElement("p");
+          pElement.innerText = checklistLocation + ", " + checklistDate;
+          h2Element.parentNode.insertBefore(pElement, h2Element.nextSibling);
+
+
 
               // Populate the form fields with checklist data
               document.getElementById("item-input").value = ""; // Clear the input field
@@ -194,6 +292,9 @@ const checklistId = urlParams.get("id");
             console.error("Error fetching document:", error);
           }
         }
+
+            // Fetch image URLs from Firestore and display the images for each item
+    fetchImageUrlsAndDisplay();
       });
 	  
 	 // Function to add an item to the checklist
@@ -205,17 +306,15 @@ const checklistId = urlParams.get("id");
             <input type="checkbox">
             ${item}
           </label>
-		        <button class="capture-button">Capture Image</button>
+		        <button class="capture-button">IMG</button>
 				    <button class="delete-button">Delete</button>
-
-
         `;
         checklist.appendChild(listItem);
 
   // Add event listener to the capture button for the current item
   const captureButton = listItem.querySelector(".capture-button");
   captureButton.addEventListener("click", () => {
-    requestCameraPermissionAndCapture(item, listItem); // Pass the listItem parameter here
+    showCameraModal(item, listItem); // Pass the listItem parameter here
   });
     // Add event listener to the delete button for the current item
   const deleteButton = listItem.querySelector(".delete-button");
@@ -224,17 +323,51 @@ const checklistId = urlParams.get("id");
   });
       }
 
-  // Function to request camera permission and capture image
-  async function requestCameraPermissionAndCapture(item, listItem) {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+// Function to handle capturing an image from the camera stream
+async function requestCameraPermissionAndCapture(item, listItem) {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
 
-      // Camera access is granted, handle the stream or call the captureImageAndUpload function.
-      // In this example, we will call the captureImageAndUpload function passing the item name, the stream, and the list item.
-      captureImageAndUpload(item, stream, listItem);
-    } catch (error) {
-      console.error("Error accessing camera:", error);
-    }
+    // Camera access is granted, handle the stream or call the captureImageAndShowPreview function.
+    // In this example, we will call the captureImageAndShowPreview function passing the item name, the stream, and the list item.
+    captureImageAndShowPreview(item, stream, listItem);
+  } catch (error) {
+    console.error("Error accessing camera:", error);
+  }
+}
+
+
+
+// Function to capture an image from the user's device and show a preview
+  function captureImageAndShowPreview(item, cameraStream, listItem) {
+    const video = cameraStream;
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Convert canvas content to a Data URL representing the captured image
+    const dataURL = canvas.toDataURL();
+
+    // Show the preview of the captured image
+    showPreview(item, dataURL, listItem);
+
+    // Upload the image to Firebase Storage
+    uploadImageToStorage(item, dataURL, listItem);
+  }
+  
+  
+  // Function to show a preview of the captured image
+  function showPreview(item, dataURL, listItem) {
+    // Create an <img> element and set the image source to the captured image
+    const imgElement = document.createElement("img");
+    imgElement.src = dataURL;
+    imgElement.alt = "Captured Image";
+    imgElement.style.width = "100px"; // You can adjust the size of the image as needed.
+
+    // Append the image to the list item, next to the item name
+    listItem.appendChild(imgElement);
   }
 
   // Function to capture an image from the user's device and upload it to Firebase Storage
@@ -261,7 +394,7 @@ const checklistId = urlParams.get("id");
   }
 
 
-  // Function to upload the captured image to Firebase Storage
+  // Function to upload the captured image to Firebase Storage and update Firestore
   function uploadImageToStorage(item, dataURL, listItem) {
     const storageRef = ref(storage, `checklist_images/${item}-${Date.now()}.png`);
 
@@ -279,23 +412,37 @@ const checklistId = urlParams.get("id");
     uploadBytes(storageRef, blob)
       .then((snapshot) => {
         console.log("Image uploaded successfully.");
-        // You can save the image URL to the Firestore document associated with the checklist item if needed.
 
-        // Once the image is uploaded, create an <img> element and set the image source
-        const imgElement = document.createElement("img");
-        imgElement.src = dataURL;
-        imgElement.alt = "Captured Image";
-        imgElement.style.width = "100px"; // You can adjust the size of the image as needed.
+        // Get the download URL of the uploaded image
+        getDownloadURL(snapshot.ref)
+          .then((downloadURL) => {
+            console.log("Image URL:", downloadURL);
 
-        // Append the image to the list item, next to the item name
-        listItem.appendChild(imgElement);
+            // Update the Firestore document associated with the checklist item
+            // with the URL of the uploaded image
+            const urlParams = new URLSearchParams(window.location.search);
+            const checklistId = urlParams.get("id");
+            const docRef = doc(firestore, "checklists", checklistId);
+
+            // Add the image URL to the 'imageUrls' field using the arrayUnion function
+            updateDoc(docRef, {
+              imageUrls: arrayUnion(downloadURL),
+            })
+              .then(() => {
+                console.log("Firestore document updated with image URL.");
+              })
+              .catch((error) => {
+                console.error("Error updating Firestore document:", error);
+              });
+          })
+          .catch((error) => {
+            console.error("Error getting download URL:", error);
+          });
       })
       .catch((error) => {
         console.error("Error uploading image:", error);
       });
   }
-
-
       // Add event listener to the "Add" button
       document.getElementById("addItemButton").addEventListener("click", async () => {
         const itemInput = document.getElementById("item-input");
@@ -349,62 +496,197 @@ async function deleteItemFromFirestore(item) {
     }
   }
 }
-
 // Function to handle deletion of an item from the checklist
 function deleteItemFromList(item, listItem) {
-  if (confirm("Are you sure you want to delete this item?")) {
-    // Remove the item from the checklist UI
-    listItem.remove();
+  // Remove the item from the checklist UI
+  listItem.remove();
 
-    // Delete the item from Firestore
-    deleteItemFromFirestore(item);
+  // Delete the item from Firestore
+  deleteItemFromFirestore(item);
+}
+  // Function to generate a shareable link
+  // Function to generate a shareable link
+  function generateShareableLink(checklistId) {
+    const currentURL = window.location.href;
+    const shareableLink = currentURL + "?id=" + checklistId;
+    return shareableLink;
   }
+
+  // Function to open WhatsApp Web with the checklist link
+  function shareViaWhatsApp() {
+    // Get the checklist ID from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const checklistId = urlParams.get("id");
+
+    // Generate the shareable link
+    const shareableLink = generateShareableLink(checklistId);
+
+    // Create the WhatsApp Click to Chat link
+    const whatsappURL = `https://wa.me/?text=${encodeURIComponent(
+      `Check out this checklist: ${shareableLink}`
+    )}`;
+
+    // Open WhatsApp Web in a new tab with the Click to Chat link
+    window.open(whatsappURL, "_blank");
+  }
+
+  // Function to share the checklist via text message
+  function shareViaTextMessage() {
+    // Get the checklist ID from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const checklistId = urlParams.get("id");
+
+    // Generate the shareable link
+    const shareableLink = generateShareableLink(checklistId);
+
+    // Create the text message content with the checklist link
+    const textMessageContent = `Check out this checklist: ${shareableLink}`;
+
+    // Open the user's default SMS app with the text message content
+    window.open(`sms:&body=${encodeURIComponent(textMessageContent)}`);
+  }
+
+  // Function to show the custom sharing menu
+  function showSharingMenu() {
+    // Show the sharing menu
+    const sharingMenu = document.getElementById("sharingMenu");
+    sharingMenu.style.display = "block";
+  }
+
+ // Function to show the camera modal
+  function showCameraModal(item, listItem) {
+    const cameraModal = document.getElementById("cameraModal");
+    const cameraStream = document.getElementById("cameraStream");
+    const captureImageButton = document.getElementById("captureImageButton");
+    const closeModalButton = document.getElementById("closeModalButton");
+
+    // Show the modal
+    cameraModal.style.display = "block";
+
+    // Request camera access and display the stream in the modal
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: false })
+      .then((stream) => {
+        cameraStream.srcObject = stream;
+      })
+      .catch((error) => {
+        console.error("Error accessing camera:", error);
+      });
+
+    // Add event listener to the "Capture Image" button inside the modal
+    captureImageButton.addEventListener("click", () => {
+      captureImageAndShowPreview(item, cameraStream, listItem);
+      closeModal();
+    });
+
+    // Add event listener to the "Close" button inside the modal
+    closeModalButton.addEventListener("click", () => {
+      closeModal();
+    });
+  }
+  // Function to close the camera modal
+  function closeModal() {
+    const cameraModal = document.getElementById("cameraModal");
+    const cameraStream = document.getElementById("cameraStream");
+
+    // Stop the camera stream
+    if (cameraStream.srcObject) {
+      cameraStream.srcObject.getTracks().forEach((track) => track.stop());
+    }
+
+    // Hide the modal
+    cameraModal.style.display = "none";
+  }
+
+
+
+  // Function to fetch image URLs from Firestore and display the images for each item
+  async function fetchImageUrlsAndDisplay() {
+    // Get the checklist ID from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const checklistId = urlParams.get("id");
+
+    if (checklistId) {
+      try {
+        const docRef = doc(firestore, "checklists", checklistId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+
+          if (data.imageUrls && Array.isArray(data.imageUrls)) {
+            // For each item in the checklist, display the associated images
+            const checklist = document.getElementById("checklist");
+            checklist.innerHTML = ""; // Clear the checklist items
+
+            data.items.forEach((item, index) => {
+              const listItem = document.createElement("li");
+              listItem.innerHTML = `
+                <label>
+                  <input type="checkbox">
+                  ${item}
+                </label>
+                <button class="capture-button">IMG</button>
+                <button class="delete-button">Delete</button>
+              `;
+
+              // Check if there are image URLs for this item
+              if (data.imageUrls[index]) {
+                // Create an <img> element for each image URL and set the source
+                const imgElement = document.createElement("img");
+                imgElement.src = data.imageUrls[index];
+                imgElement.alt = "Captured Image";
+                imgElement.style.width = "100px"; // You can adjust the size of the image as needed.
+
+                // Append the image to the list item, next to the item name
+                listItem.appendChild(imgElement);
+              }
+
+              checklist.appendChild(listItem);
+            });
+          } else {
+            console.warn("No image URLs found or not an array");
+          }
+        } else {
+          console.error("Document not found");
+        }
+      } catch (error) {
+        console.error("Error fetching document:", error);
+      }
+    }
+  }
+
+
+  // Function to check if the current device is a mobile device
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
-// // Add event listener to the "Share Checklist" button
-document.getElementById("shareButton").addEventListener("click", () => {
-  // Get the checklist items and create a formatted message
-  const checklistItems = Array.from(document.querySelectorAll("#checklist li label"))
-    .map((label) => label.textContent.trim())
-    .join("\n");
-
-  // Encode the message to be used in the share links
-  const encodedMessage = encodeURIComponent(`Checklist Items:\n${checklistItems}`);
-
-  // Create the WhatsApp share link
-  const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
-
-  // Create the SMS share link
-  const smsLink = `sms:?body=${encodedMessage}`;
-
-  // Create the email share link
-  const emailLink = `mailto:?subject=Checklist Items&body=${encodedMessage}`;
-
-  // Show the user options to choose the sharing method
-  const shareOptions = [
-    { label: "WhatsApp", link: whatsappLink },
-    { label: "SMS", link: smsLink },
-    { label: "Email", link: emailLink },
-  ];
-
-  const chosenOption = prompt(
-    "Choose a sharing method:\n\n" +
-      shareOptions.map((option, index) => `${index + 1}. ${option.label}`).join("\n")
-  );
-
-  if (chosenOption) {
-    const index = parseInt(chosenOption) - 1;
-    if (index >= 0 && index < shareOptions.length) {
-      // Open the chosen sharing link in a new tab/window
-      window.open(shareOptions[index].link, "_blank");
+// Add event listener to the capture button for the current item
+const checklist = document.getElementById("checklist");
+checklist.addEventListener("click", (event) => {
+  if (event.target.classList.contains("capture-button")) {
+    const listItem = event.target.closest("li");
+    const item = listItem.querySelector("label").textContent;
+    if (isMobileDevice()) {
+      // If the device is a mobile device, open the camera directly
+      requestCameraPermissionAndCapture(item, listItem);
     } else {
-      alert("Invalid option selected.");
+      // If the device is not a mobile device, show the camera modal
+      showCameraModal(item, listItem);
     }
   }
 });
 
+  // Add event listener to the "Share Checklist" button
+  document.getElementById("shareButton").addEventListener("click", showSharingMenu);
 
-// ... Rest of the code ...
+  // Add event listener to the "Share via WhatsApp" button
+  document.getElementById("whatsappOption").addEventListener("click", shareViaWhatsApp);
+
+  // Add event listener to the "Share via Text Message" button
+  document.getElementById("textMessageOption").addEventListener("click", shareViaTextMessage);
+
 
 	 </script>
 

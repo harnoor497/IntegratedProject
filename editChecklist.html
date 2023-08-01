@@ -3,6 +3,8 @@
   <head>
     <title>Create Checklists</title>
     <link rel="stylesheet" href="./css/newstyle.css" />
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <!-- google fonts link  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -140,6 +142,47 @@
   #closeModalButton {
     background-color: #FF6363;
   }
+
+      .share-button-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .share-button {
+      font-size: 20px;
+      background-color: #937DFF;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+  /* New styles for the checklist title and date/location container */
+  .checklist-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 28px;
+    color: #333;
+  }
+
+  p.checklist-info {
+    font-size: 18px;
+    color: #666;
+  }
+
+  .share-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align items to the left side */
+}
+
 	</style>
   </head>
   <body>
@@ -178,7 +221,10 @@
 
     <h1>Edit Checklist</h1>
     <div>
-                    <button id="shareButton" class="share-button">Share Checklist</button>
+<!-- Existing code for the share button container -->
+<div class="share-button-container">
+  <button id="shareButton" class="share-button"><i class="fas fa-share-alt"></i></button>
+</div>
 
 <div id="sharingMenu" style="display: none;">
   <p>Share this checklist:</p>
@@ -192,8 +238,13 @@
   </ul>
 </div>
     </div>
+  <!-- Update this div to use the existing checklist-title-container -->
+  <div class="checklist-title-container">
     <h2>Checklist Name</h2>
-    <form id="checklist-form">
+    <p class="checklist-info">Location, Date</p>
+  </div>
+  
+<form id="checklist-form">
       <input type="text" id="item-input" placeholder="Add item">
       <button type="button" id="addItemButton">+</button>
     </form>
@@ -259,19 +310,35 @@
 
             if (docSnap.exists()) {
               const data = docSnap.data();
+    // Update the <h2> element with the checklist title
+  const checklistTitle = data.title; // Assuming the title field exists in the Firestore document
+  const h2Element = document.createElement("h2"); // Create a new <h2> element
+  h2Element.innerText = checklistTitle;
 
-          // Update the <h2> element with the checklist title
-          const checklistTitle = data.title; // Assuming the title field exists in the Firestore document
-          const h2Element = document.querySelector("h2");
-          h2Element.innerText = checklistTitle;
+          // Update the checklist title and date/location
+        const titleElement = document.querySelector(".checklist-title-container h2");
+        titleElement.innerText = data.title;
 
-          // Update the <p> element with the checklist location and date
-          const checklistLocation = data.location; // Assuming the location field exists in the Firestore document
-          const checklistDate = data.date; // Assuming the date field exists in the Firestore document
-          const pElement = document.createElement("p");
-          pElement.innerText = checklistLocation + ", " + checklistDate;
-          h2Element.parentNode.insertBefore(pElement, h2Element.nextSibling);
+        const infoElement = document.querySelector(".checklist-title-container .checklist-info");
+        infoElement.innerText = `${data.location}, ${data.date}`;
 
+
+  // Update the <p> element with the checklist location and date
+  const checklistLocation = data.location; // Assuming the location field exists in the Firestore document
+  const checklistDate = data.date; // Assuming the date field exists in the Firestore document
+  const checklistInfoElement = document.createElement("p");
+  checklistInfoElement.classList.add("checklist-info");
+  checklistInfoElement.innerText = `${checklistLocation}, ${checklistDate}`;
+
+  // // Create a container for the title and date/location
+  // const titleContainer = document.createElement("div");
+  // titleContainer.classList.add("checklist-title-container");
+  // titleContainer.appendChild(h2Element);
+  // titleContainer.appendChild(checklistInfoElement);
+
+  // // Get the transparent section element and append the title container to it
+  // const transparentSection = document.querySelector(".transparent-section");
+  // transparentSection.appendChild(titleContainer);
 
 
               // Populate the form fields with checklist data
@@ -505,12 +572,11 @@ function deleteItemFromList(item, listItem) {
   deleteItemFromFirestore(item);
 }
   // Function to generate a shareable link
-  // Function to generate a shareable link
-  function generateShareableLink(checklistId) {
-    const currentURL = window.location.href;
-    const shareableLink = currentURL + "?id=" + checklistId;
-    return shareableLink;
-  }
+function generateShareableLink(checklistId) {
+  const currentURL = window.location.href;
+  const shareableLink = currentURL + "?id=" + checklistId;
+  return shareableLink;
+}
 
   // Function to open WhatsApp Web with the checklist link
   function shareViaWhatsApp() {
@@ -523,7 +589,7 @@ function deleteItemFromList(item, listItem) {
 
     // Create the WhatsApp Click to Chat link
     const whatsappURL = `https://wa.me/?text=${encodeURIComponent(
-      `Check out this checklist: ${shareableLink}`
+      `${shareableLink}`
     )}`;
 
     // Open WhatsApp Web in a new tab with the Click to Chat link
@@ -546,13 +612,27 @@ function deleteItemFromList(item, listItem) {
     window.open(`sms:&body=${encodeURIComponent(textMessageContent)}`);
   }
 
-  // Function to show the custom sharing menu
-  function showSharingMenu() {
-    // Show the sharing menu
-    const sharingMenu = document.getElementById("sharingMenu");
-    sharingMenu.style.display = "block";
-  }
+// Function to show the custom sharing menu
+function showSharingMenu() {
+  // Show the sharing menu
+  const sharingMenu = document.getElementById("sharingMenu");
+  sharingMenu.style.display = "block";
 
+  // Generate the shareable link
+  const urlParams = new URLSearchParams(window.location.search);
+  const checklistId = urlParams.get("id");
+  const shareableLink = generateShareableLink(checklistId);
+
+  // Create the anchor element for the shareable link
+  const linkElement = document.createElement("a");
+  linkElement.href = shareableLink;
+  linkElement.textContent = shareableLink;
+
+  // Clear the existing content in the sharing menu and add the shareable link
+  const sharingMenuContent = document.getElementById("sharingMenuContent");
+  sharingMenuContent.innerHTML = ""; // Clear existing content
+  sharingMenuContent.appendChild(linkElement);
+}
  // Function to show the camera modal
   function showCameraModal(item, listItem) {
     const cameraModal = document.getElementById("cameraModal");
@@ -626,8 +706,8 @@ function deleteItemFromList(item, listItem) {
                   <input type="checkbox">
                   ${item}
                 </label>
-                <button class="capture-button">IMG</button>
-                <button class="delete-button">Delete</button>
+                <button class="capture-button"><i class="fas fa-camera"></i></button>
+                <button class="delete-button"><i class="fas fa-trash-alt"></i></button>
               `;
 
               // Check if there are image URLs for this item

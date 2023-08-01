@@ -183,6 +183,52 @@
   justify-content: flex-end; /* Align items to the left side */
 }
 
+
+  #sharingMenu {
+    display: none;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  #sharingMenu p {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+
+  #sharingMenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #sharingMenu li {
+    margin-bottom: 5px;
+  }
+
+  #sharingMenu a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  #sharingMenu a:hover {
+    background-color: #ddd;
+  }
+
+  #sharingMenu i {
+    margin-right: 5px;
+  }
+
+    #sharingMenu a i {
+    font-size: 24px; /* Increase the font size as desired */
+    margin-right: 10px;
+  }
+
 	</style>
   </head>
   <body>
@@ -230,10 +276,9 @@
   <p>Share this checklist:</p>
   <ul>
     <!-- Use anchor elements for sharing options -->
-    <li><a id="whatsappOption" href="#">Share via WhatsApp</a></li>
-    <li>
+<li><a id="whatsappOption" href="#"><i class="fab fa-whatsapp"></i></a></li>
       <!-- Use the "sms" link directly for sharing via text message -->
-      <a id="textMessageOption" href="#">Share via Text Message</a>
+<li><a id="textMessageOption" href="#"><i class="fas fa-comment"></i></a></li>
     </li>
   </ul>
 </div>
@@ -373,8 +418,8 @@
             <input type="checkbox">
             ${item}
           </label>
-		        <button class="capture-button">IMG</button>
-				    <button class="delete-button">Delete</button>
+<button class="capture-button"><i class="fas fa-camera"></i></button>
+<button class="delete-button"><i class="fas fa-trash-alt"></i></button>
         `;
         checklist.appendChild(listItem);
 
@@ -572,11 +617,11 @@ function deleteItemFromList(item, listItem) {
   deleteItemFromFirestore(item);
 }
   // Function to generate a shareable link
-function generateShareableLink(checklistId) {
-  const currentURL = window.location.href;
-  const shareableLink = currentURL + "?id=" + checklistId;
-  return shareableLink;
-}
+  // Function to generate a shareable link
+  function generateShareableLink(checklistId) {
+    const currentURL = window.location.href;
+    return `${currentURL}?id=${checklistId}`;
+  }
 
   // Function to open WhatsApp Web with the checklist link
   function shareViaWhatsApp() {
@@ -612,28 +657,26 @@ function generateShareableLink(checklistId) {
     window.open(`sms:&body=${encodeURIComponent(textMessageContent)}`);
   }
 
-// Function to show the custom sharing menu
-function showSharingMenu() {
-  // Show the sharing menu
-  const sharingMenu = document.getElementById("sharingMenu");
-  sharingMenu.style.display = "block";
+  function showSharingMenu() {
+    const sharingMenu = document.getElementById("sharingMenu");
+    sharingMenu.style.display = "block";
 
-  // Generate the shareable link
-  const urlParams = new URLSearchParams(window.location.search);
-  const checklistId = urlParams.get("id");
-  const shareableLink = generateShareableLink(checklistId);
+    // Generate the shareable link
+    const urlParams = new URLSearchParams(window.location.search);
+    const checklistId = urlParams.get("id");
+    const shareableLink = generateShareableLink(checklistId);
 
-  // Create the anchor element for the shareable link
-  const linkElement = document.createElement("a");
-  linkElement.href = shareableLink;
-  linkElement.textContent = shareableLink;
-
-  // Clear the existing content in the sharing menu and add the shareable link
-  const sharingMenuContent = document.getElementById("sharingMenuContent");
-  sharingMenuContent.innerHTML = ""; // Clear existing content
-  sharingMenuContent.appendChild(linkElement);
-}
- // Function to show the camera modal
+    // Display the shareable link in the sharing menu
+    const linkElement = document.createElement("a");
+    linkElement.href = shareableLink;
+    linkElement.textContent = shareableLink;
+    const sharingMenuContent = document.getElementById("sharingMenuContent");
+    sharingMenuContent.innerHTML = ""; // Clear existing content
+    sharingMenuContent.appendChild(linkElement);
+  }
+  
+  
+  // Function to show the camera modal
   function showCameraModal(item, listItem) {
     const cameraModal = document.getElementById("cameraModal");
     const cameraStream = document.getElementById("cameraStream");

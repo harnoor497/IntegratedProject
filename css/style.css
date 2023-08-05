@@ -29,7 +29,7 @@
     --fs-1: 3rem;
     --fs-2: 2rem;
     --fs-3: 1.5rem;
-    --fs-4: 1.4rem;
+    --fs-4: 25rem;
     --fs-5: 1.3rem;
   
     --fw-900: 900;
@@ -99,6 +99,10 @@
   
   img { height: auto; }
   
+  nav.navbar {
+    font-size: 25px;
+    font-weight: bold;
+  }
   button {
     background: none;
     border: none;
@@ -307,7 +311,7 @@
   
   .navbar-link {
     color: var(--eerie-black);
-    font-size: var(--fs-3);
+    font-size: 26px;
     font-weight: var(--fw-600);
     padding-block: 7px;
     transition: var(--transition-1);

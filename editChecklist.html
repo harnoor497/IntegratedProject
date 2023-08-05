@@ -185,51 +185,55 @@
   justify-content: flex-end; /* Align items to the left side */
 }
 
+#sharingMenu {
+  display: none;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
 
-  #sharingMenu {
-    display: none;
-    background-color: #f9f9f9;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  }
+#sharingMenu p {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
 
-  #sharingMenu p {
-    font-size: 18px;
-    margin-bottom: 5px;
-  }
+#sharingMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  #sharingMenu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+#sharingMenu li {
+  display: flex;
+  align-items: center; /* Align icons vertically */
+  margin-bottom: 5px;
+}
 
-  #sharingMenu li {
-    margin-bottom: 5px;
-  }
+#sharingMenu a {
+  display: flex;
+  align-items: center; /* Align icons vertically */
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
 
-  #sharingMenu a {
-    display: block;
-    padding: 10px;
-    color: #333;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
+#sharingMenu a:hover {
+  background-color: #ddd;
+}
 
-  #sharingMenu a:hover {
-    background-color: #ddd;
-  }
+#sharingMenu i {
+  font-size: 28px; /* Increase the font size as desired */
+  margin-right: 10px;
+}
 
-  #sharingMenu i {
-    margin-right: 5px;
-  }
-
-    #sharingMenu a i {
-    font-size: 24px; /* Increase the font size as desired */
-    margin-right: 10px;
-  }
+/* Increase the size of the share button icons */
+.share-button i {
+  font-size: 32px;
+  margin-right: 5px;
+}
 
 	</style>
   </head>
@@ -623,7 +627,7 @@ function deleteItemFromList(item, listItem) {
   // Function to generate a shareable link
   function generateShareableLink(checklistId) {
     const currentURL = window.location.href;
-    return `${currentURL}?id=${checklistId}`;
+    return `${currentURL}`;
   }
 
   // Function to open WhatsApp Web with the checklist link

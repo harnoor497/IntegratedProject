@@ -195,33 +195,36 @@
 // JavaScript code to fetch checklist data and display it on the page
 const checklistContainer = document.getElementById("checklistContainer");
 
-// Function to create a checklist card HTML element
-function createChecklistCard(checklist) {
-  const card = document.createElement("div");
-  card.classList.add("column");
+ // Function to create a checklist card HTML element
+  function createChecklistCard(checklist) {
+    const card = document.createElement("div");
+    card.classList.add("column");
 
-  const cardContent = document.createElement("div");
-  cardContent.classList.add("card");
+    const cardContent = document.createElement("div");
+    cardContent.classList.add("card");
 
-  const cardTitle = document.createElement("h3");
-  cardTitle.textContent = checklist.title;
+    const cardTitle = document.createElement("h3");
+    cardTitle.textContent = checklist.title;
 
-  const cardDescription = document.createElement("p");
-  cardDescription.textContent = checklist.description;
+    const cardDate = document.createElement("p");
+    cardDate.textContent = `${checklist.date}`;
 
-  cardContent.appendChild(cardTitle);
-  cardContent.appendChild(cardDescription);
-  card.appendChild(cardContent);
+    const cardLocation = document.createElement("p");
+    cardLocation.textContent = `${checklist.location}`;
 
-  // Add click event listener to the card
-  card.addEventListener("click", () => {
-    // Navigate to the editChecklist.html page with the checklist ID as a query parameter
-    window.location.href = `editChecklist.html?id=${checklist.id}`;
-  });
+    cardContent.appendChild(cardTitle);
+    cardContent.appendChild(cardDate);
+    cardContent.appendChild(cardLocation);
+    card.appendChild(cardContent);
 
-  return card;
-}
+    // Add click event listener to the card
+    card.addEventListener("click", () => {
+      // Navigate to the editChecklist.html page with the checklist ID as a query parameter
+      window.location.href = `editChecklist.html?id=${checklist.id}`;
+    });
 
+    return card;
+  }
 // Function to display checklist data using Slick Carousel
   async function displayChecklists() {
     try {
@@ -315,8 +318,6 @@ card.addEventListener("click", () => {
       <div>
           <h1>My Events</h1>
             <div id="checklistContainer"></div>
-
-
       </div>
       </div>
     </div>

@@ -9,12 +9,6 @@
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-   <!-- Slick Carousel CSS -->
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-
-<!-- Slick Carousel Theme CSS (Optional, for styling) -->
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
-
   <style>
     h1, h2{
       text-align: center;
@@ -87,6 +81,7 @@
 
 .card:hover {
   transform: translateY(-5px);
+  cursor: pointer;
 }
 
 .card h3 {
@@ -116,14 +111,21 @@
   background-color: #7459E6;
   cursor: pointer;
 }
+
+#profileImage {
+  max-width: 200px; /* Set the maximum width of the profile image */
+  height: auto; /* Allow the image to scale proportionally */
+  display: block;
+  border-radius: 10%; /* Use a border radius of 50% to create a circular shape */
+  margin: 0 auto; /* Center the image horizontally within its container */
+  border: 2px solid #937DFF; /* Add a border with a color of your choice */
+}
+
   </style>
   <!-- script file to add -->
 <script src="./js/script.js" defer></script>
 <!-- script file to add -->
 <script src="./js/script.js" defer></script>
-<!-- Slick Carousel JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-
 
   <script type="module">
   
@@ -148,79 +150,66 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-//     // Handle sign out button click event
-//     const signOutButton = document.getElementById("signOutButton");
-//     signOutButton.addEventListener("click", async function(event) {
-//       event.preventDefault();
-//       try {
-//         await signOut(auth);
-//         // Redirect to login.html
-//         window.location.href = "login.html";
-//       } catch (error) {
-//         console.error("Sign-out error:", error);
-//       }
-//     });
+// Add an authentication state change listener
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    try {
+      // Retrieve user details from Firestore
+      const userRef = collection(db, "users");
+      const querySnapshot = await getDocs(userRef);
+      const currentUser = querySnapshot.docs.find(
+        (doc) => doc.data().userId === user.uid
+      );
+      const currentUserData = currentUser.data();
 
-// // Add an authentication state change listener
-// auth.onAuthStateChanged(async (user) => {
-//   if (user) {
-//     try {
-//       // Retrieve user details from Firestore
-//       const userRef = collection(db, "users");
-//       const querySnapshot = await getDocs(userRef);
-//       const currentUser = querySnapshot.docs.find(
-//         (doc) => doc.data().userId === user.uid
-//       );
-//       const currentUserData = currentUser.data();
+      // Set the profile image
+      const profileImage = document.getElementById("profileImage");
+      profileImage.src = currentUserData.profileImage;
+    } catch (error) {
+      console.error("Error retrieving user data:", error);
+    }
+  } else {
+    console.log("User is not signed in.");
+    // You may want to handle the case where the user is not signed in.
+    // For example, redirect to the login page or show a login form.
+  }
+});
 
-//       // Update navbar with user details
-//       const profileName = document.getElementById("profileName");
-//       const profileEmail = document.getElementById("profileEmail");
-//       const profileImage = document.getElementById("profileImage");
-
-//       // profileName.textContent = currentUserData.name;
-//       // profileEmail.textContent = currentUserData.email;
-
-//       // // Set the profile image
-//       // profileImage.src = currentUserData.profileImage;
-//     } catch (error) {
-//       console.error("Error retrieving user data:", error);
-//     }
-//   } else {
-//     console.log("User is not signed in.");
-//     // You may want to handle the case where the user is not signed in.
-//     // For example, redirect to the login page or show a login form.
-//   }
 
 // JavaScript code to fetch checklist data and display it on the page
 const checklistContainer = document.getElementById("checklistContainer");
 
-// Function to create a checklist card HTML element
-function createChecklistCard(checklist) {
-  const card = document.createElement("div");
-  card.classList.add("column");
 
-  const cardContent = document.createElement("div");
-  cardContent.classList.add("card");
+  // Function to create a checklist card HTML element
+  function createChecklistCard(checklist) {
+    const card = document.createElement("div");
+    card.classList.add("column");
 
-  const cardTitle = document.createElement("h3");
-  cardTitle.textContent = checklist.title;
+    const cardContent = document.createElement("div");
+    cardContent.classList.add("card");
 
-  const cardDescription = document.createElement("p");
-  cardDescription.textContent = checklist.description;
+    const cardTitle = document.createElement("h3");
+    cardTitle.textContent = checklist.title;
 
-  cardContent.appendChild(cardTitle);
-  cardContent.appendChild(cardDescription);
-  card.appendChild(cardContent);
+    const cardDate = document.createElement("p");
+    cardDate.textContent = `${checklist.date}`;
 
-  // Add click event listener to the card
-  card.addEventListener("click", () => {
-    // Navigate to the editChecklist.html page with the checklist ID as a query parameter
-    window.location.href = `editChecklist.html?id=${checklist.id}`;
-  });
+    const cardLocation = document.createElement("p");
+    cardLocation.textContent = `${checklist.location}`;
 
-  return card;
-}
+    cardContent.appendChild(cardTitle);
+    cardContent.appendChild(cardDate);
+    cardContent.appendChild(cardLocation);
+    card.appendChild(cardContent);
+
+    // Add click event listener to the card
+    card.addEventListener("click", () => {
+      // Navigate to the editChecklist.html page with the checklist ID as a query parameter
+      window.location.href = `editChecklist.html?id=${checklist.id}`;
+    });
+
+    return card;
+  }
 
 // Function to display checklist data using Slick Carousel
   async function displayChecklists() {
@@ -268,6 +257,8 @@ function createChecklistCard(checklist) {
       console.error("Error fetching checklist data:", error);
     }
   }
+
+  
 
   // Call the function to display checklist data when the page loads
   document.addEventListener("DOMContentLoaded", displayChecklists);// Call the function to display checklist data when the page loads
@@ -318,7 +309,7 @@ card.addEventListener("click", () => {
               <div class="column">
                 <div class="show-image">
                   <!-- Add your image here -->
-                  <img src="./images/footer_desktop.png" alt="Image">
+                  <img id="profileImage" src="./images/footer_desktop.png" alt="Image">
                 </div>
               </div>
               <div class="column">
@@ -329,12 +320,12 @@ card.addEventListener("click", () => {
               </div>
               <div class="column">
                 <div class="buttons">
-                  <a href="./createList.html"><button>Create New</button></a>
+                  <a href="./createList.html"><button>Create New Event</button></a>
                    <a href="./viewAllChecklists.html"><button>View All Events</button></a>
                 </div>
               </div>
             </div>
-            <h1>Resent Checklists</h1>
+            <h1>Recent Checklists</h1>
             <div id="checklistContainer"></div>
 
 
